@@ -1,0 +1,295 @@
+body{ 
+ background-color: transparent;
+ flex: row;
+ align-items: center;
+ justify-content: center;
+} 
+:root{ 
+ --black90: #242424; 
+ --darkblue: #002fff; 
+ --lightblue: #00c3ff; 
+ --white: rgb(248, 250, 252); 
+} 
+.grafico-animado{ 
+ background: transparent; 
+ width: 500px; 
+ height: 400px;
+ position: relative;
+ top: 200px;
+ left: px;
+ 
+} 
+ 
+.coluna{    
+ margin: 10px; 
+ bottom: 200px; 
+ border-radius: 8px 8px 0px 0px; 
+ position: absolute; 
+} 
+ 
+#c1{ 
+ width: 50px;height: 20px; 
+ background-color: var(--white);
+ border-left: solid black 2px;
+ border-top: solid black 2px;
+ border-right: solid black 2px;
+ animation-name: coluna1; 
+ animation-duration: 5s; 
+ animation-iteration-count: infinite; 
+ animation-delay: 1.4s; 
+ left: 0px; 
+} 
+#c2{ 
+ width: 50px;height: 20px; 
+ background-color: var(--lightblue); 
+ animation-name: coluna2;
+ border-left: solid black 2px;
+ border-top: solid black 2px;
+ border-right: solid black 2px; 
+ animation-duration: 5s; 
+ animation-iteration-count: infinite; 
+ animation-delay: 1.6s; 
+ left: 55px; 
+} 
+#c3{ 
+ width: 50px;height: 20px; 
+ background-color: var(--darkblue); 
+ animation-name: coluna3; 
+ border-left: solid black 2px;
+ border-top: solid black 2px;
+ border-right: solid black 2px;
+ animation-duration: 5s; 
+ animation-iteration-count: infinite; 
+ animation-delay: 1.4s; 
+ left: 110px; 
+} 
+#c4{ 
+ width: 50px;height: 20px; 
+ background-color: var(--white); 
+ animation-name: coluna4; 
+ animation-duration: 5s; 
+ border-left: solid black 2px;
+ border-top: solid black 2px;
+ border-right: solid black 2px;
+ animation-iteration-count: infinite; 
+ animation-delay: 1.2s; 
+ left: 165px; 
+} 
+#c5{ 
+ width: 50px;height: 20px; 
+ background-color: var(--lightblue); 
+ animation-name: coluna5; 
+ animation-duration: 5s; 
+ border-left: solid black 2px;
+ border-top: solid black 2px;
+ border-right: solid black 2px;
+ animation-iteration-count: infinite; 
+ animation-delay: 1.8s; 
+ left: 220px; 
+} 
+#c6{ 
+ width: 50px;height: 20px; 
+ background-color: var(--darkblue); 
+ animation-name: coluna6; 
+ animation-duration: 5s; 
+ border-left: solid black 2px;
+ border-top: solid black 2px;
+ border-right: solid black 2px;
+ animation-iteration-count: infinite; 
+ animation-delay: 1.6s; 
+ left: 275px; 
+} 
+#c7{ 
+ width: 50px;height: 20px; 
+ background-color: var(--white); 
+ animation-name: coluna7; 
+ animation-duration: 5s; 
+ border-left: solid black 2px;
+ border-top: solid black 2px;
+ border-right: solid black 2px;
+ animation-iteration-count: infinite; 
+ animation-delay: 2.0s; 
+ left: 330px; 
+} 
+#c8{ 
+ width: 50px;height: 20px; 
+ background-color: var(--lightblue); 
+ animation-name: coluna8; 
+ animation-duration: 5s; 
+ border-left: solid black 2px;
+ border-top: solid black 2px;
+ border-right: solid black 2px;
+ animation-iteration-count: infinite; 
+ animation-delay: 1.8s; 
+ left: 385px; 
+} 
+#c9{ 
+ width: 50px;height: 20px; 
+ background-color: var(--darkblue); 
+ animation-name: coluna9; 
+ animation-duration: 5s; 
+ border-left: solid black 2px;
+ border-top: solid black 2px;
+ border-right: solid black 2px;
+ animation-iteration-count: infinite; 
+ animation-delay: 2.0s; 
+ left: 440px; 
+} 
+ 
+@keyframes coluna1{ 
+ 0%{ 
+  height: 20px; 
+ } 
+ 25%{ 
+  height: 120px; 
+ } 
+ 50%{ 
+  height: 120px; 
+ } 
+ 75%{ 
+  height: 20px; 
+ } 
+ 100%{ 
+  height: 20px; 
+ } 
+} 
+@keyframes coluna2{ 
+ 0%{ 
+  height: 20px; 
+ } 
+ 25%{ 
+  height: 140px; 
+ } 
+ 50%{ 
+  height: 140px; 
+ } 
+ 75%{ 
+  height: 20px; 
+ } 
+ 100%{ 
+  height: 20px; 
+ } 
+} 
+@keyframes coluna3{ 
+ 0%{ 
+  height: 20px; 
+ } 
+ 25%{ 
+  height: 160px; 
+ } 
+ 50%{ 
+  height: 160px; 
+ } 
+ 75%{ 
+  height: 20px; 
+ } 
+ 100%{ 
+  height: 20px; 
+ } 
+} 
+@keyframes coluna4{ 
+ 0%{ 
+  height: 20px; 
+ } 
+ 25%{ 
+  height: 180px; 
+ } 
+ 50%{ 
+  height: 180px; 
+ } 
+ 75%{ 
+  height: 20px; 
+ } 
+ 100%{ 
+  height: 20px; 
+ } 
+} 
+@keyframes coluna5{ 
+ 0%{ 
+  height: 20px; 
+ } 
+ 25%{ 
+  height: 200px; 
+ } 
+ 50%{ 
+  height: 200px; 
+ } 
+ 75%{ 
+  height: 20px; 
+ } 
+ 100%{ 
+  height: 20px; 
+ } 
+} 
+@keyframes coluna6{ 
+ 0%{ 
+  height: 20px; 
+ } 
+ 25%{ 
+  height: 220px; 
+ } 
+ 50%{ 
+  height: 220px; 
+ } 
+ 75%{ 
+  height: 20px; 
+ } 
+ 100%{ 
+  height: 20px; 
+ } 
+} 
+@keyframes coluna7{ 
+ 0%{ 
+  height: 20px; 
+ } 
+ 25%{ 
+  height: 240px; 
+ } 
+ 50%{ 
+  height: 240px; 
+ } 
+ 75%{ 
+  height: 20px; 
+ } 
+ 100%{ 
+  height: 20px; 
+ } 
+} 
+@keyframes coluna8{ 
+ 0%{ 
+  height: 20px; 
+ } 
+ 25%{ 
+  height: 260px; 
+ } 
+ 50%{ 
+  height: 260px; 
+ } 
+ 75%{ 
+  height: 20px; 
+ } 
+ 100%{ 
+  height: 20px; 
+ } 
+} 
+@keyframes coluna9{ 
+ 0%{ 
+  height: 20px; 
+ } 
+ 25%{ 
+  height: 280px; 
+ } 
+ 50%{ 
+  height: 280px; 
+ } 
+ 75%{ 
+  height: 20px; 
+ } 
+ 100%{ 
+  height: 20px; 
+ } 
+}
+
+
+/* Media query para dispositivos com largura máxima de 600px (exemplo de um dispositivo móvel) */
+

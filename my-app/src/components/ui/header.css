@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+header h1 {
+    font-family: "Space Grotesk", sans-serif;
+}
+div a{
+    padding: 0 20px;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+}
+.sign{
+    border: solid 1px;
+    transition: all ease 0.5s;
+    font-family: "Space Grotesk", sans-serif;
+}
