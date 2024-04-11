@@ -57,7 +57,7 @@ const SidebarMenu: React.FC = () => {
         router.push('/Proffile')
     };
     return(
-        <div className="h-[90vh] ml-10 w-[180px] bg-black border-2 rounded-[14px] border-slate-50">
+        <div className="h-[90vh] ml-2 w-[180px] bg-black border-2 rounded-[14px] border-slate-50">
             <header className="flex items-center border-slate-50 justify-center border-b-2 p-[20px]">
                 <h1 className="font-bold text-slate-50 flex relative left-2 text-2xl">
                     Help Desk
