@@ -70,7 +70,7 @@ export default function LoginForm() {
     e.preventDefault(); 
  
     try { 
-      const response = await axios.post('https://hd-api.azurewebsites.net/api/Usuario/Registro', { 
+      const response = await axios.post(' ', { 
         nome,
         email,
         senha,
