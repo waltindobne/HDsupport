@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Pizza from "@/components/ui/pizza";
 import axios from "axios";
 import HeaderDash from "@/components/ui/headerdash";
+import { Moon, Sun } from "lucide-react";
 
 export default function Dashboard() {
   const [data, setData] = useState([
@@ -24,6 +25,28 @@ export default function Dashboard() {
       dados: 0,
     },
   ]);
+
+
+   const [darkMode, setDarkMode] = useState(false)
+  const toggleDarkMode = () => { 
+    setDarkMode(!darkMode); 
+
+    const newMode = !darkMode;
+
+    setDarkMode(newMode);
+
+    localStorage.setItem('darkMode', newMode ? 'enabled' : 'disabled')
+} 
+
+useEffect(() => {
+
+  const storedMode = localStorage.getItem('darkMode');
+  if (storedMode === 'enabled'){
+    setDarkMode(true);
+  }
+},
+
+[]);
 
   useEffect(() => {
     async function fetchChamados() {
@@ -55,7 +78,8 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="bg-neutral-950 h-[100vh] flex-row flex items-center justify-around">
+    <div className={`${darkMode && "dark"}`}>
+      <div className="bg-neutral-950 dark:bg-white min-h-screen h-[100vh] flex-row flex items-center justify-around">
       <SidebarMenu />
       <div className="w-full relative bottom-[37px] space-y-10 flex flex-col items-center justify-center">
         <div className="flex space-x-3">
@@ -68,6 +92,10 @@ export default function Dashboard() {
           <Pizza />
         </div>
       </div>
+      <button onClick={toggleDarkMode} className="ml-5 text-center flex justify-center items-center absolute w-10 h-10 bottom-16 right-26 bg-white text-dark dark:text-white dark:bg-neutral-900 rounded-full"> 
+            {darkMode ? <Sun/> : <Moon/>} 
+          </button> 
+    </div>
     </div>
   );
 }

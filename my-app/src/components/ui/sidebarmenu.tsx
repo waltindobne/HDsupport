@@ -7,6 +7,7 @@ import IconTable from "./icontable";
 import IconChat from "./iconchat";
 import { Button } from "./button";
 import axios from 'axios';
+import { useEffect, useState } from "react";
 interface Option{
     title: string;
     svg: React.FC;
@@ -14,6 +15,32 @@ interface Option{
 }
 
 const SidebarMenu: React.FC = () => {
+
+    const [darkMode, setDarkMode] = useState(false)
+    const toggleDarkMode = () => { 
+      setDarkMode(!darkMode); 
+  
+      const newMode = !darkMode;
+  
+      setDarkMode(newMode);
+  
+      localStorage.setItem('darkMode', newMode ? 'enabled' : 'disabled')
+  } 
+  
+  useEffect(() => {
+  
+    const storedMode = localStorage.getItem('darkMode');
+    if (storedMode === 'enabled'){
+      setDarkMode(true);
+    }
+  },
+  
+  []);
+
+
+
+    
+
     const router = useRouter();
     const redirectTo = (path: string) => () => {
         router.push(path);
@@ -54,12 +81,16 @@ const SidebarMenu: React.FC = () => {
         router.push('/');
       };
     const handleProfile =  () => {
-        router.push('/Proffile')
+        router.push('/Profile')
     };
+
+    
+
     return(
-        <div className="h-[90vh] ml-2 w-[180px] bg-black border-2 rounded-[14px] border-slate-50">
+        <div className={`${darkMode && "dark"}`}>
+            <div className="h-[90vh] ml-2 w-[180px] bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50">
             <header className="flex items-center border-slate-50 justify-center border-b-2 p-[20px]">
-                <h1 className="font-bold text-slate-50 flex relative left-2 text-2xl">
+                <h1 className="font-bold text-slate-50 dark:text-black flex relative left-2 text-2xl">
                     Help Desk
                     <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-rocket-takeoff text-slate-50 dark:text-neutral-950 relative bottom-1" viewBox="0 0 16 16">
                         <path d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532"/>
@@ -68,21 +99,22 @@ const SidebarMenu: React.FC = () => {
                     </svg>
                 </h1>
             </header>
-            <div className="mt-5">
-                 <div className="h-[500px] space-y-6 flex flex-col items-center">
+            <div className="mt-5 dark:text-black">
+                 <div className="h-[500px] dark:text-black space-y-6 flex flex-col items-center">
                     {option.map((item) => (
-                        <Optionside key={item.title} title={item.title} svg={item.svg} path={item.path} />
+                        <Optionside  key={item.title} title={item.title} svg={item.svg} path={item.path} />
                     ))}
                 </div>
             </div>
-            <div className="flex justify-between w-full relative top-4">
-                <Button onClick={handleProfile} className="w-[90px]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round text-white"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>
+            <div className="flex justify-between  w-full relative top-4">
+                <Button onClick={handleProfile} className="w-[90px] ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round text-white dark:text-black"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>
                 </Button>
                 <Button onClick={handleLogout}  className="w-[90px]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className=" text-red-800 lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
                 </Button>
             </div>           
+        </div>
         </div>
     );
 }

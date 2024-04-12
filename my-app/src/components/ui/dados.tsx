@@ -1,5 +1,6 @@
 'use client'
 import { Title } from "@radix-ui/react-dialog";
+import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 
 export default function Dados(){
@@ -20,10 +21,32 @@ export default function Dados(){
         chartArea: { width: "50%", height: "70%" },
         colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
       };
+
+      const [darkMode, setDarkMode] = useState(false)
+      const toggleDarkMode = () => { 
+        setDarkMode(!darkMode); 
+    
+        const newMode = !darkMode;
+    
+        setDarkMode(newMode);
+    
+        localStorage.setItem('darkMode', newMode ? 'enabled' : 'disabled')
+    } 
+    
+    useEffect(() => {
+    
+      const storedMode = localStorage.getItem('darkMode');
+      if (storedMode === 'enabled'){
+        setDarkMode(true);
+      }
+    },
+    
+    []);
       
       
     return(  
-            <div className="w-[50%] bg-white rounded-[15px] border-2 border-slate-50 h-[330px] flex items-center">
+ 
+              <div className="w-[50%] bg-white rounded-[15px] border-2 border-slate-50 h-[330px] flex items-center">
                 <Chart
                 chartType="LineChart"
                 data={[["Mês", "Frequência"], [100, 5.5], [8, 12], [20, 1]]}
@@ -32,6 +55,7 @@ export default function Dados(){
                 legendToggle
                 />
             </div>
+            
   
     );
 }
