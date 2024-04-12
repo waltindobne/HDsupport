@@ -1,10 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { useRouter } from 'next/navigation';
 
 function MyComponent() {
     const [token, setToken] = useState(null);
+    const [redirecionar, setRedirecionar] = useState(false);
+    const router = useRouter(); 
 
     useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search);
@@ -15,17 +17,21 @@ function MyComponent() {
             setToken(tokenFromURL);
         }
     }, []);
-    
 
+    const handleNavigation = () => { 
+        router.push('/') 
+    } 
+    
     async function sendTokenToBackend() {
         if (token) {
             try {
-                // Exemplo de requisição GET com o token como parâmetro de consulta
-        const response = await axios.post(`https://hd-api.azurewebsites.net/api/Usuario/Verificar-Conta?token=${token}`);
+                const response = await axios.post(`https://hd-api.azurewebsites.net/api/Usuario/Verificar-Conta?token=${token}`);
                 
-                // Trate a resposta do back-end
                 console.log('Resposta do back-end:', response.data);
-    
+                
+                // Definindo redirecionar como true após receber a resposta do backend
+                setRedirecionar(true);
+
             } catch (error) {
                 console.error('Erro ao enviar o token:', error);
             }
@@ -36,6 +42,14 @@ function MyComponent() {
     useEffect(() => {
         sendTokenToBackend();
     }, [token]);
+
+    // Redirecionar quando redirecionar for true
+    useEffect(() => {
+        if (redirecionar) {
+            handleNavigation();
+        }
+    }, [redirecionar]);
+
     return (
         <div className="h-[100vh] w-full bg-black flex items-center justify-center">
             <form className="h-[400px] w-[50%] rounded-[20px] flex flex-col border-neutral-800 border-2 bg-neutral-950 items-center space-y-8 justify-center">
@@ -58,11 +72,13 @@ function MyComponent() {
                         </button>
                     </div>
                 ) : (
-                    <p className="text-white">Conta criado com sucesso</p>
+                    <p className="text-white">Conta criado com sucesso!</p>
                 )}
             </form>
         </div>
     );
 }
+
+
 
 export default MyComponent;

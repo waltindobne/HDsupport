@@ -22,14 +22,20 @@ const LoginForm = () => {
         senha,
       }); 
       
-      // Lógica para armazenar token e redirecionar usuário
+      // Extrair token do corpo da resposta
+      const token = response.data.token;
+  
+      // Salvar token no armazenamento local
+      localStorage.setItem('token', token);
+      
+      // Lógica para redirecionar usuário após o login bem-sucedido
       console.log('Login bem-sucedido:', response.data);
       router.push('/dashmenu'); // Exemplo de redirecionamento após o login bem-sucedido
     } catch (error) { 
       console.error('Erro ao fazer login:', error); 
-      
     } 
-  };  
+  };
+  
 
   const [darkMode, setDarkMode] = useState(false); 
 
