@@ -87,7 +87,7 @@ useEffect(() => {
             <CardChamados key={item.title} title={item.title} dados={item.dados} />
           ))}
         </div>
-        <div className="w-full items-center justify-center space-x-3 flex flex-row">
+        <div className="w-full items-center justify-center flex flex-row">
           <Dados />
           <Pizza />
         </div>

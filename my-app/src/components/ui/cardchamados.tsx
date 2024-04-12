@@ -25,7 +25,7 @@ const CardChamados: React.FC <{title: string; dados: number;}> = ({title, dados}
   []);
     return(
         <div className={`${darkMode && "dark"}`}>
-             <div className="w-[370px] p-[10px] rounded-[10px] border-2 border-slate-50 space-y-3 h-[100px] bg-black dark:bg-white">
+             <div className="w-[370px]  p-[10px] rounded-[10px] dark:border-black border-2 border-slate-50 space-y-3 h-[100px] bg-black dark:bg-white">
             <h1 className="text-slate-50 dark:text-black">Chamados <b className="bg-gradient-to-r from-blue-800 to-cyan-500 dark:text-black font-bold inline-block text-transparent bg-clip-text">{title}</b></h1>
             <h1 className="text-slate-50 font-bold text-[20px] dark:text-black">{dados}</h1>
         </div>

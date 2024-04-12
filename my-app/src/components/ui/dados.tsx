@@ -44,18 +44,19 @@ export default function Dados(){
     []);
       
       
-    return(  
- 
-              <div className="w-[50%] bg-white rounded-[15px] border-2 border-slate-50 h-[330px] flex items-center">
+    return( 
+      <div className="w-[56%]">
+        <div className={`${darkMode && "dark"}`}>
+            <div className="w-[93%] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[330px] flex items-center">
                 <Chart
                 chartType="LineChart"
                 data={[["Mês", "Frequência"], [100, 5.5], [8, 12], [20, 1]]}
-                width="100%"
+                width="95%"
                 height="300px"
                 legendToggle
                 />
             </div>
-            
-  
+          </div>
+      </div>
     );
 }
