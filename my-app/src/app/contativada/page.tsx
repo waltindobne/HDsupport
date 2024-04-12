@@ -58,7 +58,7 @@ function MyComponent() {
                         </button>
                     </div>
                 ) : (
-                    <p className="text-white">Token não encontrado na URL.</p>
+                    <p className="text-white">Conta criado com sucesso</p>
                 )}
             </form>
         </div>
