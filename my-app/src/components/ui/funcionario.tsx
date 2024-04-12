@@ -51,9 +51,9 @@ const Funcionario = () => {
 	};
 
 	return(
-		<div className="flex items-center justify-center bg-black w-full h-full">
-			<div className="w-[1300px] h-[500px] bg-neutral-950 border-2 border-slate-50 rounded-[5px]">
-				<div className="w-full flex items-center  justify-between p-[20px] px-[40px] bg-neutral-950 rounded-t-md mb-[10px]">
+		<div className="flex items-center justify-center  w-full h-full">
+			<div className="w-[1300px] h-[500px] bg-black border-2 border-slate-50 rounded-[5px]">
+				<div className="w-full flex items-center  justify-between p-[20px] px-[40px] bg-black rounded-t-md mb-[10px]">
 					<div>
 						<h1 className="text-[24px]">Gerenciar <b>Funcionários</b></h1>
 					</div>
@@ -62,7 +62,7 @@ const Funcionario = () => {
 						<button className="bg-gradient-to-r from-blue-800 to-cyan-500 px-[10px] py-[8px] rounded-[5px] text-[14px] flex" onClick={openModalAdd}> <FolderPlus className="mr-[5px]"/> Adicionar novo funcionário</button>
 					</div>
 				</div>
-				<table className="text-slate-100 bg-neutral-900 w-full">
+				<table className="text-slate-100 bg-black w-full">
 					<thead className="h-[45px]">
 						<tr className="text-blue-500">
 							<th className="w-[20%]" scope="col">Nome</th>
@@ -98,19 +98,19 @@ const Funcionario = () => {
 							</div>
 							<form >
 								<div className="mb-4 mt-6">
-								<input type="text" id="nome" name="nome" className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Nome'/>
+								<input type="text" id="nome" name="nome" className=" mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Nome'/>
 								</div>
 								<div className="mb-4">
-								<input type="email" id="email" name="email" className="form-input mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Email'/>
+								<input type="email" id="email" name="email" className=" mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Email'/>
 								</div>
 								<div className="mb-4">
-								<input type="password" id="senha" name="senha" className="form-input mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite sua Senha'/>
+								<input type="password" id="senha" name="senha" className=" mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite sua Senha'/>
 								</div>
 								<div className="mb-4">
-								<input type="text" id="telefone" name="telefone" className="form-input mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Telefone'/>
+								<input type="text" id="telefone" name="telefone" className=" mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Telefone'/>
 								</div>
 								<div className="mb-4">
-								<input type="text" id="cargo" name="cargo" className="form-input mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Cargo'/>
+								<input type="text" id="cargo" name="cargo" className=" mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Cargo'/>
 								</div>
 								<div className='flex justify-center'>
 									<button type="submit" className="bg-gradient-to-r from-blue-800 to-cyan-500 text-white py-2 px-4 rounded-lg w-full mt-2">Enviar</button>

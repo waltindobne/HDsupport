@@ -80,10 +80,23 @@ const SidebarMenu: React.FC = () => {
         setAuthToken(null);
         router.push('/');
       };
-    const handleProfile =  () => {
-        router.push('/Profile')
+      
+      const handleProfile = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`https://hd-api.azurewebsites.net/api/Usuario/BuscarTokenJWT?token=${token}`);
+            const userData = response.data;
+            console.log('Dados do usuário:', userData);
+            // Aqui você pode fazer algo com os dados recebidos, como redirecionar para a página de perfil com os dados do usuário
+            router.push({
+                pathname: '/Profile',
+                state: { userData: userData }
+            });
+        } catch (error) {
+            console.error('Erro ao buscar dados do usuário:', error);
+        }
     };
-
+    
     
 
     return(

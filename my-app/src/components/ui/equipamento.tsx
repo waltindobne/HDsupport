@@ -4,6 +4,7 @@ import {Trash2} from "lucide-react";
 import {PencilLine } from "lucide-react";
 import {FolderPlus} from "lucide-react";
 import { FolderKanban } from 'lucide-react';
+import { Input } from './input';
 
 {/*neutral-950 slate-50 black blue-800*/}
 
@@ -53,9 +54,9 @@ const Equipamento = () => {
 	};
 
 	return(
-		<div className="flex items-center justify-center bg-black w-full h-full">
-			<div className="w-[1300px] h-[500px] bg-neutral-950 border-2 border-slate-50 rounded-[5px]">
-				<div className="w-full flex items-center  justify-between p-[20px] px-[40px] bg-neutral-950 rounded-t-md mb-[10px]">
+		<div className="flex items-center justify-center bg-950 w-full h-full">
+			<div className="w-[1300px] h-[500px]  border-2 bg-black border-slate-50 rounded-[5px]">
+				<div className="w-full flex items-center bg-black  justify-between p-[20px] px-[40px]  rounded-t-md mb-[10px]">
 					<div>
 						<h1 className="text-[24px]">Gerenciar <b>Equipamentos</b></h1>
 					</div>
@@ -64,7 +65,7 @@ const Equipamento = () => {
 						<button className="bg-gradient-to-r from-blue-800 to-cyan-500 px-[10px] py-[8px] rounded-[5px] text-[14px] flex" onClick={openModalAdd}> <FolderPlus className="mr-[5px]"/> Adicionar novo Equipamento</button>
 					</div>
 				</div>
-				<table className="text-slate-100 bg-neutral-900 w-full">
+				<table className="text-slate-100  w-full">
 					<thead className="h-[45px]">
 						<tr className="text-blue-500">
 							<th className="w-[20%]" scope="col">Nome</th>
@@ -92,7 +93,7 @@ const Equipamento = () => {
 			</div>
 			<div>
 				{isOpenAdd && (
-					<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+					<div className="fixed inset-0 flex items-center justify-center  bg-opacity-50">
 						<div className="bg-neutral-800 p-4 pt-6 px-6 rounded-lg w-[400px] ">
 							<div className='flex justify-between'> 
 								<h1 className='text-white text-[20px]'>Cadastro de Equipamento</h1>
@@ -132,19 +133,19 @@ const Equipamento = () => {
 							</div>
 							<form >
 								<div className="mb-4 mt-6">
-								<input type="text" id="nome" name="nome" className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Nome'/>
+								<input type="text" id="nome" name="nome" className=" mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Nome'/>
 								</div>
 								<div className="mb-4">
-								<input type="email" id="email" name="email" className="form-input mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Email'/>
+								<input type="email" id="email" name="email" className=" mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Email'/>
 								</div>
 								<div className="mb-4">
-								<input type="password" id="senha" name="senha" className="form-input mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite sua Senha'/>
+								<input type="password" id="senha" name="senha" className=" mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite sua Senha'/>
 								</div>
 								<div className="mb-4">
-								<input type="text" id="telefone" name="telefone" className="form-input mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Telefone'/>
+								<input type="text" id="telefone" name="telefone" className=" mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Telefone'/>
 								</div>
 								<div className="mb-4">
-								<input type="text" id="cargo" name="cargo" className="form-input mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Cargo'/>
+								<Input type="text" id="cargo" name="cargo" className=" mt-1 block w-full  bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent text-gray-800 px-4" placeholder='Digite seu Cargo'/>
 								</div>
 								<div className='flex justify-center'>
 									<button type="submit" className="bg-gradient-to-r from-blue-800 to-cyan-500 text-white py-2 px-4 rounded-lg w-full mt-2">Enviar</button>
