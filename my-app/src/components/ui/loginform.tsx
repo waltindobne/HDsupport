@@ -24,7 +24,7 @@ const LoginForm = () => {
       
       // Lógica para armazenar token e redirecionar usuário
       console.log('Login bem-sucedido:', response.data);
-      router.push('/dashboard'); // Exemplo de redirecionamento após o login bem-sucedido
+      router.push('/dashmenu'); // Exemplo de redirecionamento após o login bem-sucedido
     } catch (error) { 
       console.error('Erro ao fazer login:', error); 
       
@@ -69,7 +69,7 @@ const LoginForm = () => {
          
           <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-500 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
             <Input
-              type="password"
+
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               placeholder="Informe sua senha" 
