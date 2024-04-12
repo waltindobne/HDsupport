@@ -7,7 +7,7 @@ const Optionside: React.FC<{ title: string; svg: React.FC, path: string}> = ({ t
   return (
     <div onClick={() => router.push(path)} className="flex cursor-pointer space-x-3 mt-3 w-[90%] border-2 justify-center rounded-[10px] items-center border-slate-50 text-white p-[10px]">
       <Icon/>
-      <h1  className="text-white w-[100px] font-bold">{title}</h1>  
+      <h1  className="text-white  dark:text-black w-[100px] font-bold">{title}</h1>  
     </div>
   );
 }
