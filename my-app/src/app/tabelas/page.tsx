@@ -16,11 +16,11 @@ export default function Tabelas(){
     const renderPage = () => {
         switch(currentPage) {
             case 1:
-                return <Emprestimo />;
+                return <Equipamento />;
             case 2:
                 return <Funcionario />;
             case 3:
-                return <Equipamento />;
+                return <Emprestimo />;
             default:
                 return null;
         }

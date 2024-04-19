@@ -101,7 +101,7 @@ const SidebarMenu: React.FC = () => {
 
     return(
         <div className={`${darkMode && "dark"}`}>
-            <div className="h-[90vh] ml-2 w-[180px] dark:border-black bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50">
+            <div className="h-[90vh] ml-2 w-[210px] dark:border-black bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50">
             <header className="flex items-center dark:border-black border-slate-50 justify-center border-b-2 p-[20px]">
                 <h1 className="font-bold text-slate-50 dark:text-black flex relative left-2 text-2xl">
                     Help Desk
