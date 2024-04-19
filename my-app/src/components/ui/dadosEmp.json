@@ -6,10 +6,10 @@
         "data_registro": "2024-04-17"
     },
     {
-        "id": 2,
-        "email_funcionario": "funcionario2@example.com",
-        "id_equipamento": 102,
-        "data_registro": "2024-04-16"
+      "id": 2,
+      "email_funcionario": "pedro.oliveira@example.com",
+      "id_equipamento": 102,
+      "data_registro": "2024-04-16"
     },
     {
         "id": 3,

@@ -9,13 +9,13 @@
 	  "statusEquipamento": "indisponivel"
 	},
 	{
-	  "id": 2,
-	  "idPatrimonio": 2,
-	  "modelo": "Modelo 2",
-	  "processador": "Processador 2",
-	  "sistemaOperacional": "Sistema 2",
-	  "headSet": "Headset 2",
-	  "statusEquipamento": "disponivel"
+		"id": 2,
+		"idPatrimonio": 102,
+		"modelo": "Modelo 2",
+		"processador": "Processador 2",
+		"sistemaOperacional": "Sistema 2",
+		"headSet": "Headset 2",
+		"statusEquipamento": "disponivel"
 	},
 	{
 	  "id": 3,
