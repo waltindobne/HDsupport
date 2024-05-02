@@ -54,7 +54,7 @@ export default function Header(){
                     </svg>
                 </div>
                 <div className="text-slate-50 dark:text-neutral-950 space-x-3 flex items-center">
-                    <div className='sign  dark:text-slate-50 bg-neutral-950 w-[100px] h-[30px] flex item-center justify-center rounded-[6px] cursor-pointer text-white hover:bg-slate-50 hover:border-2 hover:border-neutral-950 hover:text-neutral-950 outline-none'>
+                    <div className='sign  dark:text-slate-50 bg-neutral-950 w-[100px] h-[30px] flex item-center justify-center rounded-[6px] cursor-pointer text-white outline-none'>
                         <button onClick={handleLogin} >Login</button>
                     </div>
                     
@@ -63,9 +63,9 @@ export default function Header(){
                 </div>
             </header>
             </div>
-            <button onClick={toggleDarkMode} className="ml-5 text-center flex justify-center items-center absolute w-10 h-10 bottom-16 right-26 bg-white text-dark dark:text-white dark:bg-neutral-900 rounded-full"> 
+            {/*<button onClick={toggleDarkMode} className="ml-5 text-center flex justify-center items-center absolute w-10 h-10 bottom-16 right-26 bg-white text-dark dark:text-white dark:bg-neutral-900 rounded-full"> 
         {darkMode ? <Sun/> : <Moon/>} 
-      </button> 
+    </button>*/} 
         </div>
         
     );

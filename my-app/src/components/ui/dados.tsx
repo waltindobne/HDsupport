@@ -49,7 +49,7 @@ export default function Dados(){
         <div className={`${darkMode && "dark"}`}>
             <div className="w-[93%] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[330px] flex items-center">
                 <Chart
-                chartType="LineChart"
+                chartType="ColumnChart"
                 data={[["Mês", "Frequência"], [100, 5.5], [8, 12], [20, 1]]}
                 width="95%"
                 height="300px"
