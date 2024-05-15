@@ -1,10 +1,14 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
     "",
     "\\my-app",
     "\\my-app\\src",
     "\\my-app\\src\\components",
     "\\my-app\\src\\components\\ui"
+=======
+    ""
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
   ],
   "PreviewInSolutionExplorer": false
 }

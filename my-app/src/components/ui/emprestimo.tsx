@@ -4,6 +4,12 @@ import {Trash2} from "lucide-react";
 import {PencilLine, Search } from "lucide-react";
 import {FolderPlus} from "lucide-react";
 import { FolderKanban } from 'lucide-react';
+<<<<<<< HEAD
+=======
+import Dados from '../ui/dadosEmp.json';
+import DadosEqp from '../ui/dadosEqp.json';
+import DadosFun from '../ui/dadosFun.json';
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 import axios from 'axios';
 
 const Emprestimo = () => {
@@ -11,15 +17,25 @@ const Emprestimo = () => {
 	const [emprestimos, setEmprestimos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
+<<<<<<< HEAD
 	const [itemsPerPage] = useState(7);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredEmprestimos, setFilteredEmprestimos] = useState([]);
 	const [selectedEmprestimo, setSelectedEmprestimo] = useState(null);
 	
+=======
+	const [itemsPerPage] = useState(6);
+	const [searchTerm, setSearchTerm] = useState('');
+	const [filteredEmprestimos, setFilteredEmprestimos] = useState([]);
+	const [selectedEmprestimo, setSelectedEmprestimo] = useState(null);
+
+	localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IndhbHRlckBlbXBsb3llci5jb20uYnIiLCJyb2xlIjoiR2VyZW50ZSIsIm5iZiI6MTcxMjg2NTM5MSwiZXhwIjoxNzEyODk0MTkxLCJpYXQiOjE3MTI4NjUzOTF9.pqmGGWGakn3uV7h-L2G7YncMY2O8h1WZIvm31KXcMlE');
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
 
 	const data_registro = new Date().toISOString().split('T')[0];
 
+<<<<<<< HEAD
 	const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
 	const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
 
@@ -45,6 +61,28 @@ const Emprestimo = () => {
 			console.error('Erro ao adicionar equipamento:', error); 
 		}
     };
+=======
+	const [newEmprestimo, setNewEmprestimo] = useState({
+        email_funcionario:"",
+		id_equipamento:"",
+		data_registro
+    });
+    const [editingEmprestimo, setEditingEmprestimo] = useState({
+		email_funcionario:"",
+		id_equipamento:""
+	});
+
+	const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
+	const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
+
+
+	
+
+	const handleInputChangeAdd = (event) => {
+		const { name, value } = event.target;
+		setNewEmprestimo({ ...newEmprestimo, [name]: value });
+	  };
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 	const handleInputChangeEdit = (event) => {
 		const { name, value } = event.target;
 		setEditingEmprestimo({ ...editingEmprestimo, [name]: value });
@@ -76,7 +114,11 @@ const Emprestimo = () => {
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
+<<<<<<< HEAD
 			const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Emprestimos/Lista-Emprestimos', {
+=======
+			const response = await axios.get('', {
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -90,6 +132,7 @@ const Emprestimo = () => {
 			throw error; // Se ocorrer um erro, lance-o para que possa ser tratado em outro lugar
 		}
 	};
+<<<<<<< HEAD
 	const statusEquipamento = [
 		"Listar Por Status",
 		"Disponivel",
@@ -112,6 +155,13 @@ const Emprestimo = () => {
 		} catch (error) { 
 			console.error('Erro ao Deletar Emprestimo:', error); 
 		}
+=======
+
+	const handleDeleteEmprestimo = (id) => {
+		const updatedEmprestimos = emprestimos.filter(emprestimo => emprestimo.id !== id);
+		setEmprestimos(updatedEmprestimos);
+		closeModalComfirmDel();
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 	};
 
 	{/*Abrir Adicionar*/}
@@ -162,6 +212,7 @@ const Emprestimo = () => {
 	};
 
 	useEffect(() => {
+<<<<<<< HEAD
 		if (token) {
 			fetchData(token)
 			.then((data) => {
@@ -196,6 +247,19 @@ const Emprestimo = () => {
 		});
 	  
 		setFilteredEmprestimos(results);
+=======
+		setEmprestimos(Dados);
+		setIsLoading(false);
+	}, []);
+
+	useEffect(() => {
+		const results = emprestimos.filter(emprestimos => {
+			return Object.values(emprestimos).some(value =>
+			  typeof value === "string" && value.toLowerCase().includes(searchTerm.toLowerCase())
+			);
+		  });
+		  setFilteredEmprestimos(results);
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 	  }, [emprestimos, searchTerm]);
 	
 	  // Lidando com a alteração no termo de pesquisa
@@ -211,7 +275,11 @@ const Emprestimo = () => {
 
 	return(
 		<div className="flex items-center justify-center w-full h-full">
+<<<<<<< HEAD
 			<div className="w-[95%] h-[550px] bg-black rounded-[5px] border-2 border-white">
+=======
+			<div className="w-[95%] h-[500px] bg-black rounded-[5px] border-2 border-white">
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 				<div className="w-full flex items-center justify-between p-[20px] px-[40px] bg-black to-sky-200 rounded-t-md mb-[10px]">
 					<div>
 						<h1 className="text-[24px] w-[300px] text-white">Gerenciar <b>Emprestimos</b></h1>
@@ -231,13 +299,20 @@ const Emprestimo = () => {
 						<button className="bg-gradient-to-r from-blue-800 to-cyan-500 px-[10px] py-[8px] rounded-[5px] text-[14px] flex" onClick={openModalAdd}> <FolderPlus className="mr-[5px]"/> Adicionar novo Emprestimo</button>
 					</div>
 				</div>
+<<<<<<< HEAD
 				<div className='flex flex-col justify-between h-[84%]'>
 					<table className="text-slate-100  w-full bg-neutral-900">
+=======
+				<table className="text-slate-100  w-full bg-neutral-900">
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 					<thead className="h-[45px]">
 						<tr className="text-blue-500">
 							<th className="" scope="col">Email do Funcionario</th>
 							<th className="" scope="col">ID do Equipamento</th>
+<<<<<<< HEAD
 							<th className="" scope="col">Status do Equipamento</th>
+=======
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 							<th className="" scope="col">Data de Inicio</th>
 							<th className="" scope="col">Ações</th>
 						</tr>
@@ -246,10 +321,16 @@ const Emprestimo = () => {
 					<tbody className="">
 						{currentItems.map((emprestimo, index) => (
 							<tr key={index} className="h-[50px] border-y">
+<<<<<<< HEAD
 								<td className="text-center">{emprestimo.usuario.email}</td> 
 								<td className="text-center">{emprestimo.equipamentos.idPatrimonio}</td>
 								<td className="text-center">{statusEquipamento[emprestimo.equipamentos.statusEquipamento]}</td>
 								<td className="text-center">{emprestimo.equipamentos.dtEmeprestimoInicio}</td>
+=======
+								<td className="text-center">{emprestimo.email_funcionario}</td> 
+								<td className="text-center">{emprestimo.id_equipamento}</td>
+								<td className="text-center">{emprestimo.data_registro}</td>
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 								<td className="flex justify-center mt-[10px]">
                                     <button onClick={() => openModalComfirmDel(emprestimo)}><Trash2 className="text-blue-700" /></button>
                                     <button onClick={() => openModalDetail(emprestimo)}><FolderKanban className="text-sky-600 ml-[8px]" /></button>
@@ -259,6 +340,7 @@ const Emprestimo = () => {
 						))}
 					</tbody>
 				</table>
+<<<<<<< HEAD
 				<div className="flex justify-center pb-[15px]">
 					{[...Array(Math.ceil(filteredEmprestimos.length / itemsPerPage)).keys()].map((number) => (
 					<button key={number} onClick={() => paginate(number + 1)} className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}>{number + 1}</button>
@@ -266,6 +348,13 @@ const Emprestimo = () => {
 				</div>
 				</div>
 				
+=======
+				<div className="flex justify-center mt-4">
+					{[...Array(Math.ceil(filteredEmprestimos.length / itemsPerPage)).keys()].map((number) => (
+					<button key={number} onClick={() => paginate(number + 1)} className="mx-1 px-3 py-1 bg-gray-800 text-white rounded-[8px]">{number + 1}</button>
+					))}
+				</div>
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 			</div>
 			<div>
 				{isOpenAdd && (
@@ -275,11 +364,20 @@ const Emprestimo = () => {
 							<h1 className='text-white text-[20px]'>Cadastro de Empréstimos</h1>
 							<button onClick={closeModalAdd} className=" bg-red-500 hover:bg-red-600 text-white py-0 px-3 rounded-[8px] float-right">x</button>
 						</div>
+<<<<<<< HEAD
 						<form onSubmit={handleSubmitAdd} className='text-white'>
 							<div className="mb-4 mt-4">
 								<input
 									type="text"
 									value={usuarioId} onChange={(e) => setUsuarioId(e.target.value)}
+=======
+						<form onSubmit={handleSubmit} className='text-white'>
+							<div className="mb-4 mt-4">
+								<input
+									type="email"
+									value={newEmprestimo.email_funcionario}
+									onChange={handleInputChangeAdd}
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 									name="email_funcionario"
 									placeholder='Digite o Email do Funcionário'
 									className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
@@ -288,7 +386,12 @@ const Emprestimo = () => {
 							<div className="mb-4 mt-4">
 								<input
 									type="number"
+<<<<<<< HEAD
 									value={equipamentosId} onChange={(e) => setEquipamentosId(parseInt(e.target.value))}
+=======
+									value={newEmprestimo.id_equipamento}
+									onChange={handleInputChangeAdd}
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 									name="id_equipamento"
 									placeholder='Digite o ID de Patrimônio'
 									className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
@@ -351,6 +454,7 @@ const Emprestimo = () => {
                     <tbody>
 						<tr>
                             <th className="text-center mt-5 border-b border-neutral-700 py-3">Nome do Funcionário</th>
+<<<<<<< HEAD
                             <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.usuario.nome}</td>
                         </tr>
                         <tr>
@@ -368,6 +472,29 @@ const Emprestimo = () => {
                         <tr>
                             <th className="text-center mt-5 border-b border-neutral-700 py-3">Inicio do Emprestimo</th>
                             <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.equipamentos.dtEmeprestimoInicio}</td>
+=======
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">
+                                {DadosFun.find(funcionario => funcionario.email === selectedEmprestimo.email_funcionario)?.nome || "Nome não encontrado"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-center mt-5 border-b border-neutral-700 py-3">Email do Funcionário</th>
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.email_funcionario}</td>
+                        </tr>
+                        <tr>
+                            <th className="text-center mt-5 border-b border-neutral-700 py-3">ID de Patrimônio do Equipamento</th>
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.id_equipamento}</td>
+                        </tr>
+                        <tr>
+                            <th className="text-center mt-5 border-b border-neutral-700 py-3">Status do Equipamento</th>
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">
+                                {DadosEqp.find(equipamento => equipamento.idPatrimonio === selectedEmprestimo.id_equipamento)?.statusEquipamento || "Status não encontrado"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-center mt-5 border-b border-neutral-700 py-3">Inicio do Emprestimo</th>
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.data_registro}</td>
+>>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
                         </tr>
                     </tbody>
                 </table>
