@@ -25,7 +25,7 @@ export default function Dashboard() {
       dados: 0,
     },
   ]);
-
+  
 
    const [darkMode, setDarkMode] = useState(false)
   const toggleDarkMode = () => { 
@@ -51,8 +51,7 @@ useEffect(() => {
   useEffect(() => {
     async function fetchChamados() {
       try {
-        const response = await 
-        axios.get('https://localhost:7299/api/Conversa/Dados-Chamados-Dashboard');
+        const response = await axios.get('https://localhost:7299/api/Conversa/Dados-Chamados-Dashboard');
         setData(response.data);
 
         // Atualiza os dados com os valores recebidos da API
@@ -79,9 +78,9 @@ useEffect(() => {
 
   return (
     <div className={`${darkMode && "dark"}`}>
-      <div className="bg-neutral-950 dark:bg-white min-h-screen h-[100vh] flex-row flex items-center justify-around">
+      <div className="bg-neutral-950 dark:bg-white min-h-screen h-[100vh] flex items-start justify-around">
       <SidebarMenu />
-      <div className="w-full relative bottom-[37px] space-y-10 flex flex-col items-center justify-center">
+      <div className="w-full mt-[100px] relative bottom-[37px] space-y-10 flex flex-col items-center justify-center">
         <div className="flex space-x-3">
           {data.map((item) => (
             <CardChamados key={item.title} title={item.title} dados={item.dados} />
@@ -92,9 +91,9 @@ useEffect(() => {
           <Pizza />
         </div>
       </div>
-      <button onClick={toggleDarkMode} className="ml-5 text-center flex justify-center items-center absolute w-10 h-10 bottom-16 right-26 bg-white text-dark dark:text-white dark:bg-neutral-900 rounded-full"> 
+      {/*<button onClick={toggleDarkMode} className="ml-5 text-center flex justify-center items-center absolute w-10 h-10 bottom-16 right-26 bg-white text-dark dark:text-white dark:bg-neutral-900 rounded-full"> 
             {darkMode ? <Sun/> : <Moon/>} 
-          </button> 
+        </button>*/}
     </div>
     </div>
   );

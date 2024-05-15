@@ -11,36 +11,40 @@ const Emprestimo = () => {
 	const [emprestimos, setEmprestimos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [itemsPerPage] = useState(6);
+	const [itemsPerPage] = useState(7);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredEmprestimos, setFilteredEmprestimos] = useState([]);
 	const [selectedEmprestimo, setSelectedEmprestimo] = useState(null);
-
-	localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IndhbHRlckBlbXBsb3llci5jb20uYnIiLCJyb2xlIjoiR2VyZW50ZSIsIm5iZiI6MTcxMjg2NTM5MSwiZXhwIjoxNzEyODk0MTkxLCJpYXQiOjE3MTI4NjUzOTF9.pqmGGWGakn3uV7h-L2G7YncMY2O8h1WZIvm31KXcMlE');
+	
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
 
 	const data_registro = new Date().toISOString().split('T')[0];
 
-	const [newEmprestimo, setNewEmprestimo] = useState({
-        email_funcionario:"",
-		id_equipamento:"",
-		data_registro
-    });
-    const [editingEmprestimo, setEditingEmprestimo] = useState({
-		email_funcionario:"",
-		id_equipamento:""
-	});
-
 	const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
 	const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
 
+	const [usuarioId, setUsuarioId] = useState('');
+	const [equipamentosId, setEquipamentosId] = useState(0);
 
 	
 
-	const handleInputChangeAdd = (event) => {
-		const { name, value } = event.target;
-		setNewEmprestimo({ ...newEmprestimo, [name]: value });
-	  };
+	const handleSubmitAdd = async (event) => {
+        event.preventDefault();
+        try {
+			const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Emprestimos/Registro-Emprestimo?idPatrimonio=${equipamentosId}&email=${usuarioId}`,  {
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					}
+				}
+			);
+			
+			console.log('Equipamento adicionado com sucesso:', response.data);
+		} catch (error) { 
+			console.error('Erro ao adicionar equipamento:', error); 
+		}
+    };
 	const handleInputChangeEdit = (event) => {
 		const { name, value } = event.target;
 		setEditingEmprestimo({ ...editingEmprestimo, [name]: value });
@@ -72,7 +76,7 @@ const Emprestimo = () => {
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
-			const response = await axios.get('', {
+			const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Emprestimos/Lista-Emprestimos', {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -86,11 +90,28 @@ const Emprestimo = () => {
 			throw error; // Se ocorrer um erro, lance-o para que possa ser tratado em outro lugar
 		}
 	};
-
-	const handleDeleteEmprestimo = (id) => {
+	const statusEquipamento = [
+		"Listar Por Status",
+		"Disponivel",
+		"Ocupado",
+		"Danificado",
+		"Em Reparo"
+	]
+	const handleDeleteEmprestimo = async (id) => {
 		const updatedEmprestimos = emprestimos.filter(emprestimo => emprestimo.id !== id);
 		setEmprestimos(updatedEmprestimos);
 		closeModalComfirmDel();
+		try {
+			console.log(token);
+			const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Emprestimos/Excluir-Emprestimo/${id}`, {},{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			console.log(`Emprestimo Deletado com sucesso: ${id}`);
+		} catch (error) { 
+			console.error('Erro ao Deletar Emprestimo:', error); 
+		}
 	};
 
 	{/*Abrir Adicionar*/}
@@ -157,12 +178,24 @@ const Emprestimo = () => {
 	}, []);
 
 	useEffect(() => {
-		const results = emprestimos.filter(emprestimos => {
-			return Object.values(emprestimos).some(value =>
-			  typeof value === "string" && value.toLowerCase().includes(searchTerm.toLowerCase())
-			);
-		  });
-		  setFilteredEmprestimos(results);
+		const results = emprestimos.filter(emprestimo => {
+		  // Função recursiva para verificar se um valor é uma string ou número inteiro
+		  const hasStringOrIntegerProperty = value => {
+			if (typeof value === "string") {
+			  return value.toLowerCase().includes(searchTerm.toLowerCase());
+			} else if (typeof value === "number" && Number.isInteger(value)) {
+			  return value === parseInt(searchTerm, 10);
+			} else if (value && typeof value === "object") {
+				return Object.values(value).some(hasStringOrIntegerProperty);
+			  }
+			return false;
+		  };
+	  
+		  // Verifica se algum valor nas propriedades do objeto ou objetos aninhados corresponde ao searchTerm
+		  return Object.values(emprestimo).some(hasStringOrIntegerProperty);
+		});
+	  
+		setFilteredEmprestimos(results);
 	  }, [emprestimos, searchTerm]);
 	
 	  // Lidando com a alteração no termo de pesquisa
@@ -178,10 +211,10 @@ const Emprestimo = () => {
 
 	return(
 		<div className="flex items-center justify-center w-full h-full">
-			<div className="w-[95%] h-[500px] bg-black rounded-[5px] border-2 border-white">
+			<div className="w-[95%] h-[550px] bg-black rounded-[5px] border-2 border-white">
 				<div className="w-full flex items-center justify-between p-[20px] px-[40px] bg-black to-sky-200 rounded-t-md mb-[10px]">
 					<div>
-						<h1 className="text-[24px] text-white">Gerenciar <b>Emprestimos</b></h1>
+						<h1 className="text-[24px] w-[300px] text-white">Gerenciar <b>Emprestimos</b></h1>
 					</div>
 					<form className="flex items-center justify-center bg-gradient-to-r from-blue-950 to-cyan-950 pr-4 rounded-xl">
 						<input
@@ -198,11 +231,13 @@ const Emprestimo = () => {
 						<button className="bg-gradient-to-r from-blue-800 to-cyan-500 px-[10px] py-[8px] rounded-[5px] text-[14px] flex" onClick={openModalAdd}> <FolderPlus className="mr-[5px]"/> Adicionar novo Emprestimo</button>
 					</div>
 				</div>
-				<table className="text-slate-100  w-full bg-neutral-900">
+				<div className='flex flex-col justify-between h-[84%]'>
+					<table className="text-slate-100  w-full bg-neutral-900">
 					<thead className="h-[45px]">
 						<tr className="text-blue-500">
 							<th className="" scope="col">Email do Funcionario</th>
 							<th className="" scope="col">ID do Equipamento</th>
+							<th className="" scope="col">Status do Equipamento</th>
 							<th className="" scope="col">Data de Inicio</th>
 							<th className="" scope="col">Ações</th>
 						</tr>
@@ -211,9 +246,10 @@ const Emprestimo = () => {
 					<tbody className="">
 						{currentItems.map((emprestimo, index) => (
 							<tr key={index} className="h-[50px] border-y">
-								<td className="text-center">{emprestimo.email_funcionario}</td> 
-								<td className="text-center">{emprestimo.id_equipamento}</td>
-								<td className="text-center">{emprestimo.data_registro}</td>
+								<td className="text-center">{emprestimo.usuario.email}</td> 
+								<td className="text-center">{emprestimo.equipamentos.idPatrimonio}</td>
+								<td className="text-center">{statusEquipamento[emprestimo.equipamentos.statusEquipamento]}</td>
+								<td className="text-center">{emprestimo.equipamentos.dtEmeprestimoInicio}</td>
 								<td className="flex justify-center mt-[10px]">
                                     <button onClick={() => openModalComfirmDel(emprestimo)}><Trash2 className="text-blue-700" /></button>
                                     <button onClick={() => openModalDetail(emprestimo)}><FolderKanban className="text-sky-600 ml-[8px]" /></button>
@@ -223,11 +259,13 @@ const Emprestimo = () => {
 						))}
 					</tbody>
 				</table>
-				<div className="flex justify-center mt-4">
+				<div className="flex justify-center pb-[15px]">
 					{[...Array(Math.ceil(filteredEmprestimos.length / itemsPerPage)).keys()].map((number) => (
-					<button key={number} onClick={() => paginate(number + 1)} className="mx-1 px-3 py-1 bg-gray-800 text-white rounded-[8px]">{number + 1}</button>
+					<button key={number} onClick={() => paginate(number + 1)} className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}>{number + 1}</button>
 					))}
 				</div>
+				</div>
+				
 			</div>
 			<div>
 				{isOpenAdd && (
@@ -237,12 +275,11 @@ const Emprestimo = () => {
 							<h1 className='text-white text-[20px]'>Cadastro de Empréstimos</h1>
 							<button onClick={closeModalAdd} className=" bg-red-500 hover:bg-red-600 text-white py-0 px-3 rounded-[8px] float-right">x</button>
 						</div>
-						<form onSubmit={handleSubmit} className='text-white'>
+						<form onSubmit={handleSubmitAdd} className='text-white'>
 							<div className="mb-4 mt-4">
 								<input
-									type="email"
-									value={newEmprestimo.email_funcionario}
-									onChange={handleInputChangeAdd}
+									type="text"
+									value={usuarioId} onChange={(e) => setUsuarioId(e.target.value)}
 									name="email_funcionario"
 									placeholder='Digite o Email do Funcionário'
 									className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
@@ -251,8 +288,7 @@ const Emprestimo = () => {
 							<div className="mb-4 mt-4">
 								<input
 									type="number"
-									value={newEmprestimo.id_equipamento}
-									onChange={handleInputChangeAdd}
+									value={equipamentosId} onChange={(e) => setEquipamentosId(parseInt(e.target.value))}
 									name="id_equipamento"
 									placeholder='Digite o ID de Patrimônio'
 									className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
@@ -315,27 +351,23 @@ const Emprestimo = () => {
                     <tbody>
 						<tr>
                             <th className="text-center mt-5 border-b border-neutral-700 py-3">Nome do Funcionário</th>
-                            <td className="text-center mb-5 border-b border-neutral-700 py-3">
-                                {DadosFun.find(funcionario => funcionario.email === selectedEmprestimo.email_funcionario)?.nome || "Nome não encontrado"}
-                            </td>
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.usuario.nome}</td>
                         </tr>
                         <tr>
                             <th className="text-center mt-5 border-b border-neutral-700 py-3">Email do Funcionário</th>
-                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.email_funcionario}</td>
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.usuario.email}</td>
                         </tr>
                         <tr>
                             <th className="text-center mt-5 border-b border-neutral-700 py-3">ID de Patrimônio do Equipamento</th>
-                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.id_equipamento}</td>
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.equipamentos.idPatrimonio}</td>
                         </tr>
                         <tr>
                             <th className="text-center mt-5 border-b border-neutral-700 py-3">Status do Equipamento</th>
-                            <td className="text-center mb-5 border-b border-neutral-700 py-3">
-                                {DadosEqp.find(equipamento => equipamento.idPatrimonio === selectedEmprestimo.id_equipamento)?.statusEquipamento || "Status não encontrado"}
-                            </td>
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{statusEquipamento[selectedEmprestimo.equipamentos.statusEquipamento]}</td>
                         </tr>
                         <tr>
                             <th className="text-center mt-5 border-b border-neutral-700 py-3">Inicio do Emprestimo</th>
-                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.data_registro}</td>
+                            <td className="text-center mb-5 border-b border-neutral-700 py-3">{selectedEmprestimo.equipamentos.dtEmeprestimoInicio}</td>
                         </tr>
                     </tbody>
                 </table>

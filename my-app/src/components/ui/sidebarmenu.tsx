@@ -52,7 +52,7 @@ const SidebarMenu: React.FC = () => {
             path: '/dashmenu',
         },
         {
-            title: 'Gráficos',
+            title: 'Substituir',
             svg: IconChart,
             path: '/graficos',
         },
@@ -60,12 +60,12 @@ const SidebarMenu: React.FC = () => {
             title: 'Tabelas',
             svg: IconTable,
             path: '/tabelas',
-        },
+        }/*,
         {
             title: 'Chamados',
             svg: IconChat,
             path: '/chat',
-        },
+        },*/
     ]
     const setAuthToken = (token: any) => {
         if (token) {
@@ -84,14 +84,18 @@ const SidebarMenu: React.FC = () => {
       const handleProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`https://hd-api.azurewebsites.net/api/Usuario/BuscarTokenJWT?token=${token}`);
+            const response = await axios.get(`https://hd-support-api.azurewebsites.net/api/Usuario/BuscarPorTokenJWT/${token}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                },
+            );
             const userData = response.data;
             console.log('Dados do usuário:', userData);
             // Aqui você pode fazer algo com os dados recebidos, como redirecionar para a página de perfil com os dados do usuário
-            router.push({
-                pathname: '/Profile',
-                state: { userData: userData }
-            });
+            router.push('/Profile');
+
         } catch (error) {
             console.error('Erro ao buscar dados do usuário:', error);
         }
@@ -101,7 +105,7 @@ const SidebarMenu: React.FC = () => {
 
     return(
         <div className={`${darkMode && "dark"}`}>
-            <div className="h-[90vh] ml-2 w-[180px] dark:border-black bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50">
+            <div className="h-[670px] ml-2 mt-[40px] w-[180px] dark:border-black bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50">
             <header className="flex items-center dark:border-black border-slate-50 justify-center border-b-2 p-[20px]">
                 <h1 className="font-bold text-slate-50 dark:text-black flex relative left-2 text-2xl">
                     Help Desk

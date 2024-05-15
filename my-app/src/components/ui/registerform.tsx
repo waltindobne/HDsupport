@@ -219,7 +219,7 @@ export default function LoginForm() {
         </div>
 
         <form action="post" className="flex flex-col items-center" onSubmit={handleRegister}>
-        <div className=" flex items-center max-sm:w-[380px] justify-center dark:bg-slate-300 dark:text-black text-neutral-500  w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
+        <div className=" flex items-center max-sm:w-[380px] justify-center dark:bg-slate-300 dark:text-black text-neutral-300  w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
             <Input value={nome} onChange={(e) => setNome(e.target.value)}
               placeholder="Digite seu nome de usuário" 
               className="border-none h-60px" 
@@ -228,7 +228,7 @@ export default function LoginForm() {
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-user  relative right-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div> 
 
-          <div className=" flex items-center max-sm:w-[380px] justify-center text-neutral-500 dark:bg-slate-300 dark:text-black w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
+          <div className=" flex items-center max-sm:w-[380px] justify-center text-neutral-300 dark:bg-slate-300 dark:text-black w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
             <Input 
               type="email"
               value={email} onChange={handleEmailChange}
@@ -242,7 +242,7 @@ export default function LoginForm() {
           {emailError && <div style={{ color: 'red' }}>{emailError}</div>}
  
           
-          <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-500 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
+          <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-300 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
             <Input
               value={senha}  onChange={handlePasswordChange}
               placeholder="Informe sua senha" 
@@ -252,7 +252,7 @@ export default function LoginForm() {
                
            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-lock-keyhole relative  right-5"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
           </div>
-          <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-500 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
+          <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-300 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
           <Input value={telefone} onChange={(e) => setTelefone(e.target.value)}
               placeholder="seu telefone" 
               className="border-none h-60px" 
@@ -261,7 +261,7 @@ export default function LoginForm() {
                
            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-lock-keyhole relative  right-5"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
           </div>
-          <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-500 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
+          <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-300 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
           <Input value={cargo} onChange={(e) => setCargo(e.target.value)}
               placeholder="seu cargo" 
               className="border-none h-60px" 
@@ -280,9 +280,9 @@ export default function LoginForm() {
           
           <Button onClick={handleOpen}>aaaa</Button>
           <div className="text-white relative max-sm:bottom-[20px] text-center mt-3">
-            <span className="text-neutral-500 font-bold">
+            <span className="text-blue-200 font-bold">
               Já possui conta? {" "}
-              <Link href="/login" className="text-white animate-pulse font-bold dark:text-black">
+              <Link href="/login" className="text-sky-400 font-bold dark:text-black">
                 Entre agora
               </Link>
             </span>
@@ -291,9 +291,9 @@ export default function LoginForm() {
       </div>
 
     </div>
-    <button onClick={toggleDarkMode} className="ml-5 text-center flex justify-center items-center absolute w-10 h-10 bottom-16 right-26 bg-white text-dark dark:text-white dark:bg-neutral-900 rounded-full"> 
+    {/*<button onClick={toggleDarkMode} className="ml-5 text-center flex justify-center items-center absolute w-10 h-10 bottom-16 right-26 bg-white text-dark dark:text-white dark:bg-neutral-900 rounded-full"> 
         {darkMode ? <Sun/> : <Moon/>} 
-      </button> 
+  </button> */}
     </div>
   );
 }

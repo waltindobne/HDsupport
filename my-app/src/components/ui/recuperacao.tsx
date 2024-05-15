@@ -20,7 +20,7 @@ export default function RecuperacaoSenha() {
       } 
    
       try { 
-        const response = await fetch('https://hd-api.azurewebsites.net/api/Usuario/RedefinirSenha', { 
+        const response = await fetch('https://hd-support-api.azurewebsites.net/api/Usuario/RedefinirSenha', { 
           method: 'POST', 
           headers: { 
             'Content-Type': 'application/json', 

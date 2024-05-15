@@ -17,10 +17,7 @@ const LoginForm = () => {
   const handleLogin = async (e: any) => { 
     e.preventDefault(); 
     try { 
-      const response = await axios.post('https://hd-api.azurewebsites.net/api/Usuario/Login', { 
-        email,
-        senha,
-      }); 
+      const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Usuario/Login?email=${email}&senha=${senha}`); 
       
       // Extrair token do corpo da resposta
       const token = response.data.token;
@@ -60,7 +57,7 @@ const LoginForm = () => {
         </div>
 
         <form className="flex flex-col items-center" onSubmit={handleLogin}>
-          <div className="flex items-center max-sm:w-[380px] justify-center text-neutral-500 dark:bg-slate-300 dark:text-black w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
+          <div className="flex items-center max-sm:w-[380px] justify-center text-neutral-300 dark:bg-slate-300 dark:text-black w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
             <Input 
               type="email"
               value={email}
@@ -73,7 +70,7 @@ const LoginForm = () => {
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-at-sign relative right-5 "><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>
           </div> 
          
-          <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-500 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
+          <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-300 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
             <Input
 
               value={senha}
@@ -93,9 +90,9 @@ const LoginForm = () => {
           </Button>
   
           <div className="text-white relative max-sm:bottom-[0px] text-center mt-3">
-            <span className="text-neutral-500 font-bold">
+            <span className="text-blue-200 font-bold">
               Não possui conta? {" "}
-              <Link href="/register" className="text-white animate-pulse font-bold dark:text-black">
+              <Link href="/register" className="text-sky-400 font-bold dark:text-black">
                 Registre-se
               </Link>
             </span>

@@ -16,33 +16,38 @@ export default function Tabelas(){
     const renderPage = () => {
         switch(currentPage) {
             case 1:
-                return <Emprestimo />;
+                return <Equipamento />;
             case 2:
                 return <Funcionario />;
             case 3:
-                return <Equipamento />;
+                return <Emprestimo />;
             default:
                 return null;
         }
     };
-
+    const nomeTabelas = [
+        "",
+        "Equipamentos",
+        "Funcionários",
+        "Emprestimos"
+    ]
     return(
-        <div className="flex h-[100vh] space-x-2 items-center bg-neutral-950">
-            <SidebarMenu />
-            <div className="space-y-5 items-center text-white justify-center space-x-3 w-[85%] flex-col">
-                {renderPage()}
+        <div className="flex h-[100vh] space-x-2 items-start bg-neutral-950">
+            <SidebarMenu/>
+            <div className="space-y-5 items-center text-white justify-center space-x-3 w-[85%] flex-col  mt-10">
                 <div className="pagination flex justify-center items-center">
                     {[...Array(totalPages)].map((_, index) => (
                         <button
-                            key={index}
-                            
-                            onClick={() => handlePageChange(index + 1)}
-                            className={`pagination-item ${currentPage === index + 1 ? 'active' : 'text-blue-500'} p-1 text-2xl`}
+                        key={index}
+                        
+                        onClick={() => handlePageChange(index + 1)}
+                        className={`pagination-item ${currentPage === index + 1 ? 'active' : 'text-sky-600'} p-1 mr-4 border-2 px-[20px] border-white rounded-[5px] text-2xl`}
                         >
-                            {index + 1}
+                            {nomeTabelas[index + 1]}
                         </button>
                     ))}
                 </div>
+                {renderPage()}
             </div>
         </div>
     )

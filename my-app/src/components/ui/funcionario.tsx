@@ -12,46 +12,48 @@ const Funcionario = () => {
 	const [funcionarios, setFuncionarios] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [itemsPerPage] = useState(6);
+	const [itemsPerPage] = useState(7);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredFuncionarios, setFilteredFuncionarios] = useState([]);
 	const [selectedFuncionario, setSelectedFuncionario] = useState(null);
-		localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IndhbHRlckBlbXBsb3llci5jb20uYnIiLCJyb2xlIjoiR2VyZW50ZSIsIm5iZiI6MTcxMjg2NTM5MSwiZXhwIjoxNzEyODk0MTkxLCJpYXQiOjE3MTI4NjUzOTF9.pqmGGWGakn3uV7h-L2G7YncMY2O8h1WZIvm31KXcMlE');
+	const [nome, setNome] = useState('');
+	const [email, setEmail] = useState('');
+	const [senha, setSenha] = useState('');
+	const [telefone, setTelefone] = useState('');
+	const [cargo, setCargo] = useState('funcionario');
+		
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
-
-	const [newFuncionario, setNewFuncionario] = useState({
-        nome: "",
-        email: "",
-        senha: "",
-        telefone: "",
-        cargo: ""
-    });
-    const [editingFuncionario, setEditingFuncionario] = useState({
-	nome: "",
-	email: "",
-	telefone: "",
-	cargo: ""
-  });
   
 	const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
 	const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
 
 
-	const handleInputChangeAdd = (event) => {
-		const { name, value } = event.target;
-		setNewFuncionario({ ...newFuncionario, [name]: value });
-	  };
+	const handleSubmitAdd = async (event) => {
+		event.preventDefault();
+        try {
+			const response = await axios.post('https://hd-support-api.azurewebsites.net/api/Usuario/Registro',  { 
+					nome,
+					email,
+					senha,
+					telefone,
+					cargo
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					}
+				}
+			);
+			
+			console.log('Funcionário adicionado com sucesso:', response.data);
+		} catch (error) { 
+			console.error('Erro ao adicionar Funcionário:', error); 
+		}
+	};
 	const handleInputChangeEdit = (event) => {
 		const { name, value } = event.target;
 		setEditingFuncionario({ ...editingFuncionario, [name]: value });
 	  };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const updatedFuncionarios = [...funcionarios, newFuncionario];
-        setFuncionarios(updatedFuncionarios);
-        closeModalAdd();
-    };
 	
 	const handleOpenEditModal = (funcionario) => {
 		setEditingFuncionario(funcionario);
@@ -72,7 +74,7 @@ const Funcionario = () => {
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
-			const response = await axios.get('', {
+			const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Usuario/Lista-Funcionarios', {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -87,10 +89,21 @@ const Funcionario = () => {
 		}
 	};
 
-	const handleDeleteFuncionario = (id) => {
+	const handleDeleteFuncionario = async (id) => {
 		const updatedFuncionarios = funcionarios.filter(funcionario => funcionario.id !== id);
 		setFuncionarios(updatedFuncionarios);
 		closeModalComfirmDel();
+		try {
+			console.log(token);
+			const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Usuario/Excluir-Usuario/${id}`, {},{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			console.log(`Funcionário Deletado com sucesso: ${id}`);
+		} catch (error) { 
+			console.error('Erro ao Deletar Funcionário:', error); 
+		}
 	};
 	
 
@@ -179,10 +192,10 @@ const Funcionario = () => {
 
 	return(
 		<div className="flex items-center justify-center  w-full h-full">
-			<div className="w-[95%] h-[500px] bg-neutral-950 border-2 border-slate-50 rounded-[5px]">
-				<div className="w-full flex items-center  justify-between p-[20px] px-[40px] bg-neutral-950 rounded-t-md mb-[10px]">
+			<div className="w-[95%] h-[550px] bg-black border-2 border-slate-50 rounded-[5px]">
+				<div className="w-full flex items-center  justify-between p-[20px] px-[40px] bg-black rounded-t-md mb-[10px]">
 					<div>
-						<h1 className="text-[24px]">Gerenciar <b>Funcionários</b></h1>
+						<h1 className="text-[24px] w-[300px]">Gerenciar <b>Funcionários</b></h1>
 					</div>
 					<form className="flex items-center justify-center bg-gradient-to-r from-blue-950 to-cyan-950 pr-4 rounded-xl">
 						<input
@@ -196,10 +209,11 @@ const Funcionario = () => {
 					</form>
 					<div className="space-x-2 flex items-center">
 						{/*<button className="bg-[#dc3545] px-[10px] py-[8px] rounded-[5px] text-[14px] flex"> <Trash2 className="mr-[5px]"/> Excluir</button>*/}
-						<button className="bg-gradient-to-r from-blue-800 to-cyan-500 px-[10px] py-[8px] rounded-[5px] text-[14px] flex" onClick={openModalAdd}> <FolderPlus className="mr-[5px]"/> Adicionar novo Equipamento</button>
+						<button className="bg-gradient-to-r from-blue-800 to-cyan-500 px-[10px] py-[8px] rounded-[5px] text-[14px] flex" onClick={openModalAdd}> <FolderPlus className="mr-[5px]"/> Adicionar novo Funcionário</button>
 					</div>
 				</div>
-				<table className="text-slate-100 bg-neutral-900 w-full">
+				<div className='flex flex-col justify-between h-[84%]'>
+					<table className="text-slate-100 bg-neutral-900 w-full">
 						<thead className="h-[45px]">
 							<tr className="text-blue-500">
 								<th className="w-[20%]" scope="col">Nome</th>
@@ -224,11 +238,13 @@ const Funcionario = () => {
 						))}
 						</tbody>
 					</table>
-					<div className="flex justify-center mt-4">
+					<div className="flex justify-center pb-[15px]">
 					{[...Array(Math.ceil(filteredFuncionarios.length / itemsPerPage)).keys()].map((number) => (
-					<button key={number} onClick={() => paginate(number + 1)} className="mx-1 px-3 py-1 bg-gray-800 text-white rounded-[8px]">{number + 1}</button>
+					<button key={number} onClick={() => paginate(number + 1)} className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}>{number + 1}</button>
 					))}
 					</div>
+				</div>
+				
 			</div>
 			<div>
 				{isOpenAdd && (
@@ -238,12 +254,11 @@ const Funcionario = () => {
 								<h1 className='text-white text-[20px]'>Cadastro de Funcionário</h1>
 								<button onClick={closeModalAdd} className=" bg-red-500 hover:bg-red-600 text-white py-0 px-3 rounded-[8px] float-right">x</button>
 							</div>
-							<form onSubmit={handleSubmit} className='text-white'>
+							<form onSubmit={handleSubmitAdd} className='text-white'>
 								<div className="mb-4 mt-4">
 									<input
 									type="text"
-									value={newFuncionario.nome}
-									onChange={handleInputChangeAdd}
+									value={nome} onChange={(e) => setNome(e.target.value)}
 									name="nome"
 									placeholder='Digite o Nome'
 									className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
@@ -252,8 +267,7 @@ const Funcionario = () => {
 								<div className="mb-4 mt-4">
 									<input
 									type="text"
-									value={newFuncionario.email}
-									onChange={handleInputChangeAdd}
+									value={email} onChange={(e) => setEmail(e.target.value)}
 									name="email"
 									placeholder='Digite o Email'
 									className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
@@ -262,22 +276,18 @@ const Funcionario = () => {
 								<div className="mb-4 mt-4">
 									<input
 									type="text"
-									value={newFuncionario.telefone}
-									onChange={handleInputChangeAdd}
+									value={telefone} onChange={(e) => setTelefone(e.target.value)}
 									name="telefone"
 									placeholder='Digite o Telefone'
 									className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
 									/>
 								</div>
 								<div className="mb-4 mt-4">
-									<input
-									type="text"
-									value={newFuncionario.cargo}
-									onChange={handleInputChangeAdd}
-									name="cargo"
-									placeholder='Digite o Cargo'
-									className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
-									/>
+									<select className='bg-neutral-700 w-full' value={cargo} onChange={(e) => setCargo(e.target.value)} required>
+										<option value="RH">RH</option>
+										<option value="funcionario">Funcionario</option>
+										<option value="HelpDesk">HelpDesk</option>
+									</select>
 								</div>
 								<div className='flex justify-center'>
 									<button type="submit" className="bg-gradient-to-r from-blue-800 to-cyan-500 text-white py-2 px-4 rounded-[8px] w-full mt-2">Enviar</button>

@@ -29,9 +29,9 @@ export default function Graficos(){
     []);
     return(
         <div className={`${darkMode && "dark"}`}>
-            <div className="flex h-[100vh] w-full items-center justify-center space-x-16 dark:bg-slate-50 bg-neutral-950">
+            <div className="flex h-[100vh] w-full items-start space-x-16 dark:bg-slate-50 bg-neutral-950">
                <SidebarMenu /> 
-                <div className="w-[80%] border-slate-50 border-2 dark:border-black items-center space-y-2 flex flex-col justify-center rounded-[20px] h-[93vh]">
+                <div className="w-[80%] border-slate-50 mt-[20px] border-2 dark:border-black items-center space-y-2 flex flex-col justify-center rounded-[20px] h-[93vh]">
                     <div className="relative left-5 w-full items-center flex justify-center">
                         <Dados />
                     </div>

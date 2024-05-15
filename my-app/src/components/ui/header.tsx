@@ -58,7 +58,7 @@ export default function Header(){
                         <button onClick={handleLogin} >Login</button>
                     </div>
                     
-                        <button onClick={handleToDash} >Dashmenu</button>
+                        {/*<button onClick={handleToDash} >Dashmenu</button>*/}
                     
                 </div>
             </header>
