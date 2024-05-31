@@ -218,11 +218,11 @@ const Equipamento = () => {
 	  const currentItems = filteredEquipamentos.slice(indexOfFirstItem, indexOfLastItem);
 
 	return(
-		<div className="flex items-center justify-center bg-950 w-full h-full">
-			<div className="w-[95%] h-[550px]  border-2 bg-black border-slate-50 rounded-[5px]">
+		<div className="flex items-center justify-center bg-neutral-950 w-full h-full">
+			<div className="w-[95%] h-[550px] border-2 bg-black border-slate-50 rounded-[5px] max-[700px]:w-full">
 				<div className="w-full flex items-center bg-black  justify-between p-[20px] px-[40px]  rounded-t-md mb-[10px]">
 					<div>
-						<h1 className="text-[24px] w-[300px]">Gerenciar <b>Equipamentos</b></h1>
+						<h1 className="text-[24px] w-[300px] max-[1200px]:w-full">Gerenciar <b>Equipamentos</b></h1>
 					</div>
 					<form className="flex items-center justify-center bg-gradient-to-r from-blue-950 to-cyan-950 pr-4 rounded-xl">
 						<input
@@ -230,11 +230,11 @@ const Equipamento = () => {
 							placeholder="Pesquisar por..."
 							value={searchTerm}
 							onChange={handleSearchChange}
-							className="form-input bg-transparent text-white px-4 py-2 rounded-xl border-none focus:ring-0 w-[400px]"
+							className="form-input bg-transparent text-white px-4 py-2 rounded-xl border-none focus:ring-0 w-[400px] max-[1200px]:w-full"
 						/>
 						<button type="submit"><Search className='text-blue-50'/></button>
 					</form>
-					<div className="space-x-2 flex items-center">
+					<div className="space-x-2 flex items-center max-[1200px]:ml-2 max-[1200px]:text-[14px]">
 						{/*<button className="bg-[#dc3545] px-[10px] py-[8px] rounded-[5px] text-[14px] flex"> <Trash2 className="mr-[5px]"/> Excluir</button>*/}
 						<button className="bg-gradient-to-r from-blue-800 to-cyan-500 px-[10px] py-[8px] rounded-[5px] text-[14px] flex" onClick={openModalAdd}> <FolderPlus className="mr-[5px]"/> Adicionar novo Equipamento</button>
 					</div>

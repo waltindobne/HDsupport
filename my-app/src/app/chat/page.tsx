@@ -36,7 +36,7 @@ export default function Graficos(){
         <div className="">
             <div className="flex h-[100vh] w-full items-start space-x-16 dark:bg-slate-50 bg-neutral-950 pr-[50px] max-[450px]:space-x-0 max-[450px]:pr-0 max-[700px]:flex-col max-[700px]:items-center">
                <SidebarMenu /> 
-               <SidebarMenuResponse /> 
+               <SidebarMenuResponse />
                 <div className="w-full border-slate-50 mt-[20px] border-2 dark:border-black flex rounded-[20px] h-[93vh]">
                     <Chat/>
                 </div>
