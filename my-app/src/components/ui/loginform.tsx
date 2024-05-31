@@ -1,56 +1,55 @@
-'use client';
-import { useState, useEffect } from "react";
-import axios from 'axios';
-import Link from "next/link";
-import { Input } from "@/components/ui/input";
-import { Button } from "./button";
-
-import { useRouter } from 'next/navigation';
-import Box from '@mui/material/Box';
-
-const LoginForm = () => {
-  const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+import { useState, useEffect } from "react"; 
+import axios from 'axios'; 
+import Link from "next/link"; 
+import { Input } from "@/components/ui/input"; 
+import { Button } from "./button"; 
  
-
-  const handleLogin = async (e: any) => { 
-    e.preventDefault(); 
-    try { 
-      const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Usuario/Login?email=${email}&senha=${senha}`); 
-      
-      // Extrair token do corpo da resposta
-      const token = response.data.token;
+import { useRouter } from 'next/navigation'; 
+import Box from '@mui/material/Box'; 
+ 
+const LoginForm = () => { 
+  const router = useRouter(); 
+  const [email, setEmail] = useState(''); 
+  const [senha, setSenha] = useState(''); 
   
-      // Salvar token no armazenamento local
-      localStorage.setItem('token', token);
-      
-      // Lógica para redirecionar usuário após o login bem-sucedido
-      console.log('Login bem-sucedido:', response.data);
-      router.push('/dashmenu'); // Exemplo de redirecionamento após o login bem-sucedido
-    } catch (error) { 
-      console.error('Erro ao fazer login:', error); 
+ 
+  const handleLogin = async (e: any) => {  
+    e.preventDefault();  
+    try {  
+      const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Usuario/Login?email=${email}&senha=${senha}`);  
+       
+      // Extract token from response body 
+      const token = response.data.token; 
+   
+      // Save token to local storage 
+      localStorage.setItem('token', token); 
+       
+      // Logic to redirect user after successful login 
+      console.log('Login successful:', response.data); 
+      router.push('/dashmenu'); // Example of redirecting after successful login 
+    } catch (error) {  
+      console.error('Error logging in:', error);  
+    }  
+  }; 
+   
+ 
+  const [darkMode, setDarkMode] = useState(false);  
+ 
+  const toggleDarkMode = () => {  
+    const newMode = !darkMode; 
+    setDarkMode(newMode); 
+    localStorage.setItem('darkMode', newMode ? 'enabled' : 'disabled'); 
+  }; 
+ 
+  useEffect(() => { 
+    const storedMode = localStorage.getItem('darkMode'); 
+    if (storedMode === 'enabled'){ 
+      setDarkMode(true); 
     } 
-  };
-  
-
-  const [darkMode, setDarkMode] = useState(false); 
-
-  const toggleDarkMode = () => { 
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    localStorage.setItem('darkMode', newMode ? 'enabled' : 'disabled');
-  };
-
-  useEffect(() => {
-    const storedMode = localStorage.getItem('darkMode');
-    if (storedMode === 'enabled'){
-      setDarkMode(true);
-    }
-  }, []);
-
-  return (
-    <div className={`${darkMode && "dark"}`}>
+  }, []); 
+ 
+  return ( 
+    <div className={`${darkMode && "dark"}`}> 
       <div className="flex flex-col bg-black h-[100vh] justify-center items-center">
         <div className="text-white flex text-center text-3xl font-bold mb-3 dark:text-black">
           Login com o Help Desk
@@ -98,9 +97,9 @@ const LoginForm = () => {
             </span>
           </div>
         </form>
-      </div>
-    </div>
-  );
-}
-
-export default LoginForm;
+      </div> 
+    </div> 
+  ); 
+} 
+ 
+export default LoginForm; 

@@ -30,13 +30,13 @@ export default function Pizza() {
   // Converte os dados recebidos para o formato necessário pelo Chart component
   const chartData = [
     ["Task", "Quantidade"],
-    ["Ocupado", equipamentosData[0]],
-    ["Danificado", equipamentosData[1]],
-    ["Em Reparo", equipamentosData[2]],
-    ["Disponivel", equipamentosData[3]]
+    ["Ocupado", equipamentosData[0] || 1],
+    ["Danificado", equipamentosData[1] || 2],
+    ["Em Reparo", equipamentosData[2] || 3],
+    ["Disponivel", equipamentosData[3] || 4]
   ];
   const options = {
-    title: 'Gráfico de Colunas Empilhado',
+    title: 'Gráfico de Equipamentos por Status',
   };
   const [darkMode, setDarkMode] = useState(false)
   const toggleDarkMode = () => { 
@@ -61,12 +61,13 @@ useEffect(() => {
 
   return (
     <div className={`${darkMode && "dark"}`}>
-      <div className="w-300px h-[430px] dark:border-black bg-white border-2 border-slate-50 rounded-[10px] flex items-center justify-center">
+      <div className="h-[430px] w-[510px] dark:border-black bg-white border-2 border-slate-50 rounded-[10px] flex items-center justify-center max-[1160px]:h-[325px] max-[1050px]:w-[100%]">
         <Chart
           chartType="PieChart"
           data={chartData}
-          width={"500px"}
-          height={"300px"}
+          options={options}
+          width={"99%"}
+          height={"100%"}
         />
     </div>
     </div>

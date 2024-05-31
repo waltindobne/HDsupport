@@ -4,6 +4,9 @@ import Pizza from "@/components/ui/pizza";
 import { useEffect } from "react";
 import { useState } from "react";
 import SidebarMenu from "@/components/ui/sidebarmenu";
+import SidebarMenuResponse from "@/components/ui/sidebarmenuResponse";
+import MenuChat from "@/components/ui/sideMenuChamados";
+import Chat from "@/components/ui/chat";
 
 export default function Graficos(){
     const [darkMode, setDarkMode] = useState(false); 
@@ -27,17 +30,15 @@ export default function Graficos(){
     },
 
     []);
+
+    
     return(
-        <div className={`${darkMode && "dark"}`}>
-            <div className="flex h-[100vh] w-full items-start space-x-16 dark:bg-slate-50 bg-neutral-950">
+        <div className="">
+            <div className="flex h-[100vh] w-full items-start space-x-16 dark:bg-slate-50 bg-neutral-950 pr-[50px] max-[450px]:space-x-0 max-[450px]:pr-0 max-[700px]:flex-col max-[700px]:items-center">
                <SidebarMenu /> 
-                <div className="w-[80%] border-slate-50 mt-[20px] border-2 dark:border-black items-center space-y-2 flex flex-col justify-center rounded-[20px] h-[93vh]">
-                    <div className="relative left-5 w-full items-center flex justify-center">
-                        <Dados />
-                    </div>
-                    <div className="w-[52%] relative ">
-                        <Pizza />
-                    </div>
+               <SidebarMenuResponse /> 
+                <div className="w-full border-slate-50 mt-[20px] border-2 dark:border-black flex rounded-[20px] h-[93vh]">
+                    <Chat/>
                 </div>
             </div>
         </div>

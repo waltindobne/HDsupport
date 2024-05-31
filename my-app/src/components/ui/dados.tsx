@@ -39,7 +39,34 @@ export default function Dados(){
 
   // Verifica se equipamentosData está carregado
   if (equipamentosData.length === 0) {
-    return <div>Carregando dados...</div>;
+    const optionsVazio = {
+      title: 'Gráfico de Colunas Empilhado',
+      isStacked: true,
+    };
+    const chartDataVazio = [
+      ['Status', 'Ocupado', 'Danificado' ,'Em Reparo' ,'Disponivel', { role: 'annotation' }],
+      ['Desktop', 1,1,1,1, ''],
+      ['Notebook', 2,2,2,2, ''],
+      ['Monitor', 3,3,3,3, ''],
+      ['Headset', 5,5,5,5, ''],
+      ['Webcam', 7,7,7,7, ''],
+      ['Teclado', 10,10,10,10, ''],
+      ['Mouse', 14,14,14,14, '']
+    ];
+    return <div className="w-[56%] top-0 right-[25%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] max-[1160px]:relative ">
+        <div className={`${darkMode && "dark"}`}>
+          <div className="w-[93%] px-[10px] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[430px] flex items-center flex-col">
+            <Chart
+              chartType="ColumnChart"
+              data={chartDataVazio}
+              options={optionsVazio}
+              width="100%"
+              height="390px"
+              legendToggle
+            />
+          </div>
+        </div>
+      </div>;
   }
 
   const chartData = [
@@ -57,21 +84,24 @@ export default function Dados(){
     title: 'Gráfico de Colunas Empilhado',
     isStacked: true,
   };
-
-  return( 
-    <div className="w-[56%]">
-      <div className={`${darkMode && "dark"}`}>
-        <div className="w-[93%] px-[10px] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[430px] flex items-center flex-col">
+  
+  return (
+    <div className="w-[56%] top-0 right-[25%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] max-[1160px]:relative">
+    <div className={`${darkMode && "dark"}`}>
+      <div className="w-[93%] px-[10px] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[430px] max-[1160px]:h-[325px] flex items-center flex-col">
+        <div className="w-full h-full">
           <Chart
             chartType="ColumnChart"
             data={chartData}
             options={options}
             width="100%"
-            height="390px"
+            height="100%"
             legendToggle
           />
         </div>
       </div>
     </div>
+  </div>
   );
+  
 }

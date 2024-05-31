@@ -5,10 +5,6 @@ import {PencilLine } from "lucide-react";
 import {FolderPlus} from "lucide-react";
 import { FolderKanban } from 'lucide-react';
 import axios from 'axios';
-<<<<<<< HEAD
-=======
-import Dados from '../ui/dadosFun.json';
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 
 
 const Funcionario = () => {
@@ -16,7 +12,6 @@ const Funcionario = () => {
 	const [funcionarios, setFuncionarios] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
-<<<<<<< HEAD
 	const [itemsPerPage] = useState(7);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredFuncionarios, setFilteredFuncionarios] = useState([]);
@@ -55,51 +50,10 @@ const Funcionario = () => {
 			console.error('Erro ao adicionar Funcionário:', error); 
 		}
 	};
-=======
-	const [itemsPerPage] = useState(6);
-	const [searchTerm, setSearchTerm] = useState('');
-	const [filteredFuncionarios, setFilteredFuncionarios] = useState([]);
-	const [selectedFuncionario, setSelectedFuncionario] = useState(null);
-		localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IndhbHRlckBlbXBsb3llci5jb20uYnIiLCJyb2xlIjoiR2VyZW50ZSIsIm5iZiI6MTcxMjg2NTM5MSwiZXhwIjoxNzEyODk0MTkxLCJpYXQiOjE3MTI4NjUzOTF9.pqmGGWGakn3uV7h-L2G7YncMY2O8h1WZIvm31KXcMlE');
-	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
-
-	const [newFuncionario, setNewFuncionario] = useState({
-        nome: "",
-        email: "",
-        senha: "",
-        telefone: "",
-        cargo: ""
-    });
-    const [editingFuncionario, setEditingFuncionario] = useState({
-	nome: "",
-	email: "",
-	telefone: "",
-	cargo: ""
-  });
-  
-	const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
-	const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
-
-
-	const handleInputChangeAdd = (event) => {
-		const { name, value } = event.target;
-		setNewFuncionario({ ...newFuncionario, [name]: value });
-	  };
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 	const handleInputChangeEdit = (event) => {
 		const { name, value } = event.target;
 		setEditingFuncionario({ ...editingFuncionario, [name]: value });
 	  };
-<<<<<<< HEAD
-=======
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const updatedFuncionarios = [...funcionarios, newFuncionario];
-        setFuncionarios(updatedFuncionarios);
-        closeModalAdd();
-    };
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 	
 	const handleOpenEditModal = (funcionario) => {
 		setEditingFuncionario(funcionario);
@@ -120,11 +74,7 @@ const Funcionario = () => {
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
-<<<<<<< HEAD
 			const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Usuario/Lista-Funcionarios', {
-=======
-			const response = await axios.get('', {
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -139,7 +89,6 @@ const Funcionario = () => {
 		}
 	};
 
-<<<<<<< HEAD
 	const handleDeleteFuncionario = async (id) => {
 		const updatedFuncionarios = funcionarios.filter(funcionario => funcionario.id !== id);
 		setFuncionarios(updatedFuncionarios);
@@ -155,12 +104,6 @@ const Funcionario = () => {
 		} catch (error) { 
 			console.error('Erro ao Deletar Funcionário:', error); 
 		}
-=======
-	const handleDeleteFuncionario = (id) => {
-		const updatedFuncionarios = funcionarios.filter(funcionario => funcionario.id !== id);
-		setFuncionarios(updatedFuncionarios);
-		closeModalComfirmDel();
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 	};
 	
 
@@ -211,7 +154,6 @@ const Funcionario = () => {
 			setIsOpenComfirmDel(false);
 		};
 		useEffect(() => {
-<<<<<<< HEAD
 			if (token) {
 				fetchData(token)
 				.then((data) => {
@@ -226,11 +168,6 @@ const Funcionario = () => {
 				setIsLoading(false);
 			}
 		}, []);
-=======
-			setFuncionarios(Dados); // Inicializando o estado de funcionarios com os dados do arquivo JSON local
-			setIsLoading(false);
-		  }, []);
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 		
 		  // Filtrando os funcionários com base no termo de pesquisa
 		  useEffect(() => {
@@ -255,13 +192,8 @@ const Funcionario = () => {
 
 	return(
 		<div className="flex items-center justify-center  w-full h-full">
-<<<<<<< HEAD
 			<div className="w-[95%] h-[550px] bg-black border-2 border-slate-50 rounded-[5px]">
 				<div className="w-full flex items-center  justify-between p-[20px] px-[40px] bg-black rounded-t-md mb-[10px]">
-=======
-			<div className="w-[95%] h-[500px] bg-neutral-950 border-2 border-slate-50 rounded-[5px]">
-				<div className="w-full flex items-center  justify-between p-[20px] px-[40px] bg-neutral-950 rounded-t-md mb-[10px]">
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 					<div>
 						<h1 className="text-[24px] w-[300px]">Gerenciar <b>Funcionários</b></h1>
 					</div>
@@ -277,18 +209,11 @@ const Funcionario = () => {
 					</form>
 					<div className="space-x-2 flex items-center">
 						{/*<button className="bg-[#dc3545] px-[10px] py-[8px] rounded-[5px] text-[14px] flex"> <Trash2 className="mr-[5px]"/> Excluir</button>*/}
-<<<<<<< HEAD
 						<button className="bg-gradient-to-r from-blue-800 to-cyan-500 px-[10px] py-[8px] rounded-[5px] text-[14px] flex" onClick={openModalAdd}> <FolderPlus className="mr-[5px]"/> Adicionar novo Funcionário</button>
 					</div>
 				</div>
 				<div className='flex flex-col justify-between h-[84%]'>
 					<table className="text-slate-100 bg-neutral-900 w-full">
-=======
-						<button className="bg-gradient-to-r from-blue-800 to-cyan-500 px-[10px] py-[8px] rounded-[5px] text-[14px] flex" onClick={openModalAdd}> <FolderPlus className="mr-[5px]"/> Adicionar novo Equipamento</button>
-					</div>
-				</div>
-				<table className="text-slate-100 bg-neutral-900 w-full">
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 						<thead className="h-[45px]">
 							<tr className="text-blue-500">
 								<th className="w-[20%]" scope="col">Nome</th>
@@ -313,7 +238,6 @@ const Funcionario = () => {
 						))}
 						</tbody>
 					</table>
-<<<<<<< HEAD
 					<div className="flex justify-center pb-[15px]">
 					{[...Array(Math.ceil(filteredFuncionarios.length / itemsPerPage)).keys()].map((number) => (
 					<button key={number} onClick={() => paginate(number + 1)} className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}>{number + 1}</button>
@@ -321,13 +245,6 @@ const Funcionario = () => {
 					</div>
 				</div>
 				
-=======
-					<div className="flex justify-center mt-4">
-					{[...Array(Math.ceil(filteredFuncionarios.length / itemsPerPage)).keys()].map((number) => (
-					<button key={number} onClick={() => paginate(number + 1)} className="mx-1 px-3 py-1 bg-gray-800 text-white rounded-[8px]">{number + 1}</button>
-					))}
-					</div>
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 			</div>
 			<div>
 				{isOpenAdd && (
@@ -337,20 +254,11 @@ const Funcionario = () => {
 								<h1 className='text-white text-[20px]'>Cadastro de Funcionário</h1>
 								<button onClick={closeModalAdd} className=" bg-red-500 hover:bg-red-600 text-white py-0 px-3 rounded-[8px] float-right">x</button>
 							</div>
-<<<<<<< HEAD
 							<form onSubmit={handleSubmitAdd} className='text-white'>
 								<div className="mb-4 mt-4">
 									<input
 									type="text"
 									value={nome} onChange={(e) => setNome(e.target.value)}
-=======
-							<form onSubmit={handleSubmit} className='text-white'>
-								<div className="mb-4 mt-4">
-									<input
-									type="text"
-									value={newFuncionario.nome}
-									onChange={handleInputChangeAdd}
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 									name="nome"
 									placeholder='Digite o Nome'
 									className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
@@ -359,12 +267,7 @@ const Funcionario = () => {
 								<div className="mb-4 mt-4">
 									<input
 									type="text"
-<<<<<<< HEAD
 									value={email} onChange={(e) => setEmail(e.target.value)}
-=======
-									value={newFuncionario.email}
-									onChange={handleInputChangeAdd}
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 									name="email"
 									placeholder='Digite o Email'
 									className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
@@ -373,34 +276,18 @@ const Funcionario = () => {
 								<div className="mb-4 mt-4">
 									<input
 									type="text"
-<<<<<<< HEAD
 									value={telefone} onChange={(e) => setTelefone(e.target.value)}
-=======
-									value={newFuncionario.telefone}
-									onChange={handleInputChangeAdd}
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 									name="telefone"
 									placeholder='Digite o Telefone'
 									className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
 									/>
 								</div>
 								<div className="mb-4 mt-4">
-<<<<<<< HEAD
 									<select className='bg-neutral-700 w-full' value={cargo} onChange={(e) => setCargo(e.target.value)} required>
 										<option value="RH">RH</option>
 										<option value="funcionario">Funcionario</option>
 										<option value="HelpDesk">HelpDesk</option>
 									</select>
-=======
-									<input
-									type="text"
-									value={newFuncionario.cargo}
-									onChange={handleInputChangeAdd}
-									name="cargo"
-									placeholder='Digite o Cargo'
-									className="form-input mt-1 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
-									/>
->>>>>>> 0e6aebe6ad8896d35bc0793fd6ae949c6a77881f
 								</div>
 								<div className='flex justify-center'>
 									<button type="submit" className="bg-gradient-to-r from-blue-800 to-cyan-500 text-white py-2 px-4 rounded-[8px] w-full mt-2">Enviar</button>
