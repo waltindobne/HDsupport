@@ -105,7 +105,7 @@ const SidebarMenu: React.FC = () => {
 
     return(
         <div className="max-[700px]:hidden">
-            <div className="h-[670px] ml-2 mt-[20px] w-[180px] dark:border-black bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50 max-[900px]:mt-[20px]">
+            <div className="h-[92vh] ml-2 mt-[20px] w-[200px] dark:border-black bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50 max-[900px]:mt-[20px]">
             <header className="flex items-center dark:border-black border-slate-50 justify-center border-b-2 p-[20px]">
                 <h1 className="font-bold text-slate-50 dark:text-black flex relative left-2 text-2xl">
                     Help Desk
@@ -116,21 +116,23 @@ const SidebarMenu: React.FC = () => {
                     </svg>
                 </h1>
             </header>
-            <div className="mt-5 dark:text-black">
-                 <div className="h-[500px] dark:text-black space-y-6 flex flex-col items-center">
-                    {option.map((item) => (
-                        <Optionside  key={item.title} title={item.title} svg={item.svg} path={item.path} />
-                    ))}
-                </div>
-            </div>
-            <div className="flex justify-between  w-full relative top-4">
-                <Button onClick={handleProfile} className="w-[90px] border-none shadow-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round text-white dark:text-black"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>
-                </Button>
-                <Button onClick={handleLogout}  className="w-[90px] shadow-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className=" text-red-800 lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                </Button>
-            </div>           
+            <div className="w-full h-[80vh] flex flex-col justify-between mb-12">
+                    <div className=" dark:text-black flex flex-col ">
+                        <div className="w-[200px] dark:text-black space-y-6 flex flex-col items-center ">
+                        {option.map((item) => (
+                            <Optionside  key={item.title} title={item.title} svg={item.svg} path={item.path} />
+                        ))}
+                        </div>
+                    </div>
+                    <div className="flex justify-between w-full">
+                        <Button onClick={handleProfile} className="w-[90px] border-none shadow-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-circle-user-round text-white dark:text-black"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>
+                        </Button>
+                        <Button onClick={handleLogout}  className="w-[90px] shadow-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className=" text-red-800 lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                        </Button>
+                    </div>
+            </div>             
         </div>
         </div>
     );
