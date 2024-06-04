@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { CircleCheck, CircleGauge, Moon, Rocket, ShieldCheck, Sun } from "lucide-react";
 import '@/components/ui/grafico.css'

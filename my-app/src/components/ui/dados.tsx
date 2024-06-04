@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import axios from "axios";

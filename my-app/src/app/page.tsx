@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import Header from "@/components/ui/header";
 import Content from "@/app/Home/page";
 import TextContent from "@/components/ui/textcontent";

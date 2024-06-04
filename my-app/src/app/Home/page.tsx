@@ -1,3 +1,4 @@
+"use client"
 import Grafico from "../../components/ui/grafico"; 
 import { useEffect, useState } from "react"; 
 import { CircleGauge, Moon, Rocket, ShieldCheck, Sun } from "lucide-react"; 
