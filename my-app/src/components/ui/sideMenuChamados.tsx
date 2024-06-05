@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import {MessageCircleMore, Gauge, Table, BarChart4, Search, Settings, SendHorizontal , EllipsisVertical } from "lucide-react";
 
-const sideMenuChamados = () => {
+const SideMenuChamados = () => {
 	const router = useRouter();
     const redirectTo = (path: string) => () => {
         router.push(path);
@@ -46,4 +46,4 @@ const sideMenuChamados = () => {
 	);
 }
 
-export default sideMenuChamados;
+export default SideMenuChamados;

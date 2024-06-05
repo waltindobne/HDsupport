@@ -5,7 +5,7 @@ import {MessageCircleMore, Gauge, Table, BarChart4, Search, Settings, SendHorizo
 import axios from "axios";
 
 
-const mensagens = () =>{
+const Mensagens = () =>{
 
 	const [mensagems , setMensagems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -128,4 +128,4 @@ const mensagens = () =>{
 	);
 }
 
-export default mensagens;
+export default Mensagens;

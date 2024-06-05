@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-const cardAdd = () => {
+const CardAdd = () => {
 
 	const [equipamentos, setEquipamentos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -68,4 +68,4 @@ const cardAdd = () => {
 	);
 }
 
-export default cardAdd;
+export default CardAdd;

@@ -6,7 +6,7 @@ import axios from "axios";
 import MensagensChat from "@/components/ui/MensagensChat";
 import mensagens from "@/components/ui/MensagensChat";
 
-const chat = () => {
+const Chat = () => {
 	const [chamadosAbertos , setChamadosAbertos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [searchTerm, setSearchTerm] = useState('');
@@ -174,4 +174,4 @@ const chat = () => {
 			</div>
 	);
 }
-export default chat;
+export default Chat;
