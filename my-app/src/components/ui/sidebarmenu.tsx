@@ -105,7 +105,7 @@ const SidebarMenu: React.FC = () => {
 
     return(
         <div className="max-[700px]:hidden">
-            <div className="h-[92vh] ml-2 mt-[20px] w-[200px] dark:border-black bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50 max-[900px]:mt-[20px]">
+            <div className="h-[95vh] ml-2 mt-[20px] w-[200px] dark:border-black bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50 max-[900px]:mt-[20px]">
             <header className="flex items-center dark:border-black border-slate-50 justify-center border-b-2 p-[20px]">
                 <h1 className="font-bold text-slate-50 dark:text-black flex relative left-2 text-2xl">
                     Help Desk

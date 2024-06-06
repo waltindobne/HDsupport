@@ -79,11 +79,11 @@ useEffect(() => {
 
   return (
     <div className="">
-      <div className="bg-neutral-950 dark:bg-white min-h-screen h-[100vh] flex max-[700px]:flex-col items-start justify-around overflow-hidden">
+      <div className="bg-neutral-950 dark:bg-white min-h-screen h-[100vh] flex max-[700px]:flex-col items-start justify-around overflow-hidden max-[750px]:overflow-visible">
       <SidebarMenu/>      
       <SidebarMenuResponse/>      
-      <div className="w-full mt-[77px] relative bottom-[37px] space-y-12 flex flex-col items-center justify-center max-[1160px]:flex-row max-[1160px]:items-start max-[1160px]:space-y-0 max-[600px]:flex-col">
-        <div className="flex space-x-3 max-[1160px]:flex-col max-[1160px]:space-x-0 max-[1160px]:space-y-3 max-[1160px]:ml-[30px] max-[600px]:mb-3  max-[600px]:mx-auto max-[600px]:flex-row max-[600px]:space-y-0 max-[600px]:space-x-1 max-[450px]:flex-col max-[450px]:space-x-0 items-center justify-center max-[600px]:w-full">
+      <div className="w-full mt-[77px] relative bottom-[37px] space-y-12 flex flex-col items-center justify-center max-[1160px]:flex-col max-[1160px]:items-start max-[1160px]:space-y-0 max-[600px]:flex-col max-[1000px]:mt-[60px]">
+        <div className="flex space-x-3 max-[1160px]:space-x-0 max-[1160px]:ml-[30px] max-[600px]:mb-3  max-[600px]:mx-auto max-[600px]:flex-row max-[600px]:space-y-0 max-[600px]:space-x-1 max-[450px]:flex-col max-[450px]:space-x-0 items-center justify-center max-[600px]:w-full mr-7 ">
           {data.map((item) => (
             <CardChamados key={item.title} title={item.title} dados={item.dados} />
           ))}

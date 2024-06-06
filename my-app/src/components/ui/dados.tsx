@@ -54,15 +54,15 @@ export default function Dados(){
       ['Teclado', 10,10,10,10, ''],
       ['Mouse', 14,14,14,14, '']
     ];
-    return <div className="w-[56%] top-0 right-[25%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] max-[1160px]:relative ">
+    return <div className="w-[100%] top-0 max-[1160px]:w-[100%] max-[1160px]:mt-[15px] max-[1160px]:relative max-[400]:w-[100%]">
         <div className={`${darkMode && "dark"}`}>
-          <div className="w-[93%] px-[10px] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[430px] flex items-center flex-col">
+          <div className="w-[100%] px-[10px] dark:border-black bg-white border-2 border-slate-50 h-[430px] flex items-center flex-col">
             <Chart
               chartType="ColumnChart"
               data={chartDataVazio}
               options={optionsVazio}
               width="100%"
-              height="390px"
+              height="100%"
               legendToggle
             />
           </div>
@@ -87,9 +87,9 @@ export default function Dados(){
   };
   
   return (
-    <div className="w-[56%] top-0 right-[25%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] max-[1160px]:relative">
+    <div className="w-[100%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px]">
     <div className={`${darkMode && "dark"}`}>
-      <div className="w-[93%] px-[10px] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[430px] max-[1160px]:h-[325px] flex items-center flex-col">
+      <div className="w-[100%] px-[10px] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[430px] max-[1160px]:h-[325px] flex items-center flex-col">
         <div className="w-full h-full">
           <Chart
             chartType="ColumnChart"
