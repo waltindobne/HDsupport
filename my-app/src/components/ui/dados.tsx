@@ -54,9 +54,9 @@ export default function Dados(){
       ['Teclado', 10,10,10,10, ''],
       ['Mouse', 14,14,14,14, '']
     ];
-    return <div className="w-[56%] top-0 right-[25%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] max-[1160px]:relative ">
+    return <div className="w-[56%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] ">
         <div className={`${darkMode && "dark"}`}>
-          <div className="w-[93%] px-[10px] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[430px] flex items-center flex-col">
+          <div className="w-[93%] px-[10px] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[430px] flex items-center flex-col max-[450px]:w-full">
             <Chart
               chartType="ColumnChart"
               data={chartDataVazio}

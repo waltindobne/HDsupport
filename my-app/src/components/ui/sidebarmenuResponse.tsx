@@ -127,7 +127,7 @@ const SidebarMenu: React.FC = () => {
             </header>
         </div>
         {isOpenMenu && (
-                <div className="relative top-3 left-3 border p-[20px] w-[240px] h-[80vh] flex flex-col justify-between mb-12">
+                <div className="mt-5 mx-auto border p-[20px] w-[95%] h-[80vh] flex flex-col justify-between mb-12">
                     <div className=" dark:text-black flex flex-col ">
                         <button onClick={() => closeMenu()} className="text-white text-[24px] flex justify-end"><X/></button>
                         <div className="w-[200px] dark:text-black space-y-6 flex flex-col items-center ">
