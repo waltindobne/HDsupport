@@ -60,16 +60,18 @@ useEffect(() => {
 []);
 
   return (
-    <div className={`${darkMode && "dark"}`}>
-      <div className="h-[430px] w-[510px] max-[450px]:w-full mt-4 dark:border-black bg-white border-2 border-slate-50 rounded-[10px] flex items-center justify-center max-[1160px]:h-[325px] max-[1050px]:w-[100%]">
-        <Chart
-          chartType="PieChart"
-          data={chartData}
-          options={options}
-          width={"99%"}
-          height={"100%"}
-        />
-    </div>
+    <div className="w-[50%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] mr-[10px] ml-[15px] max-[450px]:ml-0 max-[450px]:mr-0">
+      <div className="flex justify-start max-[820px]:w-[100%] max-[820px]:justify-center">
+        <div className="h-[430px] w-[90%] max-[450px]:w-full dark:border-black bg-white border-2 border-slate-50 rounded-[10px] flex items-center justify-center max-[1160px]:h-[325px] max-[820px]:w-[100%] max-[450px]:rounded-0">
+          <Chart
+            chartType="PieChart"
+            data={chartData}
+            options={options}
+            width={"100%"}
+            height={"100%"}
+          />
+      </div>
+      </div>
     </div>
     
   );
