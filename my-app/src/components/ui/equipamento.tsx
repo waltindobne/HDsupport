@@ -32,7 +32,7 @@ const Equipamento = () => {
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
-			const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Equipamentos/Lista-Equipamentos', {
+			const response = await axios.get('https://localhost:7299/api/Equipamentos/Lista-Equipamentos', {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

@@ -33,10 +33,10 @@ export default function Tabelas(){
         "Emprestimos"
     ]
     return(
-        <div className="flex h-[100vh] space-x-2 items-start bg-neutral-950 max-[700px]:flex-col max-[700px]:items-center">
+        <div className="flex h-[100vh] space-x-2 items-start bg-neutral-950 max-[820px]:flex-col max-[820px]:items-center">
             <SidebarMenu/>
             <SidebarMenuResponse/>
-            <div className="space-y-5 items-center text-white justify-center space-x-3 w-[85%] flex-col mt-10 max-[700px]:space-x-0 max-[700px]:">
+            <div className="space-y-5 items-center text-white justify-center space-x-3 w-[85%] flex-col mt-10 max-[820px]:space-x-0 max-[700px]:">
                 <div className="pagination flex justify-center items-center">
                     {[...Array(totalPages)].map((_, index) => (
                         <button

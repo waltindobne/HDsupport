@@ -20,7 +20,7 @@ const Chat = () => {
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
-			const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Conversa/Listar-Chamados?tipo=1&aceito=false', {
+			const response = await axios.get('https://localhost:7299/api/Conversa/Listar-Chamados?tipo=1&aceito=false', {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

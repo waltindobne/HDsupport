@@ -11,7 +11,7 @@ const Profile = () => {
     const token = localStorage.getItem('token');
     const fetchData = async (token: string | null) => {
         try {
-            const response = await axios.get(`https://hd-support-api.azurewebsites.net/api/Usuario/BuscarPorTokenJWT/${token}`,
+            const response = await axios.get(`https://localhost:7299/api/Usuario/BuscarPorTokenJWT/${token}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

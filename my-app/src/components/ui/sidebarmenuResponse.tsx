@@ -85,7 +85,7 @@ const SidebarMenu: React.FC = () => {
       const handleProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`https://hd-support-api.azurewebsites.net/api/Usuario/BuscarPorTokenJWT/${token}`,
+            const response = await axios.get(`https://localhost:7299/api/Usuario/BuscarPorTokenJWT/${token}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -112,7 +112,7 @@ const SidebarMenu: React.FC = () => {
 	};
 
     return(
-        <div className="max-[700px]:flex hidden w-full flex-col">
+        <div className="max-[820px]:flex hidden w-full flex-col">
             <div className="mt-[5px] w-[100%] dark:border-black bg-black dark:bg-white dark:text-black border-2 rounded-[14px] border-slate-50">
             <header className="flex items-center dark:border-black border-slate-50 w-full justify-between p-[20px]">
                 <h1 className="font-bold text-slate-50 dark:text-black flex relative left-2 text-2xl">

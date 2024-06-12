@@ -17,7 +17,7 @@ const LoginForm = () => {
   const handleLogin = async (e: any) => {  
     e.preventDefault();  
     try {  
-      const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Usuario/Login?email=${email}&senha=${senha}`);  
+      const response = await axios.post(`https://localhost:7299/api/Usuario/Login?email=${email}&senha=${senha}`);  
        
       // Extract token from response body 
       const token = response.data.token; 
