@@ -32,7 +32,10 @@ const LoginForm = () => {
       console.error('Error logging in:', error);  
     }  
   }; 
-   
+  
+  const esqueceuSenha = () => {
+    router.push('/confirmaremail')
+  }
  
   const [darkMode, setDarkMode] = useState(false);  
  
@@ -82,10 +85,11 @@ const LoginForm = () => {
               
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-lock-keyhole relative  right-5"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
           </div>
+          <button onClick={esqueceuSenha} className="text-blue-400 mt-3 hover:underline">Esqueceu a Senha?</button>
 
          
 
-          <Button type="submit" className="dark:bg-gradient-to-r  max-sm:w-[380px] dark:from-black dark:to-black bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded text-lg w-[500px] h-[50px] mt-10 transition-all ease-in-out duration-1000 hover:from-blue-500 hover:via-sky-400 hover:to-cyan-500 ">
+          <Button type="submit" className="dark:bg-gradient-to-r  max-sm:w-[380px] dark:from-black dark:to-black bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded text-lg w-[500px] h-[50px] mt-6 transition-all ease-in-out duration-1000 hover:from-blue-500 hover:via-sky-400 hover:to-cyan-500 ">
             Login
           </Button>
   
