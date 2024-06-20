@@ -78,7 +78,7 @@ export default function LoginForm() {
 
     try {
       const response = await axios.post(
-        "https://hd-api.azurewebsites.net/api/Usuario/Registro",
+        "https://localhost:7299/api/Usuario/Registro",
         {
           nome,
           email,
@@ -161,7 +161,6 @@ export default function LoginForm() {
 
       <div className="min-h-full w-full flex justify-center items-center">
         <Modal
-          open={openErro}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
@@ -392,6 +391,7 @@ export default function LoginForm() {
 
             <div className="w-full flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-300 xl:w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
               <Input
+              type="password"
                 value={senha}
                 onChange={handlePasswordChange}
                 placeholder="Informe sua senha"

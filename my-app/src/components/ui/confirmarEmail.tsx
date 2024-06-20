@@ -10,14 +10,15 @@ import Box from '@mui/material/Box';
  
 const ConfirmarEmail = () => { 
   const router = useRouter(); 
-  const [novaSenha, setNovaSenha] = useState(''); 
-  const [confirmarSenha, setConfirmarSenha] = useState(''); 
+  const [confirmarEmail, setConfirmarEmail] = useState(''); 
   
  
   const handleLogin = async (e: any) => {  
     e.preventDefault();  
     try {  
-      const response = await axios.post(`https://localhost:7299/api/Usuario/Login?email=${email}&senha=${senha}`);  
+      const response = await axios.post(`https://localhost:7299/api/Usuario/Recuperacao-Senha?email=${confirmarEmail}`
+        ,{}
+      );  
        
       // Extract token from response body 
       const token = response.data.token; 
@@ -26,10 +27,12 @@ const ConfirmarEmail = () => {
       localStorage.setItem('token', token); 
        
       // Logic to redirect user after successful login 
-      console.log('Login successful:', response.data); 
+      console.log('Email Enviado com sucesso', response.data); 
+      window.alert('Email enviado com sucesso')
       router.push('/dashmenu'); // Example of redirecting after successful login 
     } catch (error) {  
-      console.error('Error logging in:', error);  
+      console.error('Falha ao enviar email de recuperação', error);
+      window.alert('Erro ao enviar o email recuperação')
     }  
   }; 
   
@@ -63,8 +66,8 @@ const ConfirmarEmail = () => {
           <div className="flex items-center max-sm:w-[380px] justify-center text-neutral-300 dark:bg-slate-300 dark:text-black w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
             <Input 
               type="email"
-              value={novaSenha}
-              onChange={(e) => setNovaSenha(e.target.value)}
+              value={confirmarEmail}
+              onChange={(e) => setConfirmarEmail(e.target.value)}
               placeholder="Informe seu email" 
               className="border-none h-60px" 
               required

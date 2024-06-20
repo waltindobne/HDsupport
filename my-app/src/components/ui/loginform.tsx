@@ -75,7 +75,7 @@ const LoginForm = () => {
          
           <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-300 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
             <Input
-
+              type="password"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               placeholder="Informe sua senha" 
@@ -85,7 +85,7 @@ const LoginForm = () => {
               
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-lock-keyhole relative  right-5"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
           </div>
-          <button onClick={esqueceuSenha} className="text-blue-400 mt-3 hover:underline">Esqueceu a Senha?</button>
+          <a onClick={esqueceuSenha} className="text-blue-400 mt-3 hover:underline">Esqueceu a Senha?</a>
 
          
 

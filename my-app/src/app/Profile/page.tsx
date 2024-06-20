@@ -25,7 +25,10 @@ const Profile = () => {
         }
     };
     const redirectRedf = () => {
-        router.push('/recuperacao')
+        router.push('/')
+    }
+    const editarDados = () => {
+        router.push('/editardados');
     }
     useEffect(() => {
 		if (token) {
@@ -65,7 +68,12 @@ const Profile = () => {
                     <div className="bg-black mt-[40px] w-full border-white text-white">
                         <div className="border-2 rounded-[15px] w-[600px] mx-auto h-[450px] flex">
                             <div className="w-[60%] mr-[10px] py-[40px] pl-[40px]">
-                                <h1 className="text-[25px]">Ficha de Usuário</h1>
+                                <h1 className="text-[25px] flex">Ficha de Usuário 
+                                    <button onClick={editarDados} className="text-green-400 underline text-[14px] ml-7 flex justify-center items-center">
+                                        Editar
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pen-line ml-1"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg>
+                                    </button>
+                                </h1>
                                 <table className="flex flex-col mt-[40px] text-left h-[100%]">
                                     <tbody className="flex flex-col justify-between">
                                         <tr className="pb-[20px]">
