@@ -7,8 +7,8 @@ const SideMenuChamados = () => {
 	const router = useRouter();
     const redirectTo = (path: string) => () => {
         router.push(path);
-    }
-    const option: Option[] = [/*
+    }/*
+    const option: Option[] = [
         {
             title: 'Painel',
             svg: IconDash,
@@ -28,9 +28,9 @@ const SideMenuChamados = () => {
             title: 'Chamados',
             svg: IconChat,
             path: '/chat',
-        },*/
+        },
     ]
-
+*/
 	return (
 		<div className="border-r-2 border-neutral-400 w-[50px] h-[100%] py-3 flex flex-col text-blue-500 text-9xl">
 			<ul className="h-full flex flex-col items-center">

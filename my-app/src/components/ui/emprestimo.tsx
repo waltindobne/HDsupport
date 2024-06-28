@@ -8,13 +8,16 @@ import axios from 'axios';
 
 const Emprestimo = () => {
 
+	{/* const [emprestimos, setEmprestimos] = useState<{ id: number, usuario: { nome: string, email: string }, equipamentos: { idPatrimonio: number, statusEquipamento: number, dtEmeprestimoInicio: string } }[]>([]); */}
 	const [emprestimos, setEmprestimos] = useState([]);
+	const [newEmprestimos, setNewEmprestimos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage] = useState(7);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredEmprestimos, setFilteredEmprestimos] = useState([]);
 	const [selectedEmprestimo, setSelectedEmprestimo] = useState(null);
+	const [editingEmprestimo, setEditingEmprestimo] = useState(null);	
 	
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
 
@@ -25,8 +28,8 @@ const Emprestimo = () => {
 
 	const [usuarioId, setUsuarioId] = useState('');
 	const [equipamentosId, setEquipamentosId] = useState(0);
-
 	
+
 
 	const handleSubmitAdd = async (event) => {
         event.preventDefault();
@@ -52,7 +55,7 @@ const Emprestimo = () => {
 
 	  const handleSubmit = (event) => {
         event.preventDefault();
-        const updatedEmprestimos = [...emprestimos, newEmprestimo];
+        const updatedEmprestimos = [...emprestimos, newEmprestimos];
         setEmprestimos(updatedEmprestimos);
         closeModalAdd();
     };

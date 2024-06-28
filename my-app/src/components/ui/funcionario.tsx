@@ -16,6 +16,7 @@ const Funcionario = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredFuncionarios, setFilteredFuncionarios] = useState([]);
 	const [selectedFuncionario, setSelectedFuncionario] = useState(null);
+	const [editingFuncionario, setEditingFuncionario] = useState([]);
 	const [nome, setNome] = useState('');
 	const [email, setEmail] = useState('');
 	const [senha, setSenha] = useState('');

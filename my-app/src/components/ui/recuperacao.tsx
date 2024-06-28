@@ -14,10 +14,10 @@ const FormRecuperacao = () => {
   const [confirmarSenha, setConfirmarSenha] = useState(''); 
   
  
-  const handleLogin = async (e: any) => {  
+  const handleRecuperacao = async (e: any) => {  
     e.preventDefault();  
     try {  
-      const response = await axios.post(`https://localhost:7299/api/Usuario/Login?email=${email}&senha=${senha}`);  
+      const response = await axios.post(`https://localhost:7299/api/Usuario/`);  
        
       // Extract token from response body 
       const token = response.data.token; 
@@ -59,7 +59,7 @@ const FormRecuperacao = () => {
           Recuperação de Senha
         </div>
 
-        <form className="flex flex-col items-center" onSubmit={handleLogin}>
+        <form className="flex flex-col items-center" onSubmit={handleRecuperacao}>
           <div className="flex items-center max-sm:w-[380px] justify-center text-neutral-300 dark:bg-slate-300 dark:text-black w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
             <Input 
               type="password"
