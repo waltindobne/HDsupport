@@ -1,30 +1,36 @@
 "use client";
-
 import { useState, useEffect } from "react"; 
 import axios from 'axios'; 
 import Link from "next/link"; 
 import { Input } from "@/components/ui/input"; 
 import { Button } from "./button"; 
-
 import { useRouter } from 'next/navigation'; 
 import Box from '@mui/material/Box'; 
 
+interface User {
+  id: number;
+  nome: string;
+  email: string;
+  cargo: string;
+}
+
 const EditarDados = () => { 
-  const router = useRouter(); 
+  const router = useRouter();
   const [newNome, setNewNome] = useState(''); 
   const [newTelefone, setNewTelefone] = useState('');
-  const [base64, setBase64] = useState('');
-
+  const [base64, setBase64] = useState<string | undefined>(undefined);
   const token = localStorage.getItem('token');
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<User | null>(null);
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       const base64String = await convertToBase64(file);
-      setBase64(base64String);
+      setBase64(base64String as string); // garantir que base64String seja tratado como string
     }
   };
+  
+  
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -65,29 +71,32 @@ const EditarDados = () => {
     }
   }, [token]);
 
-  const fetchDataEdit = async (e) => {
+  const fetchDataEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let base64Imagem = base64.split(',')[1];
-    console.log(base64Imagem);
-    try {
-        const responseEdit = await axios.put(`https://localhost:7299/api/Usuario/Editar-Usuario/${userData.id}`,
-        {
+    if (userData) {
+      let base64Imagem = base64?.split(',')[1];
+      console.log(base64Imagem);
+      try {
+        const responseEdit = await axios.put(`https://localhost:7299/api/Usuario/Editar-Usuario/${userData.id}`, {
           nome: newNome,
           telefone: newTelefone,
           imagem: base64Imagem
-        },
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
         });
         console.log(userData.id);
         // Opção para redirecionar ou dar feedback ao usuário
         router.push('/alguma-pagina'); // Ajuste conforme necessário
-    } catch(erro) {
+      } catch (erro) {
         console.log('Erro ao tentar editar o usuário', erro);
+      }
+    } else {
+      console.log('Dados do usuário não estão disponíveis.');
     }
   };
+  
  
   return ( 
     <div className=""> 
