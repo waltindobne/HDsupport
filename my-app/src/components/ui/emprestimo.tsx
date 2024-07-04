@@ -37,6 +37,8 @@ interface Usuario {
   }
   
   interface Emprestimo {
+	id_equipamento: string | number | readonly string[] | undefined;
+	email_funcionario: string | number | readonly string[] | undefined;
 	id: number;
 	usuario: Usuario;
 	equipamentos: Equipamento;
@@ -88,10 +90,11 @@ interface Usuario {
 
 	  const handleSubmit = (event) => {
 		event.preventDefault();
-		const updatedEmprestimos = [...emprestimos, ...newEmprestimos]; // Concatenando arrays
+		const updatedEmprestimos = [...emprestimos, ...newEmprestimos];
 		setEmprestimos(updatedEmprestimos);
 		closeModalAdd();
-	};
+	  };
+	  
 	
 	const handleOpenEditModal = (emprestimo) => {
 		setEditingEmprestimo(emprestimo);
@@ -291,10 +294,17 @@ interface Usuario {
 					</tbody>
 				</table>
 				<div className="flex justify-center pb-[15px]">
-					{[...Array(Math.ceil(filteredEmprestimos.length / itemsPerPage)).keys()].map((number) => (
-					<button key={number} onClick={() => paginate(number + 1)} className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}>{number + 1}</button>
-					))}
+				{Array.from(Array(Math.ceil(filteredEmprestimos.length / itemsPerPage)).keys()).map((number) => (
+					<button
+					key={number}
+					onClick={() => paginate(number + 1)}
+					className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}
+					>
+					{number + 1}
+					</button>
+				))}
 				</div>
+
 				</div>
 				
 			</div>
