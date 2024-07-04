@@ -12,12 +12,11 @@ interface Equipamento {
   modelo: string;
   tipo: string;
   detalhes: string;
-  statusEquipamento: statusEquipamentos;
+  statusEquipamento: statusEquipamento;
   dtEmeprestimoInicio: string; // Corrected typo here: dtEmeprestimoInicio
   dtEmeprestimoFinal: string; // Corrected typo here: dtEmeprestimoFinal
 }
-
-enum statusEquipamentos {
+enum statusEquipamento {
   Disponivel = 1,
   Emprestado = 2,
   Danificado = 3,
@@ -36,7 +35,7 @@ const Equipamento = () => {
 	const [modelo, setModelo] = useState('');
 	const [tipo, setTipo] = useState('Desktop');
 	const [detalhes, setDetalhes] = useState('');
-	const [statusEquipamento, setStatusEquipamento] = useState<statusEquipamentos>(statusEquipamento.disponivel);
+	const [statusEquipamento, setStatusEquipamento] = useState<statusEquipamento>(1);
 	const [updatedEquipamentos, setUpdatedEquipamentos] = useState<Equipamento | null>(null); // Added explicit type for updatedEquipamentos
 
   	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
