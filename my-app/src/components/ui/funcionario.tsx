@@ -6,17 +6,23 @@ import {FolderPlus} from "lucide-react";
 import { FolderKanban } from 'lucide-react';
 import axios from 'axios';
 
+type Funcionario = {
+	id: number;
+	nome: string;
+	email: string;
+	telefone: string;
+	cargo: string;
+};
 
 const Funcionario = () => {
-
-	const [funcionarios, setFuncionarios] = useState([]);
+	const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage] = useState(7);
 	const [searchTerm, setSearchTerm] = useState('');
-	const [filteredFuncionarios, setFilteredFuncionarios] = useState([]);
-	const [selectedFuncionario, setSelectedFuncionario] = useState(null);
-	const [editingFuncionario, setEditingFuncionario] = useState([]);
+	const [filteredFuncionarios, setFilteredFuncionarios] = useState<Funcionario[]>([]);
+	const [selectedFuncionario, setSelectedFuncionario] = useState<Funcionario | null>(null);
+	const [editingFuncionario, setEditingFuncionario] = useState<Funcionario | null>(null);
 	const [nome, setNome] = useState('');
 	const [email, setEmail] = useState('');
 	const [senha, setSenha] = useState('');
@@ -51,10 +57,13 @@ const Funcionario = () => {
 			console.error('Erro ao adicionar Funcionário:', error); 
 		}
 	};
-	const handleInputChangeEdit = (event) => {
-		const { name, value } = event.target;
-		setEditingFuncionario({ ...editingFuncionario, [name]: value });
-	  };
+	const handleInputChangeEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setEditingFuncionario(prev => ({
+            ...prev!,
+            [name]: value
+        }));
+    };
 	
 	const handleOpenEditModal = (funcionario) => {
 		setEditingFuncionario(funcionario);
@@ -240,8 +249,14 @@ const Funcionario = () => {
 						</tbody>
 					</table>
 					<div className="flex justify-center pb-[15px]">
-					{[...Array(Math.ceil(filteredFuncionarios.length / itemsPerPage)).keys()].map((number) => (
-					<button key={number} onClick={() => paginate(number + 1)} className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}>{number + 1}</button>
+					{Array.from(Array(Math.ceil(filteredFuncionarios.length / itemsPerPage)).keys()).map((number) => (
+						<button
+						key={number}
+						onClick={() => paginate(number + 1)}
+						className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}
+						>
+						{number + 1}
+						</button>
 					))}
 					</div>
 				</div>
