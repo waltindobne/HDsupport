@@ -6,28 +6,59 @@ import {FolderPlus} from "lucide-react";
 import { FolderKanban } from 'lucide-react';
 import axios from 'axios';
 
-const Emprestimo = () => {
-
-	{/* const [emprestimos, setEmprestimos] = useState<{ id: number, usuario: { nome: string, email: string }, equipamentos: { idPatrimonio: number, statusEquipamento: number, dtEmeprestimoInicio: string } }[]>([]); */}
-	const [emprestimos, setEmprestimos] = useState([]);
-	const [newEmprestimos, setNewEmprestimos] = useState([]);
+interface Usuario {
+	id: string;
+	nome: string;
+	email: string;
+	senha: string;
+	telefone: string;
+	cargo: string;
+	imagem: string;
+	status: number;
+	statusConversa: number;
+	tokenRedefinicaoSenha: string;
+	dataHoraGeracaoToken: string;
+  }
+  enum statusEquipamento{
+	Diponivel = 1,
+	Emprestado = 2,
+	Danificado = 3,
+	EmConcerto = 4
+  }
+  interface Equipamento {
+	id: number;
+	idPatrimonio: string;
+	modelo: string;
+	tipo: string;
+	detalhes: string;
+	statusEquipamento: statusEquipamento;
+	dtEmeprestimoInicio: string;
+	dtEmeprestimoFinal: string;
+  }
+  
+  interface Emprestimo {
+	id: number;
+	usuario: Usuario;
+	equipamentos: Equipamento;
+  }
+  
+  const Emprestimo = () => {
+	const [emprestimos, setEmprestimos] = useState<Emprestimo[]>([]);
+	const [newEmprestimos, setNewEmprestimos] = useState<Emprestimo[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage] = useState(7);
 	const [searchTerm, setSearchTerm] = useState('');
-	const [filteredEmprestimos, setFilteredEmprestimos] = useState([]);
-	const [selectedEmprestimo, setSelectedEmprestimo] = useState(null);
-	const [editingEmprestimo, setEditingEmprestimo] = useState(null);	
+	const [filteredEmprestimos, setFilteredEmprestimos] = useState<Emprestimo[]>([]);
+	const [selectedEmprestimo, setSelectedEmprestimo] = useState<Emprestimo | null>(null);
+	const [editingEmprestimo, setEditingEmprestimo] = useState<Emprestimo | null>(null);
+	const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
+	const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
+	const [usuarioId, setUsuarioId] = useState('');
+	const [equipamentosId, setEquipamentosId] = useState<number | string>('');
 	
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
 
-	const data_registro = new Date().toISOString().split('T')[0];
-
-	const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
-	const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
-
-	const [usuarioId, setUsuarioId] = useState('');
-	const [equipamentosId, setEquipamentosId] = useState(0);
 	
 
 
@@ -48,9 +79,11 @@ const Emprestimo = () => {
 			console.error('Erro ao adicionar equipamento:', error); 
 		}
     };
-	const handleInputChangeEdit = (event) => {
+	const handleInputChangeEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
-		setEditingEmprestimo({ ...editingEmprestimo, [name]: value });
+		if (editingEmprestimo) {
+		  setEditingEmprestimo({ ...editingEmprestimo, [name]: value });
+		}
 	  };
 
 	  const handleSubmit = (event) => {
@@ -65,16 +98,11 @@ const Emprestimo = () => {
 		setIsOpenEdit(true);
 	};
 
-	const handleEditEmprestimo = (updatedEmprestimo) => {
-		const updatedEmprestimos = emprestimos.map(equipamento => {
-			if (equipamento.id === updatedEquipamento.id) {
-				return updatedEquipamento;
-			}
-			return equipamento;
-		});
+	const handleEditEmprestimo = (updatedEmprestimo: Emprestimo) => {
+		const updatedEmprestimos = emprestimos.map(emp => (emp.id === updatedEmprestimo.id ? updatedEmprestimo : emp));
 		setEmprestimos(updatedEmprestimos);
 		closeModalEdit();
-	};
+	  };
 
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
