@@ -58,6 +58,7 @@ interface Usuario {
 	const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
 	const [usuarioId, setUsuarioId] = useState('');
 	const [equipamentosId, setEquipamentosId] = useState<number | string>('');
+	const [updatedEmprestimos, setUpdatedEmprestimos] = useState([]);
 	
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
 
@@ -101,8 +102,8 @@ interface Usuario {
 		setIsOpenEdit(true);
 	};
 
-	const handleEditEmprestimo = (updatedEmprestimo: Emprestimo) => {
-		const updatedEmprestimos = emprestimos.map(emp => (emp.id === updatedEmprestimo.id ? updatedEmprestimo : emp));
+	const handleEditEmprestimo = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 		setEmprestimos(updatedEmprestimos);
 		closeModalEdit();
 	  };
