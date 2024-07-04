@@ -161,6 +161,7 @@ export default function LoginForm() {
 
       <div className="min-h-full w-full flex justify-center items-center">
         <Modal
+          open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
