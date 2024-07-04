@@ -3,12 +3,17 @@ import { useEffect, useState } from "react";
 import { SendHorizontal, EllipsisVertical } from "lucide-react";
 import axios from "axios";
 
+interface User {
+    nome: string;
+    email: string;
+    cargo: string;
+}
 const Mensagens = () => {
 	const [mensagems, setMensagems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [enviarMensagem, setEviarMensagem] = useState('');
-	const [userData, setUserData] = useState(null);
+	const [userData, setUserData] = useState<User | null>(null);
 	const [filteredMensagems, setFilteredMensagems] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage] = useState(10000);
