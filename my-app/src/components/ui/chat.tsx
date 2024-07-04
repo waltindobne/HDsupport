@@ -6,14 +6,49 @@ import axios from "axios";
 import MensagensChat from "@/components/ui/MensagensChat";
 import mensagens from "@/components/ui/MensagensChat";
 
+
+interface Usuarios {
+    id: string;
+	nome: string;
+	email: string;
+	senha: string;
+	telefone: string;
+	cargo: string;
+	imagem: string;
+	status: number;
+	statusConversa: number;
+	tokenRedefinicaoSenha: string;
+	dataHoraGeracaoToken: string;
+}
+
+enum TipoConversa {
+	Conversa = 1,
+    HelpDesk = 2,
+    Atendimento = 3
+}
+interface Chamado {
+    id: number;
+    funcionarios?: Usuarios;
+    funcionariosId?: number;
+    cliente: Usuarios;
+    clienteId: number;
+    tipoConversa?: TipoConversa;
+    criptografia: string;
+    status: StatusConversa;
+    data_inicio: Date;
+    data_conclusao?: Date;
+}
+
+type StatusConversa = 'Open' | 'Closed' | 'Pending';
+
 const Chat = () => {
-	const [chamadosAbertos , setChamadosAbertos] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [searchTerm, setSearchTerm] = useState('');
-	const [filteredChamados, setFilteredChamados] = useState([]);
-	const [selectedChamados, setSelectedChamados] = useState(null);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [itemsPerPage] = useState(7);
+	const [chamadosAbertos, setChamadosAbertos] = useState<Chamado[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredChamados, setFilteredChamados] = useState<Chamado[]>([]);
+    const [selectedChamados, setSelectedChamados] = useState<Chamado | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(7);
 
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
 
