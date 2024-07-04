@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 function MyComponent() {
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState<string | null>(null);
     const [redirecionar, setRedirecionar] = useState(false);
     const router = useRouter(); 
 
