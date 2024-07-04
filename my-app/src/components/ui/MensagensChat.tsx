@@ -3,17 +3,12 @@ import { useEffect, useState } from "react";
 import { SendHorizontal, EllipsisVertical } from "lucide-react";
 import axios from "axios";
 
-interface User {
-    nome: string;
-    email: string;
-    cargo: string;
-}
 const Mensagens = () => {
 	const [mensagems, setMensagems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [enviarMensagem, setEviarMensagem] = useState('');
-	const [userData, setUserData] = useState<User | null>(null);
+	const [userData, setUserData] = useState<any>(null);
 	const [filteredMensagems, setFilteredMensagems] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage] = useState(10000);
@@ -98,19 +93,24 @@ const Mensagens = () => {
 				"tokenRedefinicaoSenha": "string",
 				"dataHoraGeracaoToken": "string"
 			};
-			const response = await axios.post(
-				`https://localhost:7299/api/Conversa/Registro-Mensagem?idConversa=${idConversa}`,
-				{
-					mensagem: enviarMensagem,
-					usuario: usuarioContent,
-					usuarioId: userData.id
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`
+			if (userData) {
+				const response = await axios.post(
+					`https://localhost:7299/api/Conversa/Registro-Mensagem?idConversa=${idConversa}`,
+					{
+						mensagem: enviarMensagem,
+						usuario: usuarioContent,
+						usuarioId: userData.id
+					},
+					{
+						headers: {
+							Authorization: `Bearer ${token}`
+						}
 					}
-				}
-			);
+				);
+				console.log('Mensagem Enviada com sucesso:', response.data);
+				setMensagems([...mensagems, response.data]);
+				setEviarMensagem('');
+			}
 			console.log('Mensagem Enviada com sucesso:', response.data);
 			setMensagems([...mensagems, response.data]);
 			setEviarMensagem('');
