@@ -134,9 +134,6 @@ const Mensagens = () => {
 				setMensagems([...mensagems, response.data]);
 				setEviarMensagem('');
 			}
-			console.log('Mensagem Enviada com sucesso:', response.data);
-			setMensagems([...mensagems, response.data]);
-			setEviarMensagem('');
 		} catch (error) {
 			console.error('Erro ao Enviar Mensagem:', error);
 		}
