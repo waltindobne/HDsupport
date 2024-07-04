@@ -87,11 +87,11 @@ interface Usuario {
 	  };
 
 	  const handleSubmit = (event) => {
-        event.preventDefault();
-        const updatedEmprestimos = [...emprestimos, newEmprestimos];
-        setEmprestimos(updatedEmprestimos);
-        closeModalAdd();
-    };
+		event.preventDefault();
+		const updatedEmprestimos = [...emprestimos, ...newEmprestimos]; // Concatenando arrays
+		setEmprestimos(updatedEmprestimos);
+		closeModalAdd();
+	};
 	
 	const handleOpenEditModal = (emprestimo) => {
 		setEditingEmprestimo(emprestimo);
