@@ -78,7 +78,7 @@ export default function LoginForm() {
 
     try {
       const response = await axios.post(
-        "https://localhost:7299/api/Usuario/Registro",
+        "https://testing-api.hdsupport.bne.com.br/api/Usuario/Registro",
         {
           nome,
           email,

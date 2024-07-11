@@ -12,7 +12,7 @@ export default function Pizza() {
     async function fetchData() {
       
       try {
-        const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Equipamentos/Dados-Equipamento-Pizza',
+        const response = await axios.get('https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Dados-Equipamento-Pizza',
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,

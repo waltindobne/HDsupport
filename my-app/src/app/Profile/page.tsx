@@ -2,24 +2,40 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SidebarMenu from "@/components/ui/sidebarmenu";
+import SidebarMenuResponse from "@/components/ui/sidebarmenuResponse";
 import { Users } from "lucide-react";
 import { useRouter } from 'next/navigation';
 
 // Defina a interface para o tipo de dados do usuário
 interface User {
+    id: number;
     nome: string;
     email: string;
     cargo: string;
 }
+interface Equipamento {
+    idPatrimonio: number;
+    tipo: string;
+    statusEquipamento: number;
+}
+
+interface Emp {
+    id: number;
+    usuarioId: number;
+    equipamentos: Equipamento;
+    filter(arg0: (emp: Emp) => boolean): unknown;
+}
+
 
 const Profile = () => {
     const router = useRouter();
     const [userData, setUserData] = useState<User | null>(null);
+    const [empData, setEmpData] = useState<Emp[]>([]);
     const token = localStorage.getItem('token');
 
     const fetchData = async (token: string | null) => {
         try {
-            const response = await axios.get(`https://localhost:7299/api/Usuario/BuscarPorTokenJWT/${token}`, {
+            const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Usuario/BuscarPorTokenJWT/${token}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -31,13 +47,19 @@ const Profile = () => {
         }
     };
 
-    const redirectRedf = () => {
-        router.push('/');
-    }
-
-    const editarDados = () => {
-        router.push('/editardados');
-    }
+    const fetchDataEmp = async (token: string | null) => {
+        try {
+            const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Emprestimos/Lista-Emprestimos`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            console.log(response.data);
+            return response.data; // Retorne os dados da resposta
+        } catch (error) {
+            console.error('Erro ao buscar dados dos empréstimos:', error);
+        }
+    };
 
     useEffect(() => {
         if (token) {
@@ -46,12 +68,59 @@ const Profile = () => {
                     setUserData(data);
                 })
                 .catch((error) => {
-                    console.log('erro', error);
+                    console.log('Erro ao buscar dados do usuário:', error);
+                });
+
+            fetchDataEmp(token)
+                .then((data) => {
+                    setEmpData(data);
+                })
+                .catch((error) => {
+                    console.log('Erro ao buscar dados dos empréstimos:', error);
                 });
         } else {
             console.log('Token não está presente no localStorage');
         }
     }, [token]);
+
+    const redirectRedf = () => {
+        router.push('/confirmaremail');
+    }
+
+    const editarDados = () => {
+        router.push('/editardados');
+    }
+
+    const renderEmprestimos = () => {
+        if (!userData || !empData) {
+            return <p>Nenhum empréstimo atribuído</p>;
+        }
+
+        const emprestimos = empData.filter(emp => emp.usuarioId === userData.id);
+        if (emprestimos.length === 0) {
+            return <p>Nenhum empréstimo atribuído</p>;
+        }
+
+        return (
+            <div>
+                {emprestimos.map(emp => (
+                    <div key={emp.id}>
+                        {/* Renderize os dados do equipamento conforme necessário */}
+                        <p><b>ID Patrimônio:</b> {emp.equipamentos.idPatrimonio}</p>
+                        <p><b>Tipo de Equipamento:</b> {emp.equipamentos.tipo}</p>
+                        <p><b>Condição:</b> {statusEquipamentos[emp.equipamentos.statusEquipamento]}</p>
+                    </div>
+                ))}
+            </div>
+        );
+    };
+    const statusEquipamentos = [
+        "Status Não Definido",
+        "Disponivel",
+        "Emprestado",
+        "Danificado",
+        "Em Reparo"
+      ];
 
     const nivelDeAcesso = [
         ["Sem Acesso a Tabela", "Sem acesso as Funções"],
@@ -73,8 +142,9 @@ const Profile = () => {
     return (
         <div className="w-full flex h-[100vh] space-x-2 items-start bg-black">
             {userData && (
-                <div className="flex w-full">
+                <div className="flex w-full max-[820px]:flex-col">
                     <SidebarMenu />
+                    <SidebarMenuResponse />
                     <div className="bg-black mt-[40px] w-full border-white text-white">
                         <div className="border-2 rounded-[15px] w-[600px] mx-auto h-[450px] flex">
                             <div className="w-[60%] mr-[10px] py-[40px] pl-[40px]">
@@ -98,9 +168,11 @@ const Profile = () => {
                                             <th><b>Senha:</b></th>
                                             <td className="pl-5"># # # # # # # # <button onClick={redirectRedf} className="ml-2 py-1 px-3 bg-green-400 rounded-[5px] border-[1px] border-white">Redefinir</button></td>
                                         </tr>
-                                        <tr className="">
-                                            <th><b>Equipamento:</b></th>
-                                            <td className="pl-5"></td>
+                                        <tr className="flex flex-col">
+                                            <th><b>Equipamento:</b></th><br />
+                                            <td className="pl-5">
+                                            {renderEmprestimos()}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

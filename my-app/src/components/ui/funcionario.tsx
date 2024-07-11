@@ -38,7 +38,7 @@ const Funcionario = () => {
 	const handleSubmitAdd = async (event) => {
 		event.preventDefault();
         try {
-			const response = await axios.post('https://hd-support-api.azurewebsites.net/api/Usuario/Registro',  { 
+			const response = await axios.post('https://testing-api.hdsupport.bne.com.br/api/Usuario/Registro',  { 
 					nome,
 					email,
 					senha,
@@ -84,7 +84,7 @@ const Funcionario = () => {
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
-			const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Usuario/Lista-Funcionarios', {
+			const response = await axios.get('https://testing-api.hdsupport.bne.com.br/api/Usuario/Lista-Funcionarios', {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -105,7 +105,7 @@ const Funcionario = () => {
 		closeModalComfirmDel();
 		try {
 			console.log(token);
-			const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Usuario/Excluir-Usuario/${id}`, {},{
+			const response = await axios.post(`https://testing-api.hdsupport.bne.com.br/api/Usuario/Excluir-Usuario/${id}`, {},{
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

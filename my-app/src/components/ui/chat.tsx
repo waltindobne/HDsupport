@@ -55,7 +55,7 @@ const Chat = () => {
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
-			const response = await axios.get('https://localhost:7299/api/Conversa/Listar-Chamados?tipo=1&aceito=false', {
+			const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Conversa/Listar-Chamados?tipo=1&aceito=false`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -135,7 +135,6 @@ const Chat = () => {
 					<ul className="h-full flex flex-col items-center">
 						<button onClick={() => openMenu()} className="hidden max-[900px]:flex"><li className="pb-2"><MessageCircleMore/></li></button>
 						<li className="pb-2 max-[900px]:hidden"><MessageCircleMore/></li>
-						<li className="pb-2"><Gauge/></li>
 						<li className="pb-2"><Table/></li>
 						<li className="pb-2"><BarChart4/></li>
 					</ul>
@@ -144,7 +143,7 @@ const Chat = () => {
 					</ul>
 				</div>
 				<div className="border-r-2 border-white w-[250px] h-[100%] text-white px-[10px] py-[20px] max-[900px]:hidden">
-					<h1 className="mb-[30px]">Chamados em Aberto</h1>
+					<h1 className="mb-[30px]">Chamados em Aceitos</h1>
 					<div>
 						<div className="flex flex-row items-center bg-neutral-700 mb-[30px] rounded-[8px] pr-2">
 							<input 

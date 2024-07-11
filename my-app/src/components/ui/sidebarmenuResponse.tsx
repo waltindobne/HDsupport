@@ -85,7 +85,7 @@ const SidebarMenu: React.FC = () => {
       const handleProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`https://localhost:7299/api/Usuario/BuscarPorTokenJWT/${token}`,
+            const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Usuario/BuscarPorTokenJWT/${token}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

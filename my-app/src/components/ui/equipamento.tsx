@@ -43,7 +43,7 @@ const Equipamento = () => {
   	const fetchData = async (token: string | null) => {
     try {
       if (token) {
-        const response = await axios.get('https://localhost:7299/api/Equipamentos/Lista-Equipamentos', {
+        const response = await axios.get('https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Lista-Equipamentos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -85,7 +85,7 @@ const Equipamento = () => {
   const handleSubmitAdd = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await axios.post('https://hd-support-api.azurewebsites.net/api/Equipamentos/Registro-Equipamentos', {
+      const response = await axios.post('https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Registro-Equipamentos', {
         idPatrimonio,
         modelo,
         tipo,
@@ -109,7 +109,6 @@ const Equipamento = () => {
       setDetalhes(updatedEquipamentos.detalhes);
       setModelo(updatedEquipamentos.modelo);
       setStatusEquipamento(updatedEquipamentos.statusEquipamento);
-
       const updatedEquipamentosLista = equipamentos.map(equipamento => {
         if (updatedEquipamentos.id === equipamento.id) {
           return updatedEquipamentos;
@@ -120,8 +119,8 @@ const Equipamento = () => {
       closeModalEdit();
 
       try {
-        console.log(`https://hd-support-api.azurewebsites.net/api/Equipamentos/Editar-Maquina/${updatedEquipamentos.id}`);
-        const response = await axios.put(`https://hd-support-api.azurewebsites.net/api/Equipamentos/Editar-Maquina/${updatedEquipamentos.id}`, {
+        console.log(`https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Editar-Maquina/${updatedEquipamentos.id}`);
+        const response = await axios.put(`https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Editar-Maquina/${updatedEquipamentos.id}`, {
           idPatrimonio,
           modelo,
           detalhes,
@@ -144,8 +143,8 @@ const Equipamento = () => {
     closeModalComfirmDel();
 
     try {
-      console.log(`https://hd-support-api.azurewebsites.net/api/Equipamentos/Excluir-Maquina/${id}`);
-      const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Equipamentos/Excluir-Maquina/${id}`, {}, {
+      console.log(`https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Excluir-Maquina/${id}`);
+      const response = await axios.post(`https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Excluir-Maquina/${id}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         }

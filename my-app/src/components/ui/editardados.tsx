@@ -43,7 +43,7 @@ const EditarDados = () => {
   
   const fetchData = async (token) => {
     try {
-        const response = await axios.get(`https://localhost:7299/api/Usuario/BuscarPorTokenJWT/${token}`,
+        const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Usuario/BuscarPorTokenJWT/${token}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -73,11 +73,12 @@ const EditarDados = () => {
 
   const fetchDataEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(userData)
     if (userData) {
       let base64Imagem = base64?.split(',')[1];
       console.log(base64Imagem);
       try {
-        const responseEdit = await axios.put(`https://localhost:7299/api/Usuario/Editar-Usuario/${userData.id}`, {
+        const responseEdit = await axios.put(`https://testing-api.hdsupport.bne.com.br/api/Usuario/Editar-Usuario/${userData.id}`, {
           nome: newNome,
           telefone: newTelefone,
           imagem: base64Imagem
