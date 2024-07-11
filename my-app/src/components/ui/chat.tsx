@@ -56,7 +56,7 @@ const Chat = () => {
     const [filteredChamados, setFilteredChamados] = useState<Chamado[]>([]);
     const [selectedChamados, setSelectedChamados] = useState<Chamado | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(7);
+    const [itemsPerPage] = useState(10000);
 	const [userData, setUserData] = useState<User | null>(null);
 
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
@@ -85,8 +85,8 @@ const Chat = () => {
 			console.log('Token não está presente no localStorage');
 			setIsLoading(false);
 		}
+		console.log(userData)
 	}, []);
-
 	const fetchDataNaoAceito = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
@@ -104,27 +104,25 @@ const Chat = () => {
 			throw error; // Se ocorrer um erro, lance-o para que possa ser tratado em outro lugar
 		}
 	};
-	
-console.log(typeof userData?.id)
-console.log(userData?.id)
 	const fetchDataAceito = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
-		try {
-			if(token) {
-			const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Conversa/Listar-Conversas/${userData?.id}`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-			console.log(response.data)
-			return response.data; // Retorne os dados da resposta
-			} else {
-				throw new Error('Token não está presente no localStorage');
-			}
-		} catch (error) {
-			console.error('Erro ao buscar dados da API:', error);
-			throw error; // Se ocorrer um erro, lance-o para que possa ser tratado em outro lugar
-		}
-	};
+        try {
+            if (token && userData && userData.id) { // Adicionando verificação para userData e userData.id
+                const userID = userData.id;
+                const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Conversa/Listar-Conversas/${userID}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                console.log(response.data)
+                return response.data; // Retorne os dados da resposta
+            } else {
+                throw new Error('Token não está presente no localStorage ou userData não está definido');
+            }
+        } catch (error) {
+            console.error('Erro ao buscar dados da API:', error);
+            throw error; // Se ocorrer um erro, lance-o para que possa ser tratado em outro lugar
+        }
+    };
 	const fetchDataFinalizados = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
@@ -143,30 +141,34 @@ console.log(userData?.id)
 		}
 	};
 	useEffect(() => {
-		if (token) {
-			fetchDataNaoAceito(token)
-			.then((data) => {
-				setChamadosAbertos(data);
-				setIsLoading(false);
-			})
-			fetchDataAceito(token)
-			.then((data) => {
-				setChamadosFechados(data);
-				setIsLoading(false);
-			})
-			fetchDataFinalizados(token)
-			.then((data) => {
-				setChamadosConcluidos(data);
-				setIsLoading(false);
-			})
-			.catch((error) => {
-				setIsLoading(false);
-			});
-		} else {
-			console.log('Token não está presente no localStorage');
-			setIsLoading(false);
-		}
-	}, []);
+        if (token) {
+            fetchDataNaoAceito(token)
+                .then((data) => {
+                    setChamadosAbertos(data);
+                    setIsLoading(false);
+                })
+            // Verifica se userData está disponível antes de chamar fetchDataAceito
+            if (userData) {
+                fetchDataAceito(token)
+                    .then((data) => {
+                        setChamadosFechados(data);
+                        setIsLoading(false);
+                    })
+            }
+            fetchDataFinalizados(token)
+                .then((data) => {
+                    setChamadosConcluidos(data);
+                    setIsLoading(false);
+                })
+                .catch((error) => {
+                    setIsLoading(false);
+                });
+        } else {
+            console.log('Token não está presente no localStorage');
+            setIsLoading(false);
+        }
+    }, [token, userData]); // Adicionando "userData" como dependência para garantir que o useEffect seja executado quando userData estiver disponível
+
 
 	
 
@@ -184,19 +186,32 @@ console.log(userData?.id)
 	};
 
 	useEffect(() => {
-        const results = chamadosFechados.filter((chamado) => {
-            const cliente = chamado.cliente;
-            return (
-                cliente.nome.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-        });
-        setFilteredChamados(results);
-    }, [chamadosAbertos, searchTerm]);
-
-	const paginate = pageNumber => setCurrentPage(pageNumber);
+		// Verifique os dados em chamadosFechados
+		console.log("Dados em chamadosFechados:", chamadosFechados);
+		
+		const results = chamadosFechados.filter((chamado) => {
+			const cliente = chamado.cliente;
+			console.log("Chamado:", chamado.id);
+			console.log("Cliente:", cliente);
+			
+			return (
+				cliente && cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) // Adicionando verificação para garantir que cliente não seja null
+			);
+		});
+		
+		setFilteredChamados(results);
+		console.log("Resultados filtrados:", results);
+	}, [chamadosFechados, searchTerm]);
+	
+	// Certifique-se de que currentItems está recebendo os dados corretamente
+	const paginate = (pageNumber) => setCurrentPage(pageNumber);
 	const indexOfLastItem = currentPage * itemsPerPage;
 	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 	const currentItems = filteredChamados.slice(indexOfFirstItem, indexOfLastItem);
+	
+	useEffect(() => {
+		console.log("Itens atuais:", currentItems);
+	}, [currentItems]);
 
 
 	type ActiveButtonType = 'naoAceitos' | 'aceitos' | 'naoAceitos' | 'aceitos' | null;
@@ -309,16 +324,19 @@ console.log(userData?.id)
 						</div>
 						<div className="flex flex-col mb-3">
 							{currentItems.map((chamados, index) => (
-								<div key={index}>
-									<form action="" method="post">
-									<button key={index} onClick={() => HandleSendId(chamados.id)} className="flex items-center mb-3">
-										<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
-										{chamados.cliente.nome}
-									</button>
-									</form>
-								</div>
+								chamados.cliente && chamados.cliente.nome ? ( // Verificação adicional para garantir que cliente e cliente.nome existam
+									<div key={index}>
+										<form action="" method="post">
+											<button key={index} onClick={() => HandleSendId(chamados.id)} className="flex items-center mb-3">
+												<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
+												{chamados.id}
+											</button>
+										</form>
+									</div>
+								) : null // Retorna null se chamado.cliente ou chamado.cliente.nome for null ou undefined
 							))}
 						</div>
+
 					</div>
 				</div>
 				)}
@@ -397,15 +415,17 @@ console.log(userData?.id)
 							<button><Search/></button>
 						</div>
 						<div className="flex flex-col mb-3">
-							{currentItems.map((chamados, index) => (
-								<div key={index}>
-									<form action="" method="post">
-									<button key={index} onClick={() => HandleSendId(chamados.id)} className="flex items-center mb-3">
-										<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
-										{chamados.cliente.nome}
-									</button>
-									</form>
-								</div>
+						{currentItems.map((chamados, index) => (
+								chamados.cliente && chamados.cliente.nome ? ( // Verificação adicional para garantir que cliente e cliente.nome existam
+									<div key={index}>
+										<form action="" method="post">
+											<button key={index} onClick={() => HandleSendId(chamados.id)} className="flex items-center mb-3">
+												<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
+												{chamados.clienteId}
+											</button>
+										</form>
+									</div>
+								) : null // Retorna null se chamado.cliente ou chamado.cliente.nome for null ou undefined
 							))}
 						</div>
 					</div>
