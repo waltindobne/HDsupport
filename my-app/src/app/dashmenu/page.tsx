@@ -52,7 +52,7 @@ useEffect(() => {
   useEffect(() => {
     async function fetchChamados() {
       try {
-        const response = await axios.get('https://localhost:7299/api/Conversa/Dados-Chamados-Dashboard');
+        const response = await axios.get('https://testing-api.hdsupport.bne.com.br/api/Conversa/Dados-Chamados-Dashboard');
         setData(response.data);
 
         // Atualiza os dados com os valores recebidos da API

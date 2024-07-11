@@ -16,7 +16,7 @@ const ConfirmarEmail = () => {
   const handleLogin = async (e: any) => {  
     e.preventDefault();  
     try {  
-      const response = await axios.post(`https://localhost:7299/api/Usuario/Recuperacao-Senha?email=${confirmarEmail}`
+      const response = await axios.post(`https://testing-api.hdsupport.bne.com.br/api/Usuario/Recuperacao-Senha?email=${confirmarEmail}`
         ,{}
       );  
        
@@ -29,7 +29,7 @@ const ConfirmarEmail = () => {
       // Logic to redirect user after successful login 
       console.log('Email Enviado com sucesso', response.data); 
       window.alert('Email enviado com sucesso')
-      router.push('/dashmenu'); // Example of redirecting after successful login 
+      router.push('/login'); // Example of redirecting after successful login 
     } catch (error) {  
       console.error('Falha ao enviar email de recuperação', error);
       window.alert('Erro ao enviar o email recuperação')

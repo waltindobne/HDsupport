@@ -17,7 +17,7 @@ const LoginForm = () => {
   const handleLogin = async (e: any) => {  
     e.preventDefault();  
     try {  
-      const response = await axios.post(`https://localhost:7299/api/Usuario/Login?email=${email}&senha=${senha}`);  
+      const response = await axios.post(`https://testing-api.hdsupport.bne.com.br/api/Usuario/Login?email=${email}&senha=${senha}`);  
        
       // Extract token from response body 
       const token = response.data.token; 
@@ -27,9 +27,11 @@ const LoginForm = () => {
        
       // Logic to redirect user after successful login 
       console.log('Login successful:', response.data); 
+      window.alert(`Login efetuado com sucesso!!`);
       router.push('/dashmenu'); // Example of redirecting after successful login 
     } catch (error) {  
-      console.error('Error logging in:', error);  
+      console.error('Error logging in:', error);
+      window.alert(`Erro ao efetuar login!!${error}`);  
     }  
   }; 
   

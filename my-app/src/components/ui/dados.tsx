@@ -24,7 +24,7 @@ export default function Dados(){
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Equipamentos/Dados-Equipamento-Barras', {
+        const response = await axios.get('https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Dados-Equipamento-Barras', {
           headers: {
             Authorization: `Bearer ${token}`,
           }
@@ -87,22 +87,20 @@ export default function Dados(){
   };
   
   return (
-    <div className="w-[56%] top-0 right-[25%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] max-[1160px]:relative">
-    <div className={`${darkMode && "dark"}`}>
-      <div className="w-[93%] px-[10px] dark:border-black bg-white rounded-[15px] border-2 border-slate-50 h-[430px] max-[1160px]:h-[325px] flex items-center flex-col">
-        <div className="w-full h-full">
-          <Chart
-            chartType="ColumnChart"
-            data={chartData}
-            options={options}
-            width="100%"
-            height="100%"
-            legendToggle
-          />
+    <div className="w-[50%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] mr-[10px] ml-[15px] max-[450px]:ml-0 max-[450px]:mr-0">
+    <div className="flex justify-end max-[820px]:w-[100%] max-[820px]:justify-start">
+      <div className="h-[430px] w-[90%] max-[450px]:w-full dark:border-black bg-white border-2 border-slate-50 rounded-[10px] flex items-center justify-center max-[1160px]:h-[325px] max-[820px]:w-[100%] max-[450px]:rounded-0">
+            <Chart
+              chartType="ColumnChart"
+              data={chartData}
+              options={options}
+              width="100%"
+              height="100%"
+              legendToggle
+            />
+          </div>
         </div>
       </div>
-    </div>
-  </div>
   );
   
 }

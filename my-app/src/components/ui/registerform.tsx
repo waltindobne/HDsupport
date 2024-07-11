@@ -78,7 +78,7 @@ export default function LoginForm() {
 
     try {
       const response = await axios.post(
-        "https://localhost:7299/api/Usuario/Registro",
+        "https://testing-api.hdsupport.bne.com.br/api/Usuario/Registro",
         {
           nome,
           email,
@@ -161,6 +161,7 @@ export default function LoginForm() {
 
       <div className="min-h-full w-full flex justify-center items-center">
         <Modal
+          open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"

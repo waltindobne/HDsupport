@@ -68,7 +68,7 @@ interface Usuario {
 	const handleSubmitAdd = async (event) => {
         event.preventDefault();
         try {
-			const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Emprestimos/Registro-Emprestimo?idPatrimonio=${equipamentosId}&email=${usuarioId}`,  {
+			const response = await axios.post(`https://testing-api.hdsupport.bne.com.br/api/Emprestimos/Registro-Emprestimo?idPatrimonio=${equipamentosId}&email=${usuarioId}`,  {
 				},
 				{
 					headers: {
@@ -111,7 +111,7 @@ interface Usuario {
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
-			const response = await axios.get('https://hd-support-api.azurewebsites.net/api/Emprestimos/Lista-Emprestimos', {
+			const response = await axios.get('https://testing-api.hdsupport.bne.com.br/api/Emprestimos/Lista-Emprestimos', {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -138,7 +138,7 @@ interface Usuario {
 		closeModalComfirmDel();
 		try {
 			console.log(token);
-			const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Emprestimos/Excluir-Emprestimo/${id}`, {},{
+			const response = await axios.post(`https://testing-api.hdsupport.bne.com.br/api/Emprestimos/Excluir-Emprestimo/${id}`, {},{
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

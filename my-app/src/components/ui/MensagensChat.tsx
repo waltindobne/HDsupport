@@ -40,7 +40,7 @@ const Mensagens = () => {
 
 	const fetchData = async (token) => {
 		try {
-			const response = await axios.get(`https://localhost:7299/api/Usuario/BuscarPorTokenJWT/${token}`, {
+			const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Usuario/BuscarPorTokenJWT/${token}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				}
@@ -69,7 +69,7 @@ const Mensagens = () => {
 		try {
 			if (token) {
 				var idConversa = localStorage.getItem('idConversa');
-				const response = await axios.get(`https://localhost:7299/api/Conversa/Lista-Mensagens/?idConversa=${idConversa}`, {
+				const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Conversa/Lista-Mensagens?idConversa=${idConversa}`, {
 					headers: {
 						Authorization: `Bearer ${token}`,
 					},
@@ -118,7 +118,7 @@ const Mensagens = () => {
 			};
 			if (userData) {
 				const response = await axios.post(
-					`https://localhost:7299/api/Conversa/Registro-Mensagem?idConversa=${idConversa}`,
+					`https://testing-api.hdsupport.bne.com.br/api/Conversa/Registro-Mensagem?idConversa=${idConversa}`,
 					{
 						mensagem: enviarMensagem,
 						usuario: usuarioContent,
@@ -165,7 +165,7 @@ const Mensagens = () => {
 		<div className="text-blue-500 h-full w-full flex flex-col max-w-[1300px]">
 			<div className="flex justify-between py-[10px] px-[20px] mb-[30px] border-b-[1px] border-neutral-700">
 				<div className="flex items-center">
-					<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="Logo" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
+					<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="Logo" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2 max-w-[60px] max-h-[55px]" />
 					<h1>{outraPessoa}</h1>
 				</div>
 				<button><EllipsisVertical /></button>
@@ -174,19 +174,19 @@ const Mensagens = () => {
 				{reversedMessages.map((mensagem, index) => (
 					<div key={index} className={`flex items-start mb-4 ${mensagem.usuarioId === userData?.id ? 'self-end' : 'self-start'}`}>
 						<div className={`flex flex-col ${mensagem.usuarioId === userData?.id ? 'items-end text-white' : 'items-start'}`}>
+							<div className="text-white text-[12px]">
+								{mensagem.data_envio}
+							</div>
 							<div className="flex">
 							{mensagem.usuarioId !== userData?.id && (
-								<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="Avatar" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
+								<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="Avatar" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2 max-w-[60px] max-h-[55px]" />
 							)}
 							<div className={`p-[10px] max-w-[200px] overflow-x-auto flex rounded-[10px] ${mensagem.usuarioId === userData?.id ? 'bg-blue-600 text-white' : 'bg-neutral-700 text-white'}`}>
 								{mensagem.mensagem}
 							</div>
 							{mensagem.usuarioId === userData?.id && (
-								<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="Avatar" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] ml-2" />
+								<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="Avatar" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] ml-2 max-w-[60px] max-h-[55px]" />
 							)}
-							</div>
-							<div className="text-white text-[12px]">
-								{mensagem.data_envio}
 							</div>
 						</div>
 					</div>

@@ -1,155 +1,159 @@
 "use client"
 import { useState, useEffect } from 'react';
-import {Headset, Replace, Router, Trash2} from "lucide-react";
-import {PencilLine, Search } from "lucide-react";
-import {FolderPlus} from "lucide-react";
-import { FolderKanban } from 'lucide-react';
-import { Input } from './input';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { FolderPlus, Trash2, Search, PencilLine , FolderKanban } from 'lucide-react'; // Importing necessary icons from lucide-react
+import { Input } from './input';
 
-{/*neutral-950 slate-50 black blue-800*/}
-
+// Define the Equipamento interface and statusEquipamento enum
+interface Equipamento {
+  id: number;
+  idPatrimonio: string;
+  modelo: string;
+  tipo: string;
+  detalhes: string;
+  statusEquipamento: statusEquipamento;
+  dtEmeprestimoInicio: string; // Corrected typo here: dtEmeprestimoInicio
+  dtEmeprestimoFinal: string; // Corrected typo here: dtEmeprestimoFinal
+}
+enum statusEquipamento {
+  Disponivel = 1,
+  Emprestado = 2,
+  Danificado = 3,
+  EmReparo = 4 // Corrected typo here: EmReparo
+}
 const Equipamento = () => {
-	const [equipamentos, setEquipamentos] = useState([]);
+	const [equipamentos, setEquipamentos] = useState<Equipamento[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage] = useState(7);
 	const [searchTerm, setSearchTerm] = useState('');
-	const [filteredEquipamentos, setFilteredEquipamentos] = useState([]);
-	const [selectedEquipamento, setSelectedEquipamento] = useState(null);
+	const [filteredEquipamentos, setFilteredEquipamentos] = useState<Equipamento[]>([]); // Added explicit type for filteredEquipamentos
+	const [selectedEquipamento, setSelectedEquipamento] = useState<Equipamento | null>(null); // Added explicit type for selectedEquipamento
 	const router = useRouter();
-
 	const [idPatrimonio, setIdPatrimonio] = useState('');
 	const [modelo, setModelo] = useState('');
 	const [tipo, setTipo] = useState('Desktop');
 	const [detalhes, setDetalhes] = useState('');
-	const [statusEquipamento, setStatusEquipamento] = useState(1);
-	const [updatedEquipamentos, setUpdatedEquipamentos] = useState(null);
-	
-	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
+	const [statusEquipamento, setStatusEquipamento] = useState<statusEquipamento>(1);
+	const [updatedEquipamentos, setUpdatedEquipamentos] = useState<Equipamento | null>(null); // Added explicit type for updatedEquipamentos
 
-	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
-		try {
-			if(token) {
-			const response = await axios.get('https://localhost:7299/api/Equipamentos/Lista-Equipamentos', {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-			return response.data; // Retorne os dados da resposta
-			} else {
-				throw new Error('Token não está presente no localStorage');
-			}
-		} catch (error) {
-			console.error('Erro ao buscar dados da API:', error);
-			throw error; // Se ocorrer um erro, lance-o para que possa ser tratado em outro lugar
-		}
-	};
-	useEffect(() => {
-		if (token) {
-			fetchData(token)
-			.then((data) => {
-				setEquipamentos(data);
-				setIsLoading(false);
-			})
-			.catch((error) => {
-				setIsLoading(false);
-			});
-		} else {
-			console.log('Token não está presente no localStorage');
-			setIsLoading(false);
-		}
-	}, []);
+  	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
 
+  	const fetchData = async (token: string | null) => {
+    try {
+      if (token) {
+        const response = await axios.get('https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Lista-Equipamentos', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        return response.data;
+      } else {
+        throw new Error('Token não está presente no localStorage');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar dados da API:', error);
+      throw error;
+    }
+  };
 
-	const statusEquipamentos = [
-		"Status Não Definido",
-		"Disponivel",
-		"Emprestado",
-		"Danificado",
-		"Em Reparo"
-	]
+  useEffect(() => {
+    if (token) {
+      fetchData(token)
+        .then((data) => {
+          setEquipamentos(data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+        });
+    } else {
+      console.log('Token não está presente no localStorage');
+      setIsLoading(false);
+    }
+  }, [token]);
 
-    const handleSubmitAdd = async (event) => {
-        event.preventDefault();
-        console.log(tipo);
-		try {
-			const response = await axios.post('https://hd-support-api.azurewebsites.net/api/Equipamentos/Registro-Equipamentos',  { 
-					idPatrimonio,
-					modelo,
-					tipo,
-					detalhes,
-					statusEquipamento
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					}
-				}
-			);
-			
-			console.log('Equipamento adicionado com sucesso:', response.data);
-		} catch (error) { 
-			console.error('Erro ao adicionar equipamento:', error); 
-		}
-    };
-	const handleEditEquipamento = async () => {
-		setIdPatrimonio(updatedEquipamentos.idPatrimonio);
-		setDetalhes(updatedEquipamentos.detalhes);
-		setModelo(updatedEquipamentos.modelo);
-		setStatusEquipamento(updatedEquipamentos.statusEquipamento);
-		console.log(idPatrimonio);
-		console.log(detalhes);
-		console.log(modelo);
-		console.log(statusEquipamento);
-		const updatedEquipamentosLista = equipamentos.map(equipamento => {
-			if (updatedEquipamentos!=null && equipamento.id === updatedEquipamentos.id) {
-				return updatedEquipamentos;
-			}
-			return equipamento;
-		});
-		setEquipamentos(updatedEquipamentosLista);
-		closeModalEdit();
-		try {
-			console.log(`https://hd-support-api.azurewebsites.net/api/Equipamentos/Editar-Maquina/${updatedEquipamentos.id}`);
-			const response = await axios.put(`https://hd-support-api.azurewebsites.net/api/Equipamentos/Editar-Maquina/${updatedEquipamentos.id}`,{ 
-					idPatrimonio,
-					modelo,
-					detalhes,
-					statusEquipamento
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					}
-				}
-			);
-			console.log(`Equipamento Editado com sucesso: ${updatedEquipamentos.id}`);
-		} catch (error) { 
-			console.error('Erro ao Editar equipamento:', error); 
-		}
-	};
+  const statusEquipamentos = [
+    "Status Não Definido",
+    "Disponivel",
+    "Emprestado",
+    "Danificado",
+    "Em Reparo"
+  ];
 
-	const handleDeleteEquipamento = async (id) => {
-		const updatedEquipamentos = equipamentos.filter(equipamento => equipamento.id !== id);
-		setEquipamentos(updatedEquipamentos);
-		closeModalComfirmDel();
-        try {
-			console.log(typeof id);
-			console.log(`https://hd-support-api.azurewebsites.net/api/Equipamentos/Excluir-Maquina/${id}`);
-			const response = await axios.post(`https://hd-support-api.azurewebsites.net/api/Equipamentos/Excluir-Maquina/${id}`,{},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					}
-				}
-			);
-			console.log(`Equipamento Deletado com sucesso: ${id}`);
-		} catch (error) { 
-			console.error('Erro ao Deletar equipamento:', error); 
-		}
-	};
+  const handleSubmitAdd = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Registro-Equipamentos', {
+        idPatrimonio,
+        modelo,
+        tipo,
+        detalhes,
+        statusEquipamento
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+
+      console.log('Equipamento adicionado com sucesso:', response.data);
+    } catch (error) {
+      console.error('Erro ao adicionar equipamento:', error);
+    }
+  };
+
+  const handleEditEquipamento = async () => {
+    if (updatedEquipamentos) {
+      setIdPatrimonio(updatedEquipamentos.idPatrimonio);
+      setDetalhes(updatedEquipamentos.detalhes);
+      setModelo(updatedEquipamentos.modelo);
+      setStatusEquipamento(updatedEquipamentos.statusEquipamento);
+      const updatedEquipamentosLista = equipamentos.map(equipamento => {
+        if (updatedEquipamentos.id === equipamento.id) {
+          return updatedEquipamentos;
+        }
+        return equipamento;
+      });
+      setEquipamentos(updatedEquipamentosLista);
+      closeModalEdit();
+
+      try {
+        console.log(`https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Editar-Maquina/${updatedEquipamentos.id}`);
+        const response = await axios.put(`https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Editar-Maquina/${updatedEquipamentos.id}`, {
+          idPatrimonio,
+          modelo,
+          detalhes,
+          statusEquipamento
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+        console.log(`Equipamento Editado com sucesso: ${updatedEquipamentos.id}`);
+      } catch (error) {
+        console.error('Erro ao Editar equipamento:', error);
+      }
+    }
+  };
+
+  const handleDeleteEquipamento = async (id: number) => {
+    const updatedEquipamentos = equipamentos.filter(equipamento => equipamento.id !== id);
+    setEquipamentos(updatedEquipamentos);
+    closeModalComfirmDel();
+
+    try {
+      console.log(`https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Excluir-Maquina/${id}`);
+      const response = await axios.post(`https://testing-api.hdsupport.bne.com.br/api/Equipamentos/Excluir-Maquina/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      console.log(`Equipamento Deletado com sucesso: ${id}`);
+    } catch (error) {
+      console.error('Erro ao Deletar equipamento:', error);
+    }
+  };
 
 	{/*Abrir Adicionar*/}
 	const [isOpenAdd, setIsOpenAdd] = useState(false);
@@ -268,10 +272,16 @@ const Equipamento = () => {
 						</tbody>
 					</table>
 					<div className="flex justify-center pb-[15px]">
-						{[...Array(Math.ceil(filteredEquipamentos.length / itemsPerPage)).keys()].map((number) => (
-						<button key={number} onClick={() => paginate(number + 1)} className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}>{number + 1}</button>
-						))}
-					</div>
+				{Array.from(Array(Math.ceil(filteredEquipamentos.length / itemsPerPage)).keys()).map((number) => (
+					<button
+					key={number}
+					onClick={() => paginate(number + 1)}
+					className={` ${currentPage === number + 1 ? 'text-white' : 'text-neutral-500'} mx-1 px-3 py-1 bg-gray-800 rounded-[8px]`}
+					>
+					{number + 1}
+					</button>
+				))}
+				</div>
 				</div>
 			</div>
 			<div>
@@ -348,7 +358,7 @@ const Equipamento = () => {
 								<button onClick={closeModalEdit} className=" bg-red-500 hover:bg-red-600 text-white py-0 px-3 rounded-[8px] float-right">x</button>
 							</div>
 							<form onSubmit={handleEditEquipamento} className='text-white'>
-							<input type="text" hidden  onSubmit={() => setUpdatedEquipamentos({...updatedEquipamentos, id: parseInt(updatedEquipamentos.id)})}/>
+							<input type="hidden" value={updatedEquipamentos.id} onChange={(e) => setUpdatedEquipamentos({...updatedEquipamentos, id: parseInt(e.target.value)})} />
 							<div className="mb-4 mt-4">
 								<input
 								type="number"
