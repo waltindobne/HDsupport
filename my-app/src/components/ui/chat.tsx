@@ -295,7 +295,6 @@ console.log(userData?.id)
 				<div className="">
 				{isOpenMenuAceitos && (
 				<div className="border-r-2 border-white w-[250px] h-[100%] text-white px-[10px] py-[20px] max-[450px]:w-full max-[450px]:border-r-0 max-[600px]:hidden">
-					<button onClick={() => closeMenuNaoAceitos()} className="mt-[-30px] text-blue-300"><X/></button>
 					<h1 className="mb-[30px]">Conversas</h1>
 					<div>
 						<div className="flex flex-row items-center bg-neutral-700 mb-[30px] rounded-[8px] pr-2">
