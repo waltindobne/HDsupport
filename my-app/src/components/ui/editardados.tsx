@@ -19,7 +19,7 @@ const EditarDados = () => {
   const [newNome, setNewNome] = useState(''); 
   const [newTelefone, setNewTelefone] = useState('');
   const [base64, setBase64] = useState<string | undefined>(undefined);
-  const token = localStorage.getItem('token');
+  const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
   const [userData, setUserData] = useState<User | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

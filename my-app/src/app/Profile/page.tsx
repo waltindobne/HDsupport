@@ -31,7 +31,7 @@ const Profile = () => {
     const router = useRouter();
     const [userData, setUserData] = useState<User | null>(null);
     const [empData, setEmpData] = useState<Emp[]>([]);
-    const token = localStorage.getItem('token');
+    const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
 
     const fetchData = async (token: string | null) => {
         try {
