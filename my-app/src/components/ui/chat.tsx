@@ -115,6 +115,7 @@ console.log(userData?.id)
 					Authorization: `Bearer ${token}`,
 				},
 			});
+			console.log(response.data)
 			return response.data; // Retorne os dados da resposta
 			} else {
 				throw new Error('Token não está presente no localStorage');
@@ -183,7 +184,7 @@ console.log(userData?.id)
 	};
 
 	useEffect(() => {
-        const results = chamadosAbertos.filter((chamado) => {
+        const results = chamadosFechados.filter((chamado) => {
             const cliente = chamado.cliente;
             return (
                 cliente.nome.toLowerCase().includes(searchTerm.toLowerCase())
