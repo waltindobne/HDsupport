@@ -27,9 +27,11 @@ const LoginForm = () => {
        
       // Logic to redirect user after successful login 
       console.log('Login successful:', response.data); 
+      window.alert(`Login efetuado com sucesso!!`);
       router.push('/dashmenu'); // Example of redirecting after successful login 
     } catch (error) {  
-      console.error('Error logging in:', error);  
+      console.error('Error logging in:', error);
+      window.alert(`Erro ao efetuar login!!${error}`);  
     }  
   }; 
   
