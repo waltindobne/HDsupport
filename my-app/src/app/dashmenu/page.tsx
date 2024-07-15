@@ -77,6 +77,9 @@ useEffect(() => {
     fetchChamados();
   }, []);
 
+
+  //verificar autorização
+
   return (
     <div className="">
       <div className="bg-neutral-950 dark:bg-white min-h-screen h-[100vh] flex max-[820px]:flex-col items-start overflow-hidden max-[750px]:overflow-visible">

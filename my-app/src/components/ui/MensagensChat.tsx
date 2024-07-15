@@ -161,6 +161,31 @@ const Mensagens = () => {
 		}
 	});
 
+	//confimar conclusão de emprestimo
+
+	const [isOpenConcluirChamado, setIsOpenConcluirChamado] = useState(false);
+	const OpenConcluirChamados = () => {
+		setIsOpenConcluirChamado(true);
+	}
+	const CancelarConcluirChamados = () => {
+		setIsOpenConcluirChamado(false);
+	}
+	const handleFinalizarChamados = async () => {
+		const idConversa = window.localStorage.getItem('idConversa');
+		try {
+			console.log(`https://testing-api.hdsupport.bne.com.br/api/Conversa/Terminar-Conversa/${idConversa}`);
+			const response = await axios.put(`https://testing-api.hdsupport.bne.com.br/api/Conversa/Terminar-Conversa/${idConversa}`, {}, {
+			  headers: {
+				Authorization: `Bearer ${token}`,
+			  }
+			});
+			console.log(`Chamado Encerrado com sucesso: ${idConversa}`);
+			window.alert(`Chamado Encerrado com sucesso: ${idConversa}`);
+		  } catch (error) {
+			console.error('Erro ao Encerrar o Chamado:', error);
+			window.alert('Erro ao Encerrar o Chamado');
+		  }
+	}
 	return (
 		<div className="text-blue-500 h-full w-full flex flex-col max-w-[1300px]">
 			<div className="flex justify-between py-[10px] px-[20px] mb-[30px] border-b-[1px] border-neutral-700">
@@ -168,7 +193,7 @@ const Mensagens = () => {
 					<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="Logo" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2 max-w-[60px] max-h-[55px]" />
 					<h1>{outraPessoa}</h1>
 				</div>
-				<button><EllipsisVertical /></button>
+				<button onClick={OpenConcluirChamados} className="bg-transparent border-[1px] border-blue-500 px-5 hover:bg-blue-500 rounded-[10px] text-blue-300 hover:text-white max-[450px]:w-[100px]">Finalizar Chamado</button>
 			</div>
 			<div className="flex flex-col-reverse w-full h-full px-5 overflow-y-auto overflow-x-hidden">
 				{reversedMessages.map((mensagem, index) => (
@@ -203,6 +228,18 @@ const Mensagens = () => {
 					<button type="submit" className="px-[20px] py-[10px] bg-blue-600 text-white ml-[10px] rounded-[8px]"><SendHorizontal /></button>
 				</form>
 			</div>
+			{isOpenConcluirChamado && (
+				<main className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+					<div className="bg-neutral-800 p-8 rounded-[8px]">
+						<h2 className="text-lg font-semibold mb-4 text-white">Tem Certeza que deseja Finalizar o Chamado?</h2>
+						<div className='flex justify-center px-[20px]'>
+							<button onClick={CancelarConcluirChamados} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white py-3 px-5 rounded-[8px]">Cancelar</button>
+							<button onClick={handleFinalizarChamados} className="mt-4 bg-red-500 hover:bg-red-600 text-white py-3 px-5 rounded-[8px] ml-6">Confirmar</button>
+						</div>
+					</div>
+				</main>
+			)}
+
 		</div>
 	);
 }
