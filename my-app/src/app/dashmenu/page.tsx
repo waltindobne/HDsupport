@@ -1,12 +1,10 @@
 'use client'
- // Supondo que useClient esteja definido nesta localização
-
+import Pizza from "@/components/ui/pizza";
 import CardChamados from "@/components/ui/cardchamados";
 import Dados from "@/components/ui/dados";
 import SidebarMenuResponse from "@/components/ui/sidebarmenuResponse";
 import SidebarMenu from "@/components/ui/sidebarmenu";
 import { useEffect, useState } from "react";
-import Pizza from "@/components/ui/pizza";
 import axios from "axios";
 import HeaderDash from "@/components/ui/headerdash";
 import { Moon, Sun } from "lucide-react";

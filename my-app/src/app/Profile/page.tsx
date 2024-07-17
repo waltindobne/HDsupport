@@ -146,8 +146,9 @@ const Profile = () => {
                     <SidebarMenu />
                     <SidebarMenuResponse />
                     <div className="bg-black mt-[40px] w-full border-white text-white">
-                        <div className="border-2 rounded-[15px] w-[600px] mx-auto h-[450px] flex">
-                            <div className="w-[60%] mr-[10px] py-[40px] pl-[40px]">
+                        <div className="border-2 rounded-[15px] w-[600px] mx-auto h-[450px] flex max-[450px]:flex-col-reverse max-[450px]:w-[100%]
+                        max-[450px]:h-full">
+                            <div className="w-[60%] mr-[10px] py-[40px] pl-[40px] max-[450px]:w-full">
                                 <h1 className="text-[25px] flex">Ficha de Usuário
                                     <button onClick={editarDados} className="text-green-400 underline text-[14px] ml-7 flex justify-center items-center">
                                         Editar
@@ -177,16 +178,16 @@ const Profile = () => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="w-[40%] px-[40px] py-[40px] rounded-[15px] bg-neutral-800">
-                                <div className="rounded-[1000px] ml-full w-[150px] h-[150px] bg-white flex justify-center items-center">
+                            <div className="w-[40%] px-[40px] py-[40px] rounded-[15px] bg-neutral-800 max-[450px]:w-full">
+                                <div className="rounded-[1000px] ml-full w-[150px] h-[150px] bg-white flex justify-center items-center mx-auto">
                                     <img src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="" className=" max-w-[165px] w-[200px]" />
                                 </div>
-                                <div>
-                                    <p className="text-center text-[25px] w-[160px] mt-4 text-sky-300">{userData.cargo}</p>
+                                <div className="">
+                                    <p className="text-center text-[25px] w-[160px] mt-4 text-sky-300 mx-auto">{userData.cargo}</p>
                                 </div>
-                                <div className="mt-8">
-                                    <h1 className="text-[18px] text-sky-200">Nivel de Acesso</h1>
-                                    <ul className="mt-4 list-disc">
+                                <div className="mt-8 w-full flex flex-col items-center justify-center">
+                                    <h1 className="text-[18px] text-sky-200 mx-auto">Nivel de Acesso</h1>
+                                    <ul className="mt-4 list-disc mx-auto">
                                         <li className="mb-2">{nivelDeAcesso[nivelAcesso][0]}</li>
                                         <li className="">{nivelDeAcesso[nivelAcesso][1]}</li>
                                     </ul>

@@ -6,8 +6,8 @@ import axios from "axios";
 export default function Pizza() {
   
   const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
-  const [equipamentosData, setEquipamentosData] = useState([]);
 
+  const [equipamentosData, setEquipamentosData] = useState([]);
   useEffect(() => {
     async function fetchData() {
       
