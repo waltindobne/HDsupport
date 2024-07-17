@@ -34,7 +34,7 @@ export default function Graficos(){
     
     return(
         <div className="">
-            <div className="flex h-[98vh] w-full items-start space-x-16 dark:bg-slate-50 bg-neutral-950 pr-[50px] max-[820px]:space-x-2 max-[820px]:pr-2 max-[820px]:flex-col max-[820px]:items-center">
+            <div className="flex h-[98vh] w-full items-start space-x-16 bg-neutral-950 pr-[50px] max-[820px]:space-x-2 max-[820px]:pr-2 max-[820px]:flex-col max-[820px]:items-center">
                <SidebarMenu /> 
                <SidebarMenuResponse />
                 <div className="w-full border-slate-50 mt-[20px] border-2 dark:border-black flex rounded-[20px] h-[93vh]">

@@ -11,6 +11,7 @@
 
 body{
   background-color: rgb(10,10,10);
+  height: 100vh;
 }
 .loading-wave {
   width: 300px;
