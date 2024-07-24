@@ -37,7 +37,6 @@ const Mensagens = () => {
 	const [itemsPerPage] = useState(10000);
 
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
-
 	const fetchData = async (token) => {
 		try {
 			const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Usuario/BuscarPorTokenJWT/${token}`, {
@@ -50,7 +49,6 @@ const Mensagens = () => {
 			console.error('Erro ao buscar dados do usuário:', error);
 		}
 	};
-
 	useEffect(() => {
 		if (token) {
 			fetchData(token)
@@ -64,11 +62,10 @@ const Mensagens = () => {
 			console.log('Token não está presente no localStorage');
 		}
 	}, [token]);
-
+	const idConversa = typeof window !== 'undefined' ? window.localStorage.getItem('idConversa') : null;
 	const fetchDataDados = async (token) => {
 		try {
 			if (token) {
-				var idConversa = localStorage.getItem('idConversa');
 				const response = await axios.get(`https://testing-api.hdsupport.bne.com.br/api/Conversa/Lista-Mensagens?idConversa=${idConversa}`, {
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -83,7 +80,6 @@ const Mensagens = () => {
 			throw error;
 		}
 	};
-
 	useEffect(() => {
 		if (token) {
 			fetchDataDados(token)
@@ -99,7 +95,92 @@ const Mensagens = () => {
 			setIsLoading(false);
 		}
 	}, [token]);
-
+	
+	const handleIniciarChamados = async (token) => {
+		try {
+			if (token) {
+					var funcionarios = {
+						"id": 0,
+						"nome": "string",
+						"email": "string",
+						"senha": "string",
+						"telefone": "string",
+						"cargo": "string",
+						"imagem": "string",
+						"status": 1,
+						"statusConversa": 1,
+						"tokenRedefinicaoSenha": "string",
+						"dataHoraGeracaoToken": "string"
+					};
+					var cliente = {
+						"id": 0,
+						"nome": "string",
+						"email": "string",
+						"senha": "string",
+						"telefone": "string",
+						"cargo": "string",
+						"imagem": "string",
+						"status": 1,
+						"statusConversa": 1,
+						"tokenRedefinicaoSenha": "string",
+						"dataHoraGeracaoToken": "string"
+					}
+				const response = await axios.post(`https://testing-api.hdsupport.bne.com.br/api/Conversa/Registro-Conversa`, 
+					{
+						funcionarios: funcionarios,
+						funcionariosId: userData?.id,
+						clienteId: userData?.id,
+						cliente: userData,
+						tipoConversa: 2,
+						status: 1,
+					},
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+				if(response.data){
+					var usuarioContent = {
+						"nome": "string",
+						"email": "string",
+						"senha": "string",
+						"telefone": "string",
+						"cargo": "string",
+						"imagem": "string",
+						"status": 1,
+						"statusConversa": 1,
+						"tokenRedefinicaoSenha": "string",
+						"dataHoraGeracaoToken": "string"
+					};
+					var conversaId = response.data.id;
+					localStorage.setItem('idConversa' , conversaId);
+					const responseM = await axios.post(
+						`https://testing-api.hdsupport.bne.com.br/api/Conversa/Registro-Mensagem?idConversa=${conversaId}`,
+						{
+							mensagem: enviarMensagem,
+							usuario: usuarioContent,
+							usuarioId: userData?.id
+						},
+						{
+							headers: {
+								Authorization: `Bearer ${token}`
+							}
+						}
+					);
+					console.log('Mensagem Enviada com sucesso:', responseM.data);
+					setMensagems([...mensagems, responseM.data]);
+					setEviarMensagem('');
+				}
+				return response.data;
+			} else {
+				throw new Error('Token não está presente no localStorage');
+			}
+		} catch (error) {
+			console.error('Erro ao buscar dados da API:', error);
+			throw error;
+		}
+	};
 	const handleSubmitAdd = async (event) => {
 		event.preventDefault();
 		try {
@@ -186,6 +267,39 @@ const Mensagens = () => {
 			window.alert('Erro ao Encerrar o Chamado');
 		  }
 	}
+
+
+
+
+	if(idConversa == null){
+		return (
+			<div className="text-blue-500 h-full w-full flex flex-col max-w-[1300px]">
+				<div className="flex justify-between py-[10px] px-[20px] mb-[30px] border-b-[1px] border-neutral-700">
+					<div className="flex items-center">
+						<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="Logo" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2 max-w-[60px] max-h-[55px]" />
+					</div>
+				</div>
+				<div className="flex flex-col-reverse w-full h-full px-5 overflow-y-auto overflow-x-hidden">
+				<button className="bg-transparent border-[1px] border-blue-500 px-5 hover:bg-blue-500 rounded-[10px] text-blue-300 hover:text-white max-[450px]:w-[100px]">Finalizar Chamado</button>
+				</div>
+				<div className="flex items-end w-full">
+					<form onSubmit={handleIniciarChamados} className="w-full flex justify-center items-center py-[10px] px-[20px] border-t-[1px] border-neutral-700">
+						<input
+							type="text"
+							className="w-[80%] bg-gradient-to-r from-blue-950 to-cyan-950 border-0 rounded-[6px] text-white"
+							placeholder="Digite sua Mensagem"
+							value={enviarMensagem} onChange={(e) => setEviarMensagem(e.target.value)}
+						/>
+						<button type="submit" className="px-[20px] py-[10px] bg-blue-600 text-white ml-[10px] rounded-[8px]"><SendHorizontal /></button>
+					</form>
+				</div>
+	
+			</div>
+		);
+	}
+
+
+
 	return (
 		<div className="text-blue-500 h-full w-full flex flex-col max-w-[1300px]">
 			<div className="flex justify-between py-[10px] px-[20px] mb-[30px] border-b-[1px] border-neutral-700">

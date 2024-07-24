@@ -187,20 +187,22 @@ const Chat = () => {
 
 	useEffect(() => {
 		// Verifique os dados em chamadosFechados
-		console.log("Dados em chamadosFechados:", chamadosFechados);
+		{/*console.log("Dados em chamadosFechados:", chamadosFechados);*/}
 		
 		const results = chamadosFechados.filter((chamado) => {
 			const cliente = chamado.cliente;
+			{/*
 			console.log("Chamado:", chamado.id);
 			console.log("Cliente:", cliente);
-			
+			*/}
+
 			return (
 				cliente && cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) // Adicionando verificação para garantir que cliente não seja null
 			);
 		});
 		
 		setFilteredChamados(results);
-		console.log("Resultados filtrados:", results);
+		{/*console.log("Resultados filtrados:", results);*/}
 	}, [chamadosFechados, searchTerm]);
 	
 	// Certifique-se de que currentItems está recebendo os dados corretamente
@@ -210,7 +212,7 @@ const Chat = () => {
 	const currentItems = filteredChamados.slice(indexOfFirstItem, indexOfLastItem);
 	
 	useEffect(() => {
-		console.log("Itens atuais:", currentItems);
+		{/*console.log("Itens atuais:", currentItems);*/}
 	}, [currentItems]);
 
 
