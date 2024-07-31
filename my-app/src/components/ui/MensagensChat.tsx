@@ -181,8 +181,7 @@ const Mensagens = () => {
 			throw error;
 		}
 	};
-	const handleSubmitAdd = async (event) => {
-		event.preventDefault();
+	const handleSubmitAdd = async () => {
 		try {
 			var idConversa = localStorage.getItem('idConversa');
 			var usuarioContent = {
@@ -280,7 +279,11 @@ const Mensagens = () => {
 					</div>
 				</div>
 				<div className="flex flex-col-reverse w-full h-full px-5 overflow-y-auto overflow-x-hidden">
-				<button className="bg-transparent border-[1px] border-blue-500 px-5 hover:bg-blue-500 rounded-[10px] text-blue-300 hover:text-white max-[450px]:w-[100px]">Finalizar Chamado</button>
+					<ul className="list-disc text-sky-300 mx-[10%] h-full space-y-6">
+						<li>Caso deseja Iniciar uma Conversa com o HelpDesk basta digitar a mensagem no campo abaixo e envia-la, após enviar basta aguardar que um profissinal ira atende-lo</li>
+						<li>Não carregou? ou apareceu um erro? tente recarregar a página, caso não resolva entre em contato com o fornecedor</li>
+						<li>Aviso!!! Após encerrado, o chamado não poderá ser acessado novamente</li>
+					</ul>
 				</div>
 				<div className="flex items-end w-full">
 					<form onSubmit={handleIniciarChamados} className="w-full flex justify-center items-center py-[10px] px-[20px] border-t-[1px] border-neutral-700">
