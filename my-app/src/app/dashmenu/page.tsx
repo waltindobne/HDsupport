@@ -38,16 +38,7 @@ export default function Dashboard() {
   const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
   const [userData, setUserData] = useState<User | null>(null);
   const router = useRouter();
-   const [darkMode, setDarkMode] = useState(false)
-  const toggleDarkMode = () => { 
-    setDarkMode(!darkMode); 
-
-    const newMode = !darkMode;
-
-    setDarkMode(newMode);
-
-    localStorage.setItem('darkMode', newMode ? 'enabled' : 'disabled')
-} 
+  const [darkMode, setDarkMode] = useState(false)
 
 useEffect(() => {
 
@@ -62,7 +53,11 @@ useEffect(() => {
   useEffect(() => {
     async function fetchChamados() {
       try {
-        const response = await axios.get('https://testing-api.hdsupport.bne.com.br/api/Conversa/Dados-Chamados-Dashboard');
+        const response = await axios.get('https://testing-api.hdsupport.bne.com.br/api/Conversa/Dados-Chamados-Dashboard', {
+          headers: {
+              Authorization: `Bearer ${token}`,
+          }
+      });
         setData(response.data);
 
         // Atualiza os dados com os valores recebidos da API
@@ -98,6 +93,7 @@ useEffect(() => {
             }
         });
         console.log(response.data);
+        localStorage.removeItem('idConversa');
         return response.data; // Retorne os dados da resposta
     } catch (error) {
         console.error('Erro ao buscar dados do usuário:', error);

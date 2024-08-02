@@ -109,7 +109,6 @@ const SidebarMenu: React.FC = () => {
                 },
             );
             const userData = response.data;
-            console.log('Dados do usuário:', userData);
             // Aqui você pode fazer algo com os dados recebidos, como redirecionar para a página de perfil com os dados do usuário
             router.push('/Profile');
 
@@ -129,7 +128,6 @@ const SidebarMenu: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log(response.data);
             return response.data; // Retorne os dados da resposta
         } catch (error) {
             console.error('Erro ao buscar dados do usuário:', error);

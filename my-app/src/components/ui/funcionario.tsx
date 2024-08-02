@@ -10,6 +10,7 @@ type Funcionario = {
 	id: number;
 	nome: string;
 	email: string;
+	senha: string;
 	telefone: string;
 	cargo: string;
 };
@@ -28,6 +29,11 @@ const Funcionario = () => {
 	const [senha, setSenha] = useState('');
 	const [telefone, setTelefone] = useState('');
 	const [cargo, setCargo] = useState('funcionario');
+	const [nomeUpdated, setNomeUpdated] = useState('');
+	const [emailUpdated, setEmailUpdated] = useState('');
+	const [senhaUpdated, setSenhaUpdated] = useState('');
+	const [telefoneUpdated, setTelefoneUpdated] = useState('');
+	const [cargoUpdated, setCargoUpdated] = useState('funcionario');
 		
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
   
@@ -65,22 +71,42 @@ const Funcionario = () => {
         }));
     };
 	
-	const handleOpenEditModal = (funcionario) => {
-		setEditingFuncionario(funcionario);
-		setIsOpenEdit(true);
-	};
-	
 	// Função para atualizar os dados do funcionário na tabela JSON
-	const handleEditFuncionario = (updatedFuncionario) => {
-		const updatedFuncionarios = funcionarios.map(funcionario => {
-			if (funcionario.id === updatedFuncionario.id) {
-				return updatedFuncionario;
+	const handleEditFuncionario = async () => {
+		if (selectedFuncionario) {
+		  setNomeUpdated(selectedFuncionario.nome);
+		  setEmailUpdated(selectedFuncionario.email);
+		  setSenhaUpdated(selectedFuncionario.senha);
+		  setTelefoneUpdated(selectedFuncionario.telefone);
+		  setCargoUpdated(selectedFuncionario.cargo);
+		  const updatedFuncionariosLista = funcionarios.map(equipamento => {
+			if (selectedFuncionario.id === equipamento.id) {
+			  return selectedFuncionario;
 			}
-			return funcionario;
-		});
-		setFuncionarios(updatedFuncionarios);
-		closeModalEdit();
-	};
+			return equipamento;
+		  });
+		  setFuncionarios(updatedFuncionariosLista);
+		  closeModalEdit();
+	
+		  try {
+			console.log(`https://testing-api.hdsupport.bne.com.br/api/Usuario/Editar-Usuario/${selectedFuncionario.id}`);
+			const response = await axios.put(`https://testing-api.hdsupport.bne.com.br/api/Usuario/Editar-Usuario/${selectedFuncionario.id}`, {
+			  nome: nomeUpdated,
+			  email: emailUpdated,
+			  senha: senhaUpdated,
+			  telefone: telefoneUpdated,
+			  cargo: cargoUpdated,
+			}, {
+			  headers: {
+				Authorization: `Bearer ${token}`,
+			  }
+			});
+			console.log(`Funcionario Editado com sucesso: ${selectedFuncionario.id}`);
+		  } catch (error) {
+			console.error('Erro ao Editar Funcionario:', error);
+		  }
+		}
+	  };
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
@@ -314,7 +340,7 @@ const Funcionario = () => {
 				)}
     		</div>
 			<div>
-				{isOpenEdit && editingFuncionario &&(
+				{isOpenEdit && selectedFuncionario &&(
 					<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
 					<div className="bg-neutral-800 p-4 pt-6 px-6 rounded-[8px] w-[400px] ">
 							<div className='flex justify-between'> 
@@ -324,7 +350,7 @@ const Funcionario = () => {
 							<form onSubmit={handleEditFuncionario} >
 								<input
 								type="text"
-								value={editingFuncionario.nome}
+								value={selectedFuncionario.nome}
 								onChange={handleInputChangeEdit}
 								name="nome"
 								placeholder='Digite o Nome'
@@ -332,7 +358,7 @@ const Funcionario = () => {
 								/>
 								<input
 								type="text"
-								value={editingFuncionario.email}
+								value={selectedFuncionario.email}
 								onChange={handleInputChangeEdit}
 								name="email"
 								placeholder='Digite o Email'
@@ -340,7 +366,7 @@ const Funcionario = () => {
 								/>
 								<input
 								type="text"
-								value={editingFuncionario.telefone}
+								value={selectedFuncionario.telefone}
 								onChange={handleInputChangeEdit}
 								name="telefone"
 								placeholder='Digite o Telefone'
@@ -348,7 +374,7 @@ const Funcionario = () => {
 								/>
 								<input
 								type="text"
-								value={editingFuncionario.cargo}
+								value={selectedFuncionario.cargo}
 								onChange={handleInputChangeEdit}
 								name="cargo"
 								placeholder='Digite o Cargo'

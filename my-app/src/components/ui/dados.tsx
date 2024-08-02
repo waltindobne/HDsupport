@@ -88,7 +88,7 @@ export default function Dados(){
   
   return (
     <div className="w-[50%] max-[1160px]:w-[100%] max-[1160px]:mt-[15px] mr-[10px] ml-[15px] max-[450px]:ml-0 max-[450px]:mr-0">
-    <div className="flex justify-end max-[820px]:w-[100%] max-[820px]:justify-start">
+    <div className="flex justify-end max-[820px]:w-[100%] max-[1160px]:justify-start">
       <div className="h-[430px] w-[90%] max-[450px]:w-full dark:border-black bg-white border-2 border-slate-50 rounded-[10px] flex items-center justify-center max-[1160px]:h-[325px] max-[820px]:w-[100%] max-[450px]:rounded-0">
             <Chart
               chartType="ColumnChart"
@@ -102,5 +102,4 @@ export default function Dados(){
         </div>
       </div>
   );
-  
 }

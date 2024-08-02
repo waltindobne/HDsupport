@@ -12,7 +12,7 @@ interface Equipamento {
   modelo: string;
   tipo: string;
   detalhes: string;
-  statusEquipamento: statusEquipamento;
+  statusEquipamento: number;
   dtEmeprestimoInicio: string; // Corrected typo here: dtEmeprestimoInicio
   dtEmeprestimoFinal: string; // Corrected typo here: dtEmeprestimoFinal
 }
@@ -35,7 +35,7 @@ const Equipamento = () => {
 	const [modelo, setModelo] = useState('');
 	const [tipo, setTipo] = useState('Desktop');
 	const [detalhes, setDetalhes] = useState('');
-	const [statusEquipamento, setStatusEquipamento] = useState<statusEquipamento>(1);
+	const [statusEquipamento, setStatusEquipamento] = useState(1);
 	const [updatedEquipamentos, setUpdatedEquipamentos] = useState<Equipamento | null>(null); // Added explicit type for updatedEquipamentos
 
   	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
