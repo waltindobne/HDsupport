@@ -366,12 +366,12 @@ const Chat = () => {
 						<div className="flex flex-col mb-3">
 							{currentItemsAberto.map((chamadoAberto, index) => (
 								<div key={index}>
-									<form action="" method="">
+									<form action="" method="post">
 									<button key={index} className="flex items-center mb-3">
-												<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
-												{chamadoAberto.cliente.nome}
-												<button onClick={() => HandleAceitarChamados(chamadoAberto.id)} className="text-green-400 border border-green-400 ml-[30px] rounded-[5px] py-1 px-3 hover:bg-green-400 hover:text-black">Aceitar</button>
-											</button>
+										<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
+										{chamadoAberto.cliente.nome}
+										<button onClick={() => HandleAceitarChamados(chamadoAberto.id)} className="text-green-400 border border-green-400 ml-[30px] rounded-[5px] py-1 px-3 hover:bg-green-400 hover:text-black">Aceitar</button>
+									</button>
 									</form>
 								</div>
 							))}
@@ -398,9 +398,10 @@ const Chat = () => {
 							{currentItemsAberto.map((chamadoAberto, index) => (
 								<div key={index}>
 									<form action="" method="post">
-									<button key={index} onClick={() => HandleSendId(chamadoAberto.id)} className="flex items-center mb-3">
+									<button key={index} className="flex items-center mb-3">
 										<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
 										{chamadoAberto.cliente.nome}
+										<button onClick={() => HandleAceitarChamados(chamadoAberto.id)} className="text-green-400 border border-green-400 ml-[30px] rounded-[5px] py-1 px-3 hover:bg-green-400 hover:text-black">Aceitar</button>
 									</button>
 									</form>
 								</div>
