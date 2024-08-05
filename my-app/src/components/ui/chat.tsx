@@ -335,7 +335,7 @@ const Chat = () => {
 						<div className="flex flex-col mb-3">
 							{currentItemsFechado.map((chamadoFechado, index) => ((
 									<div key={index}>
-										<form action="" method="post">
+										<form action="" method="">
 											<button key={index} onClick={() => HandleSendId(chamadoFechado.id)} className="flex items-center mb-3">
 												<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
 												{chamadoFechado.cliente.nome}
@@ -366,7 +366,7 @@ const Chat = () => {
 						<div className="flex flex-col mb-3">
 							{currentItemsAberto.map((chamadoAberto, index) => (
 								<div key={index}>
-									<form action="" method="post">
+									<form action="" method="">
 									<button key={index} className="flex items-center mb-3">
 										<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
 										{chamadoAberto.cliente.nome}
@@ -397,7 +397,7 @@ const Chat = () => {
 						<div className="flex flex-col mb-3">
 							{currentItemsAberto.map((chamadoAberto, index) => (
 								<div key={index}>
-									<form action="" method="post">
+									<form action="" method="">
 									<button key={index} className="flex items-center mb-3">
 										<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
 										{chamadoAberto.cliente.nome}
@@ -429,7 +429,7 @@ const Chat = () => {
 						{currentItemsFechado.map((chamadoFechado, index) => (
 								chamadoFechado.cliente && chamadoFechado.cliente.nome ? ( // Verificação adicional para garantir que cliente e cliente.nome existam
 									<div key={index}>
-										<form action="" method="post">
+										<form action="" method="">
 											<button key={index} onClick={() => HandleSendId(chamadoFechado.id)} className="flex items-center mb-3">
 												<img src="https://mailing.bne.com.br/politica-privacidade/img/logo-bne-small-ft.png" alt="" className="bg-blue-500 rounded-[8px] w-[60px] px-[8px] py-[15px] mr-2" />
 												{chamadoFechado.cliente.nome}
