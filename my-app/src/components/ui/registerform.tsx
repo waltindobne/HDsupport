@@ -30,10 +30,11 @@ export default function LoginForm() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [cargo, setCargo] = useState("");
+  const [cargo, setCargo] = useState("funcionario");
   const [senha, setSenha] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [base64, setBase64] = useState<string | undefined>(undefined);
 
   const router = useRouter();
 
@@ -73,9 +74,26 @@ export default function LoginForm() {
     router.push("/login");
   };
 
+
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const base64String = await convertToBase64(file);
+      setBase64(base64String as string); // garantir que base64String seja tratado como string
+    }
+  };
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  };
   const handleRegister = async (e: any) => {
     e.preventDefault();
-
+    let base64Imagem = base64?.split(',')[1];
     try {
       const response = await axios.post(
         "https://testing-api.hdsupport.bne.com.br/api/Usuario/Registro",
@@ -85,6 +103,7 @@ export default function LoginForm() {
           senha,
           telefone,
           cargo,
+          imagem: base64Imagem
         }
       );
 
@@ -443,31 +462,16 @@ export default function LoginForm() {
                 <path d="M7 10V7a5 5 0 0 1 10 0v3" />
               </svg>
             </div>
-            <div className="w-full flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-300 xl:w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
-              <Input
-                value={cargo}
-                onChange={(e) => setCargo(e.target.value)}
-                placeholder="seu cargo"
-                className="border-none h-60px"
-                required
-              />
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                className="lucide lucide-lock-keyhole relative  right-5"
-              >
-                <circle cx="12" cy="16" r="1" />
-                <rect x="3" y="10" width="18" height="12" rx="2" />
-                <path d="M7 10V7a5 5 0 0 1 10 0v3" />
-              </svg>
+            <div className="flex items-center justify-center max-sm:w-[380px] dark:bg-slate-300 dark:text-black text-neutral-300 w-[500px] rounded h-[60px] mt-5 bg-neutral-950 text-lg border-none">
+            <Input
+              type="file"
+              onChange={handleFileChange}
+              placeholder="Anexe sua nova foto de Perfil"
+              className="border-none h-60px pl-7" 
+              required
+            /> 
+              
+			        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-image relative right-5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
             </div>
             {passwordError && (
               <div style={{ color: "red", width: 500 }}>{passwordError}</div>
