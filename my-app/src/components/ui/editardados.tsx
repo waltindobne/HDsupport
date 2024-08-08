@@ -80,6 +80,7 @@ const EditarDados = () => {
       try {
         const responseEdit = await axios.put(`https://testing-api.hdsupport.bne.com.br/api/Usuario/Editar-Usuario/${userData.id}`, {
           nome: newNome,
+          email: userData.email,
           telefone: newTelefone,
           imagem: base64Imagem
         }, {
