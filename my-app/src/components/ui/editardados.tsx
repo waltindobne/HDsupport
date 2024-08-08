@@ -94,7 +94,7 @@ const EditarDados = () => {
         });
         console.log(userData.id);
         // Opção para redirecionar ou dar feedback ao usuário
-        router.push('/alguma-pagina'); // Ajuste conforme necessário
+        router.push('/profile'); // Ajuste conforme necessário
       } catch (erro) {
         console.log('Erro ao tentar editar o usuário', erro);
       }
