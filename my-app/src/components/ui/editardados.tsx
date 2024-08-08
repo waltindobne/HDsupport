@@ -12,6 +12,8 @@ interface User {
   nome: string;
   email: string;
   cargo: string;
+  imagem: string;
+  senha: string;
 }
 
 const EditarDados = () => { 
@@ -82,7 +84,9 @@ const EditarDados = () => {
           nome: newNome,
           email: userData.email,
           telefone: newTelefone,
-          imagem: base64Imagem
+          imagem: base64Imagem,
+          cargo: userData.cargo,
+          senha: userData.senha
         }, {
           headers: {
             Authorization: `Bearer ${token}`,
