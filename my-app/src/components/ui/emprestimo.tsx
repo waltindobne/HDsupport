@@ -58,7 +58,9 @@ interface Usuario {
 	const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
 	const [usuarioId, setUsuarioId] = useState('');
 	const [equipamentosId, setEquipamentosId] = useState<number | string>('');
-	const [updatedEmprestimos, setUpdatedEmprestimos] = useState([]);
+	const [updatedEmprestimos, setUpdatedEmprestimos] = useState<Emprestimo[]>([]);
+	const [emailUpdated, setEmailUpdated] = useState<string>('');
+	const [idPatrimonioUpdated, setIdPatrimonioUpdated] = useState<string>('');
 	
 	const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
 
@@ -82,13 +84,6 @@ interface Usuario {
 			console.error('Erro ao adicionar equipamento:', error); 
 		}
     };
-	const handleInputChangeEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = event.target;
-		if (editingEmprestimo) {
-		  setEditingEmprestimo({ ...editingEmprestimo, [name]: value });
-		}
-	  };
-
 	  const handleSubmit = (event) => {
 		event.preventDefault();
 		const updatedEmprestimos = [...emprestimos, ...newEmprestimos];
@@ -102,11 +97,52 @@ interface Usuario {
 		setIsOpenEdit(true);
 	};
 
-	const handleEditEmprestimo = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleEditEmprestimo = async (event) => {
 		event.preventDefault();
-		setEmprestimos(updatedEmprestimos);
-		closeModalEdit();
-	  };
+		if (selectedEmprestimo) {
+			const updatedEmprestimo = {
+				...selectedEmprestimo,
+				equipamentos: {
+					...selectedEmprestimo.equipamentos,
+					idPatrimonio: idPatrimonioUpdated,
+				},
+				usuario: {
+					...selectedEmprestimo.usuario,
+					email: emailUpdated,
+				},
+			};
+			try {
+				const response = await axios.put(
+					`https://testing-api.hdsupport.bne.com.br/api/Emprestimos/Editar-Emprestimo/${selectedEmprestimo.id}`,
+					updatedEmprestimo,
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						}
+					}
+				);
+				console.log(`Emprestimo Editado com sucesso: ${selectedEmprestimo.id}`);
+				const updatedEmprestimos = emprestimos.map(emprestimo =>
+					emprestimo.id === selectedEmprestimo.id ? updatedEmprestimo : emprestimo
+				);
+				setEmprestimos(updatedEmprestimos);
+				closeModalEdit();
+			} catch (error) {
+				console.error('Erro ao Editar Emprestimo:', error);
+			}
+		}
+	};	
+	
+	const handleInputChangeEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = event.target;
+		if (selectedEmprestimo) {
+			setEditingEmprestimo({
+				...selectedEmprestimo,
+				[name]: value
+			});
+		}
+	};
+
 
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
@@ -345,41 +381,41 @@ interface Usuario {
 				)}
     		</div>
 			<div>
-			{isOpenEdit && editingEmprestimo && (
-					<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-					<div className="bg-neutral-800 p-4 pt-6 px-6 rounded-[8px] w-[400px] ">
-							<div className='flex justify-between'> 
-								<h1 className='text-white text-[20px]'>Editar Empréstimo</h1>
-								<button onClick={closeModalEdit} className=" bg-red-500 hover:bg-red-600 text-white py-0 px-3 rounded-[8px] float-right">x</button>
-							</div>
-							<form onSubmit={handleEditEmprestimo} className='text-white'>
-							<div className="mb-4 mt-4">
-								<input
-								type="text"
-								value={editingEmprestimo.email_funcionario}
-								onChange={handleInputChangeEdit}
-								name="email_funcionario"
-								placeholder='Digite o email do funcionario'
-								className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
-								/>
-							</div>
-							<div className="mb-4 mt-4">
-								<input
-								type="number"
-								value={editingEmprestimo.id_equipamento}
-								onChange={handleInputChangeEdit}
-								name="id_equipamento"
-								placeholder='Digite o ID de patrimônio'
-								className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
-								/>
-							</div>
-								<div className='flex justify-center'>
-									<button type="submit" className="bg-gradient-to-r from-blue-800 to-cyan-500 text-white py-2 px-4 rounded-[8px] w-full mt-2">Enviar</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				)}
+			{isOpenEdit && selectedEmprestimo && (
+	<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+		<div className="bg-neutral-800 p-4 pt-6 px-6 rounded-[8px] w-[400px] ">
+			<div className='flex justify-between'> 
+				<h1 className='text-white text-[20px]'>Editar Empréstimo</h1>
+				<button onClick={closeModalEdit} className=" bg-red-500 hover:bg-red-600 text-white py-0 px-3 rounded-[8px] float-right">x</button>
+			</div>
+			<form onSubmit={handleEditEmprestimo} className='text-white'>
+				<div className="mb-4 mt-4">
+					<input
+						type="text"
+						value={selectedEmprestimo.usuario.email}
+						onChange={(e) => setEmailUpdated(e.target.value)}
+						name="email_funcionario"
+						placeholder='Digite o email do funcionario'
+						className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
+					/>
+				</div>
+				<div className="mb-4 mt-4">
+					<input
+						type="number"
+						value={selectedEmprestimo.equipamentos.idPatrimonio}
+						onChange={(e) => setIdPatrimonioUpdated(e.target.value)}
+						name="id_equipamento"
+						placeholder='Digite o ID de patrimônio'
+						className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
+					/>
+				</div>
+				<div className='flex justify-center'>
+					<button type="submit" className="bg-gradient-to-r from-blue-800 to-cyan-500 text-white py-2 px-4 rounded-[8px] w-full mt-2">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+)}
     		</div>
 			<div>
     {isOpenDetail && selectedEmprestimo && (

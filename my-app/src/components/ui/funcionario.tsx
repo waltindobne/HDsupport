@@ -26,7 +26,7 @@ const Funcionario = () => {
 	const [editingFuncionario, setEditingFuncionario] = useState<Funcionario | null>(null);
 	const [nome, setNome] = useState('');
 	const [email, setEmail] = useState('');
-	const [senha, setSenha] = useState('');
+	const [senha, setSenha] = useState('@bne2024');
 	const [telefone, setTelefone] = useState('');
 	const [cargo, setCargo] = useState('funcionario');
 	const [nomeUpdated, setNomeUpdated] = useState('');
@@ -64,49 +64,48 @@ const Funcionario = () => {
 		}
 	};
 	const handleInputChangeEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setEditingFuncionario(prev => ({
-            ...prev!,
-            [name]: value
-        }));
-    };
-	
-	// Função para atualizar os dados do funcionário na tabela JSON
-	const handleEditFuncionario = async () => {
+		const { name, value } = event.target;
 		if (selectedFuncionario) {
-		  setNomeUpdated(selectedFuncionario.nome);
-		  setEmailUpdated(selectedFuncionario.email);
-		  setSenhaUpdated(selectedFuncionario.senha);
-		  setTelefoneUpdated(selectedFuncionario.telefone);
-		  setCargoUpdated(selectedFuncionario.cargo);
-		  const updatedFuncionariosLista = funcionarios.map(equipamento => {
-			if (selectedFuncionario.id === equipamento.id) {
-			  return selectedFuncionario;
-			}
-			return equipamento;
-		  });
-		  setFuncionarios(updatedFuncionariosLista);
-		  closeModalEdit();
-	
-		  try {
-			console.log(`https://testing-api.hdsupport.bne.com.br/api/Usuario/Editar-Usuario/${selectedFuncionario.id}`);
-			const response = await axios.put(`https://testing-api.hdsupport.bne.com.br/api/Usuario/Editar-Usuario/${selectedFuncionario.id}`, {
-			  nome: nomeUpdated,
-			  email: emailUpdated,
-			  senha: senhaUpdated,
-			  telefone: telefoneUpdated,
-			  cargo: cargoUpdated,
-			}, {
-			  headers: {
-				Authorization: `Bearer ${token}`,
-			  }
+			setEditingFuncionario({
+				...selectedFuncionario,
+				[name]: value
 			});
-			console.log(`Funcionario Editado com sucesso: ${selectedFuncionario.id}`);
-		  } catch (error) {
-			console.error('Erro ao Editar Funcionario:', error);
-		  }
 		}
-	  };
+	};
+	
+	const handleEditFuncionario = async (event) => {
+		event.preventDefault();
+		if (selectedFuncionario) {
+			const updatedFuncionario = {
+				...selectedFuncionario,
+				nome: nomeUpdated,
+				email: emailUpdated,
+				senha: senhaUpdated,
+				telefone: telefoneUpdated,
+				cargo: cargoUpdated,
+			};
+			try {
+				const response = await axios.put(
+					`https://testing-api.hdsupport.bne.com.br/api/Usuario/Editar-Usuario/${selectedFuncionario.id}`,
+					updatedFuncionario,
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						}
+					}
+				);
+				console.log(`Funcionario Editado com sucesso: ${selectedFuncionario.id}`);
+				const updatedFuncionarios = funcionarios.map(func => 
+					func.id === selectedFuncionario.id ? updatedFuncionario : func
+				);
+				setFuncionarios(updatedFuncionarios);
+				closeModalEdit();
+			} catch (error) {
+				console.error('Erro ao Editar Funcionario:', error);
+			}
+		}
+	};
+
 	const fetchData = async (token: string | null) => { // Definindo explicitamente o tipo do parâmetro token
 		try {
 			if(token) {
@@ -160,7 +159,7 @@ const Funcionario = () => {
 		const openModalEdit = (funcionario) => {
 			setSelectedFuncionario(funcionario);
 			setIsOpenEdit(true);
-		  };
+		};		
 		  
 
 		const closeModalEdit = () => {
@@ -268,7 +267,7 @@ const Funcionario = () => {
 								<td className="flex justify-center mt-[10px]">
 								<button onClick={() => openModalComfirmDel(funcionario)}><Trash2 className="text-blue-700" /></button>
 								<button onClick={() => openModalDetail(funcionario)}><FolderKanban className="text-sky-600 ml-[8px]" /></button>
-								<button onClick={() => openModalEdit(selectedFuncionario)}><PencilLine className="text-cyan-500 ml-[8px]" /></button>
+								<button onClick={() => openModalEdit(funcionario)}><PencilLine className="text-cyan-500 ml-[8px]" /></button>
 								</td>
 							</tr>
 						))}
@@ -340,54 +339,67 @@ const Funcionario = () => {
 				)}
     		</div>
 			<div>
-				{isOpenEdit && selectedFuncionario &&(
+				{isOpenEdit && selectedFuncionario && (
 					<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-					<div className="bg-neutral-800 p-4 pt-6 px-6 rounded-[8px] w-[400px] ">
-							<div className='flex justify-between'> 
-								<h1 className='text-white text-[20px]'>Editar funcionários</h1>
-								<button onClick={closeModalEdit} className=" bg-red-500 hover:bg-red-600 text-white py-0 px-3 rounded-[8px] float-right">x</button>
+						<div className="bg-neutral-800 p-4 pt-6 px-6 rounded-[8px] w-[400px]">
+							<div className='flex justify-between'>
+								<h1 className='text-white text-[20px]'>Editar Funcionário</h1>
+								<button onClick={closeModalEdit} className="bg-red-500 hover:bg-red-600 text-white py-0 px-3 rounded-[8px] float-right">x</button>
 							</div>
-							<form onSubmit={handleEditFuncionario} >
+							<form onSubmit={handleEditFuncionario} className='text-white'>
 								<input
-								type="text"
-								value={selectedFuncionario.nome}
-								onChange={handleInputChangeEdit}
-								name="nome"
-								placeholder='Digite o Nome'
-								className="form-input mt-4 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
+									type="hidden"
+									value={selectedFuncionario.id}
+									onChange={(e) => setSelectedFuncionario({ ...selectedFuncionario, id: parseInt(e.target.value, 10) })}
 								/>
-								<input
-								type="text"
-								value={selectedFuncionario.email}
-								onChange={handleInputChangeEdit}
-								name="email"
-								placeholder='Digite o Email'
-								className="form-input mt-4 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
-								/>
-								<input
-								type="text"
-								value={selectedFuncionario.telefone}
-								onChange={handleInputChangeEdit}
-								name="telefone"
-								placeholder='Digite o Telefone'
-								className="form-input mt-4 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
-								/>
-								<input
-								type="text"
-								value={selectedFuncionario.cargo}
-								onChange={handleInputChangeEdit}
-								name="cargo"
-								placeholder='Digite o Cargo'
-								className="form-input mt-4 block w-full bg-neutral-700 p-1  h-11 rounded-[8px] focus:outline-none focus:border-transparent px-4"
-								/>
-									<div className='flex justify-center'>
-										<button type="submit" className="bg-gradient-to-r from-blue-800 to-cyan-500 text-white py-2 px-4  w-full mt-6 rounded-[8px]">Enviar</button>
-									</div>
-								</form>
+								<div className="mb-4 mt-4">
+									<input
+										type="text"
+										value={selectedFuncionario.nome || ''}
+										onChange={(e) => setSelectedFuncionario({ ...selectedFuncionario, nome: e.target.value })}
+										name="nome"
+										placeholder='Digite o Nome'
+										className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
+									/>
+								</div>
+								<div className="mb-4 mt-4">
+									<input
+										type="email"
+										value={selectedFuncionario.email || ''}
+										onChange={(e) => setSelectedFuncionario({ ...selectedFuncionario, email: e.target.value })}
+										name="email"
+										placeholder='Digite o Email'
+										className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
+									/>
+								</div>
+								<div className="mb-4 mt-4">
+									<input
+										type="tel"
+										value={selectedFuncionario.telefone || ''}
+										onChange={(e) => setSelectedFuncionario({ ...selectedFuncionario, telefone: e.target.value })}
+										name="telefone"
+										placeholder='Digite o Telefone'
+										className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
+									/>
+								</div>
+								<div className="mb-4 mt-4">
+									<input
+										type="text"
+										value={selectedFuncionario.cargo || ''}
+										onChange={(e) => setSelectedFuncionario({ ...selectedFuncionario, cargo: e.target.value })}
+										name="cargo"
+										placeholder='Digite o Cargo'
+										className="mt-1 w-full bg-neutral-700 p-1 h-11 rounded-[8px] px-4"
+									/>
+								</div>
+								<div className='flex justify-center'>
+									<button type="submit" className="bg-gradient-to-r from-blue-800 to-cyan-500 text-white py-2 px-4 rounded-[8px] w-full mt-2">Enviar</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				)}
-    		</div>
+			</div>
 			<div>
 			{isOpenDetail && selectedFuncionario && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
